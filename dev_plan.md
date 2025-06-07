@@ -26,3 +26,7 @@ Initial development will be in Python 3.xx, using a virtual environment.
 
 The user interface will be created using FreeSimpleGUI, which is a continuation of the now defunct PySimpleGUI libaray. 
 
+### PyInstaller (for Windows (initially))
+
+A cursory review of the available tools to bundle a Python project into an "executable" indicates that [PyInstaller](https://pyinstaller.org/en/stable/) will likely be the way to go.
+
