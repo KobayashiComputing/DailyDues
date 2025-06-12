@@ -22,9 +22,13 @@ TaskItem Objects will have the following state variable, which will have one of 
 
 Initial development will be in Python 3.xx, using a virtual environment.
 
+### SQLite (Database)
+
+This will be the starting database at least, and my serve for future versions as well.
+
 ### FreeSimpleGUI
 
-The user interface will be created using FreeSimpleGUI, which is a continuation of the now defunct PySimpleGUI libaray. 
+The user interface will likely be created using [FreeSimpleGUI](https://github.com/spyoungtech/FreeSimpleGui), which is a continuation of the now defunct PySimpleGUI libaray. 
 
 ### PyInstaller (for Windows (initially))
 
