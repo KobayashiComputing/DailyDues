@@ -28,3 +28,4 @@
 - I can set task items to be every day, only weekdays, only weekend days, or select specific days
 - I can group task items
 - I can see how much time I've spent on each item over a user-defined time period
+- I can resize the overall app window and all of the children resize appropriately and/or increase/decrease level of "details"

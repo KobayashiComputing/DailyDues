@@ -30,6 +30,8 @@ This will be the starting database at least, and my serve for future versions as
 
 The user interface will likely be created using [FreeSimpleGUI](https://github.com/spyoungtech/FreeSimpleGui), which is a continuation of the now defunct PySimpleGUI libaray. 
 
+[Documentation](https://freesimplegui.readthedocs.io/en/latest/) for FreeSimpleGUI.
+
 ### PyInstaller (for Windows (initially))
 
 A cursory review of the available tools to bundle a Python project into an "executable" indicates that [PyInstaller](https://pyinstaller.org/en/stable/) will likely be the way to go.
