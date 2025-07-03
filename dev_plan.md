@@ -22,15 +22,31 @@ TaskItem Objects will have the following state variable, which will have one of 
 
 Initial development will be in Python 3.xx, using a virtual environment.
 
+#### Port to C/C++
+
+Once I have a solid minimum viable product (MVP), I will probably attempt a port to C/C++. This will be both an exercise to rebuild my C language skills and a comparison of the different development approaches.
+
 ### SQLite (Database)
 
 This will be the starting database at least, and my serve for future versions as well.
 
-### FreeSimpleGUI
+### Graphical User Interface
 
-The user interface will likely be created using [FreeSimpleGUI](https://github.com/spyoungtech/FreeSimpleGui), which is a continuation of the now defunct PySimpleGUI libaray. 
+I'll use a free, (most likely) open-source GUI toolkit. Theoretically, one that supports multiple languages and is available on both Windows and Linux would be preferable.
+
+#### FreeSimpleGUI
+
+On option for the user interface is [FreeSimpleGUI](https://github.com/spyoungtech/FreeSimpleGui), which is a continuation of the now defunct PySimpleGUI libaray. Downside is that it only supports Python (I think). 
 
 [Documentation](https://freesimplegui.readthedocs.io/en/latest/) for FreeSimpleGUI.
+
+#### (or maybe) GTK
+
+An option for the UI is [GTK](https://www.gtk.org/). This one is mature, with support for both Python and C/C++, and is available for both Windows and Linux.
+
+#### GUI Toolkit Integration
+
+Whichever GUI toolkit is ultimately used, it will need to be isolated so that the it can be updated separately from the main project.
 
 ### PyInstaller (for Windows (initially))
 
