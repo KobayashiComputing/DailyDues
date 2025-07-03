@@ -46,7 +46,7 @@ An option for the UI is [GTK](https://www.gtk.org/). This one is mature, with su
 
 #### GUI Toolkit Integration
 
-Whichever GUI toolkit is ultimately used, it will need to be isolated so that the it can be updated separately from the main project.
+Whichever GUI toolkit is ultimately used, it will need to be isolated so that the it can be updated separately from the main project. This will most easily be done using [Git Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 ### PyInstaller (for Windows (initially))
 
