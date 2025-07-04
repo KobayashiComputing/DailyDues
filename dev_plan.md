@@ -42,7 +42,9 @@ On option for the user interface is [FreeSimpleGUI](https://github.com/spyoungte
 
 #### (or maybe) GTK
 
-An option for the UI is [GTK](https://www.gtk.org/). This one is mature, with support for both Python and C/C++, and is available for both Windows and Linux.
+An option for the UI is [GTK](https://www.gtk.org/). This one is mature, with support for both Python and C/C++, and is available for both Windows and Linux. 
+
+This is more complex than just 'pip install PyGObject'. It looks like we need to use the process described in the [gvsbuild](https://github.com/wingtk/gvsbuild) repository on GitHub.
 
 #### GUI Toolkit Integration
 
