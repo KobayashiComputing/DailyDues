@@ -67,10 +67,6 @@ pip install --force-reinstall (Resolve-Path C:\gtk\wheels\PyGObject*.whl)
 pip install --force-reinstall (Resolve-Path C:\gtk\wheels\pycairo*.whl)
 ```
 
-#### GUI Toolkit Integration
-
-Whichever GUI toolkit is ultimately used, it will need to be isolated so that the it can be updated separately from the main project. This will most easily be done using [Git Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
-
 ### PyInstaller (for Windows (initially))
 
 A cursory review of the available tools to bundle a Python project into an "executable" indicates that [PyInstaller](https://pyinstaller.org/en/stable/) will likely be the way to go.
