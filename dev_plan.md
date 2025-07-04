@@ -46,6 +46,27 @@ An option for the UI is [GTK](https://www.gtk.org/). This one is mature, with su
 
 This is more complex than just 'pip install PyGObject'. It looks like we need to use the process described in the [gvsbuild](https://github.com/wingtk/gvsbuild) repository on GitHub.
 
+To run GTK on Windows (without having to build it), download a zip file from the [latest release](https://github.com/wingtk/gvsbuild/releases/tag/2025.6.0) and unzip it to C:\gtk.
+
+It comes with GTK4, Cairo, PyGObject, Pycairo, GtkSourceView5, adwaita-icon-theme, and all of their dependencies.
+
+>Note however that these binaries are provided “AS IS”, WITHOUT WARRANTY OF ANY KIND. They just contain the output of our latest CI run. They are not tested, and we cannot commit to timely updates even for security issues. We strongly recommend to build your own binaries, especially if you plan to distribute them with your application or use them in production.
+
+##### Environmental Variables
+Finally, add GTK to your environmental variables with:
+```
+$env:Path = "C:\gtk\bin;" + $env:Path
+$env:LIB = "C:\gtk\lib;" + $env:LIB
+$env:INCLUDE = "C:\gtk\include;C:\gtk\include\cairo;C:\gtk\include\glib-2.0;C:\gtk\include\gobject-introspection-1.0;C:\gtk\lib\glib-2.0\include;" + $env:INCLUDE
+```
+
+##### PyGObject and PyCairo
+If you are going to use PyGObject and Pycairo, you also need to use the gvsbuild generated wheels with your [Python virtualenv](https://docs.python.org/3/tutorial/venv.html) in order to work around this [PyGObject bug](https://gitlab.gnome.org/GNOME/pygobject/-/issues/545):
+```
+pip install --force-reinstall (Resolve-Path C:\gtk\wheels\PyGObject*.whl)
+pip install --force-reinstall (Resolve-Path C:\gtk\wheels\pycairo*.whl)
+```
+
 #### GUI Toolkit Integration
 
 Whichever GUI toolkit is ultimately used, it will need to be isolated so that the it can be updated separately from the main project. This will most easily be done using [Git Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
