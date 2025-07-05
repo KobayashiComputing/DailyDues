@@ -29,3 +29,5 @@
 - I can group task items
 - I can see how much time I've spent on each item over a user-defined time period
 - I can resize the overall app window and all of the children resize appropriately and/or increase/decrease level of "details"
+- I can export selected - or all - data to a file for backup or transfer
+- I can import all or selected data from an "export/transfer" file

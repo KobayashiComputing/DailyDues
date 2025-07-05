@@ -26,6 +26,10 @@ Initial development will be in Python 3.xx, using a virtual environment.
 
 Once I have a solid minimum viable product (MVP), I will probably attempt a port to C/C++. This will be both an exercise to rebuild my C language skills and a comparison of the different development approaches.
 
+One decision that will need to be made at that time (if not before) is which C/C++/C# toolchain to use.
+- MSYS2
+- MSVC
+
 ### SQLite (Database)
 
 This will be the starting database at least, and my serve for future versions as well.
