@@ -5,6 +5,12 @@
             "label": "C/C++: g++.exe build active file",
             "command": "C:/msys64/ucrt64/bin/g++.exe",
             "args": [
+                "-v",
+                "-E",
+                "-I",
+                "c:/msys64/ucrt64/include/gtk-4.0/",
+                "-I",
+                "c:/msys64/ucrt64/include/glib-2.0/",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
