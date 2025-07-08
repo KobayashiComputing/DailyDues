@@ -15,11 +15,13 @@
                 "-IC:/msys64/ucrt64/include/gdk-pixbuf-2.0/",
                 "-IC:/msys64/ucrt64/include/graphene-1.0/",
                 "-IC:/msys64/ucrt64/lib/graphene-1.0/include/",
+                "-Lc:/gtk/lib/",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "--trace"
             ],
             "options": {
                 "cwd": "C:/msys64/ucrt64/bin"
