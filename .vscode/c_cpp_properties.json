@@ -50,7 +50,34 @@
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64",
             "compilerPath": "C:/msys64/ucrt64/bin/g++.exe"
+        },
+        {
+            "name": "MinGW64",
+            "includePath": [
+                "C:/msys64/mingw64/include/gtk-4.0/**",
+                "C:/gtk/include/**",
+                "C:/gtk/lib/glib-2.0/include/**",
+                "C:/gtk/include/glib-2.0/**",
+                "C:/gtk/include/cairo/**",
+                "C:/gtk/include/pango-1.0/**",
+                "C:/gtk/include/harfbuzz/**",
+                "C:/gtk/include/gdk-pixbuf-2.0/**",
+                "C:/gtk/include/graphene-1.0/**",
+                "C:/gtk/lib/graphene-1.0/include/**",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.26100.0",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64",
+            "compilerPath": "C:/msys64/mingw64/bin/g++.exe"
         }
+
     ],
     "version": 4
 }
