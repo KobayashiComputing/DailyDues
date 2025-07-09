@@ -4,24 +4,7 @@ import FreeSimpleGUI as sg
 import subprocess
 import os
 
-
-"""
-    Demo_Toolbar - A floating toolbar with quick launcher
-    
-    One cool PySimpleGUI demo. Shows borderless windows, grab_anywhere, tight button layout
-    You can setup a specific program to launch when a button is clicked, or use the
-    Combobox to select a .py file found in the root folder, and run that file.
-    
-    Copyright 2023 PySimpleSoft, Inc. and/or its licensors. All rights reserved.
-    
-    Redistribution, modification, or any other use of PySimpleGUI or any portion thereof is subject to the terms of the PySimpleGUI License Agreement available at https://eula.pysimplegui.com.
-    
-    You may not redistribute, modify or otherwise use PySimpleGUI or its contents except pursuant to the PySimpleGUI License Agreement.
-    
-"""
-
 ROOT_PATH = './'
-
 
 def Launcher():
 
