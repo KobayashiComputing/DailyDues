@@ -14,7 +14,7 @@
 
 ## Functional Requirements
 
-- I can add, sort, archive, and delete task items
+- I can add, edit, sort, archive, and delete task items
 - I can Start, Pause, Resume, and Check Off task items
 - Task Items reset their "Checked Off" state at the appropriate interval
 - I can toggle between available task items

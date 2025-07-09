@@ -16,11 +16,37 @@ TaskItem Objects will have the following state variable, which will have one of 
 - Paused: a task item that has been started during this period, is not currently active, and can be resumed
 - Finished: a sufficient amount of work has been completed during the current period for the task item to be considered done for the current period
 
+### Requirements and Definitions
+
+The initial, informal requirements list (in the form of "I can..." statements), as well as nomenclature and definitions for this project, can be found in the [requirements.md](requirements.md) file.
+
+### Minimum Viable Product (MVP)
+
+The initial, or startup, Minimum Viable Product (MVP) will be:
+1. Developed in Python 3.1x using FreeSimpleGUI in a virtual environment.
+2. Run on Windows 11
+3. Address the following requirements:
+    - I can ADD a Task Item
+    - I can EDIT a Task Item
+    - I can SORT Task Items
+    - I can ARCHIVE a Task Item
+    - I can DELETE a Task Item
+    - I can Start a Task
+    - I can Pause a Task
+    - I can Resums a Task
+    - I can Check Off (finish for the current period) a Task
+    - Task Items reset their "Checked Off" state at the appropriate interval
+    - I can toggle between available task items
+        - Toggling any Task Item to "on" or "currently working" or whatever pauses any other "active" task item
+        - "Checking off" or "finishing" a task item for the day does not automatically resume any other task item   
+
+
+
 ## Frameworks, Tools, and Libraries
 
 ### Python
 
-Initial development will be in Python 3.xx, using a virtual environment.
+Initial development will be in Python 3.xx, using FreeSimpleGUI, in a virtual environment.
 
 #### Port to C/C++
 
