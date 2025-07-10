@@ -14,7 +14,11 @@
 
 ## Functional Requirements
 
-- I can add, edit, sort, archive, and delete task items
+- I can add a task item
+- I can edit a task item
+- I can sort current task items
+- I can archive a task item
+- I can delete a task item
 - I can Start, Pause, Resume, and Check Off task items
 - Task Items reset their "Checked Off" state at the appropriate interval
 - I can toggle between available task items
@@ -27,6 +31,8 @@
 - I can hide or show task items that have been finished for the day
 - I can set task items to be every day, only weekdays, only weekend days, or select specific days
 - I can group task items
+- I can see how much time I have spent on the current task item since it was made current (started or resumed)
+- I can see how much total time I have spent on all task items 
 - I can see how much time I've spent on each item over a user-defined time period
 - I can resize the overall app window and all of the children resize appropriately and/or increase/decrease level of "details"
 - I can export selected - or all - data to a file for backup or transfer
