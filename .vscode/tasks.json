@@ -3,20 +3,18 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "(UCRT) C/C++: g++.exe build active file",
-            "command": "C:/msys64/ucrt64/bin/g++.exe",
+            "label": "(MinGW) C/C++: g++.exe build active file",
+            "command": "C:/msys64/mingw64/bin/g++.exe",
             "args": [
-                "-IC:/msys64/ucrt64/include/gtk-4.0/",
-                "-IC:/msys64/ucrt64/include/glib-2.0/",
-                "-IC:/msys64/ucrt64/lib/glib-2.0/include",
-                "-IC:/msys64/ucrt64/include/cairo/",
-                "-IC:/msys64/ucrt64/include/pango-1.0/",
-                "-IC:/msys64/ucrt64/include/harfbuzz/",
-                "-IC:/msys64/ucrt64/include/gdk-pixbuf-2.0/",
-                "-IC:/msys64/ucrt64/include/graphene-1.0/",
-                "-IC:/msys64/ucrt64/lib/graphene-1.0/include/",
-//                "-Lc:/gtk/lib/",
-                "-Lc:/msys2/ucrt64/lib/**",
+                "-IC:/msys64/mingw64/include/**",
+                "-IC:/msys64/mingw64/include/gtk-3.0/",
+                "-IC:/msys64/mingw64/include/glib-2.0/",
+                "-IC:/msys64/mingw64/lib/glib-2.0/include/",
+                "-IC:/msys64/mingw64/include/pango-1.0/",
+                "-IC:/msys64/mingw64/include/harfbuzz/",
+                "-IC:/msys64/mingw64/include/cairo/",
+                "-IC:/msys64/mingw64/include/gdk-pixbuf-2.0/",
+                "-IC:/msys64/mingw64/include/atk-1.0/",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
@@ -25,7 +23,7 @@
                 "--trace"
             ],
             "options": {
-                "cwd": "C:/msys64/ucrt64/bin"
+                "cwd": "C:/msys64/mingw64/bin"
             },
             "problemMatcher": [
                 "$gcc"
@@ -34,78 +32,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "UCRT (MSYS2) Build Task"
-        },
-        {
-            "type": "cppbuild",
-            "label": "(MinGW) C/C++: g++.exe build active file",
-            "command": "C:/msys64/mingw64/bin/g++.exe",
-            "args": [
-                "-IC:/gtk/include/gtk-4.0/",
-                "-IC:/gtk/include/gtk-4.0/gtk",
-                "-IC:/gtk/include/gtk-4.0/gsk",
-                "-IC:/gtk/include/gtk-4.0/gdk",
-                "-IC:/gtk/include/",
-                "-IC:/gtk/include/glib-2.0/",
-                "-IC:/gtk/lib/glib-2.0/include",
-                "-IC:/gtk/include/cairo/",
-                "-IC:/gtk/include/pango-1.0/",
-                "-IC:/gtk/include/harfbuzz/",
-                "-IC:/gtk/include/gdk-pixbuf-2.0/",
-                "-IC:/gtk/include/graphene-1.0/",
-                "-IC:/gtk/lib/graphene-1.0/include/",
-                "-Lc:/gtk/lib/",
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "--trace"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "detail": "compiler: c:/msys64/mingw64/bin/g++"
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe build active file",
-            "command": "C:/msys64/ucrt64/bin/g++.exe",
-            "args": [
-                "-IC:/msys64/ucrt64/include/gtk-4.0/",
-                "-IC:/msys64/ucrt64/include/glib-2.0/",
-                "-IC:/msys64/ucrt64/lib/glib-2.0/include",
-                "-IC:/msys64/ucrt64/include/cairo/",
-                "-IC:/msys64/ucrt64/include/pango-1.0/",
-                "-IC:/msys64/ucrt64/include/harfbuzz/",
-                "-IC:/msys64/ucrt64/include/gdk-pixbuf-2.0/",
-                "-IC:/msys64/ucrt64/include/graphene-1.0/",
-                "-IC:/msys64/ucrt64/lib/graphene-1.0/include/",
-                "-Lc:/gtk/lib/**",
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "--trace"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-//                "cwd": "C:/msys64/ucrt64/bin"
-            },
-            "problemMatcher": ["$gcc"],
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "detail": "Default C++ Build Task"
+            "detail": "Default C/C++ Build Task (MSYS64, MinGW64)"
         }
     ]
 }
