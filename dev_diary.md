@@ -20,7 +20,7 @@ Here are the current contenders:
 
 Note: [Sciter-JS](https://gitlab.com/sciter-engine/sciter-js-sdk) looks interesting for HTML/CSS/JavaScript development of desktop apps. (For future reference.)
 
-Note 2: [Noesis Engine](https://www.noesisengine.com/noesisgui/) looke promising for game development.
+Note 2: [Noesis Engine](https://www.noesisengine.com/noesisgui/) looks promising for game development.
 
 **Task 1 for Today:** reinstall MSYS2 compiler(s) and dev tools for use with VS Code, accoring to the official [setup guide](https://code.visualstudio.com/docs/cpp/config-mingw) on the Visual Studio Code site. I also followed the rest of the steps on the site to create the 'helloworld.cpp' test code, as well as the tasks.json, launch.json, and c_cpp_properties.json files.
 
