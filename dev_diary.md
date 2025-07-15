@@ -41,6 +41,12 @@ The [Variables Reference](https://code.visualstudio.com/docs/reference/variables
 }
 ```
 
+## 2025-07-14: (Monday)
+I got wxWidgets installed and the 'wxwin' environment variable set. Copied the sample 'helloworld.cpp' code to a file and attempted to compile and debug. I did get the intellisense stuff working, but the compiler could not find some (many? most?) of the include files, so no joy. 
+
+I'm now considering trying to get the right configuration in VS Code to develop with the official WinUI libraries, but it seems like Microsoft only wants Visual Studio used for 'actual Windows' development. sigh.
+
+
 
 
 
