@@ -5,6 +5,9 @@
             "label": "C/C++: g++.exe build active file",
             "command": "C:/msys64/ucrt64/bin/g++.exe",
             "args": [
+                "-I${env:wxwin}/include/",
+                "-L${env:wxwin}/lib/vc_lib/",
+                "-LC:/msys64/ucrt64/lib/",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",

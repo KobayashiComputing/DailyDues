@@ -46,7 +46,11 @@ I got wxWidgets installed and the 'wxwin' environment variable set. Copied the s
 
 I'm now considering trying to get the right configuration in VS Code to develop with the official WinUI libraries, but it seems like Microsoft only wants Visual Studio used for 'actual Windows' development. sigh.
 
+## 2025-07-15: (Tuesday)
+No real substantive work on this project today. Still reading some of the Microsoft websites and docs regarding WinUI and other dev frameworks for Windows desktop applications. I found [this reference](https://learn.microsoft.com/en-us/windows/apps/get-started/?tabs=uwp%2Cnet-maui&WT.mc_id=dotnet-35129-website) today, and that looks like the next thing to read (and I'm hoping it will shed some light on whichi path to take).
 
+This [page](https://learn.microsoft.com/en-us/training/modules/winui-101/) should be helpful ("WinUI 101").
 
+I'm going to work thru [this](https://learn.microsoft.com/en-us/windows/apps/get-started/start-here?tabs=vs-2022-17-10&source=docs) in the near future; it will be in a different "Project" with a different GitHub repo.
 
-
+Also, I notice that Microsoft Ignite is going to be held Nov 17 thru 21 this year (2025). I signed up for (and will actually pay attention this year).

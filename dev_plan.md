@@ -62,7 +62,7 @@ This will be the starting database at least, and my serve for future versions as
 
 ### Graphical User Interface
 
-I'll use a free, (most likely) open-source GUI toolkit. Theoretically, one that supports multiple languages and is available on both Windows and Linux would be preferable.
+I'll use a free, (most likely) open-source GUI toolkit. Theoretically, one that supports multiple languages and is available on both Windows and Linux would be preferable. Finding one that meets that criteria and works with VSCode might be a challenge.
 
 #### FreeSimpleGUI
 
