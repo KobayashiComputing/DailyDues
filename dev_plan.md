@@ -81,3 +81,9 @@ pip install --force-reinstall (Resolve-Path C:\gtk\wheels\pycairo*.whl)
 
 A cursory review of the available tools to bundle a Python project into an "executable" indicates that [PyInstaller](https://pyinstaller.org/en/stable/) will likely be the way to go.
 
+## Design/Architecture Considerations
+
+Task details will be contained in an object. 
+
+The code to handle database queries will be encapsulated to make changing database engines possible, if not "easy."
+

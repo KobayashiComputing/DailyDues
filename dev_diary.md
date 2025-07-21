@@ -54,3 +54,6 @@ This [page](https://learn.microsoft.com/en-us/training/modules/winui-101/) shoul
 I'm going to work thru [this](https://learn.microsoft.com/en-us/windows/apps/get-started/start-here?tabs=vs-2022-17-10&source=docs) in the near future; it will be in a different "Project" with a different GitHub repo.
 
 Also, I notice that Microsoft Ignite is going to be held Nov 17 thru 21 this year (2025). I signed up for (and will actually pay attention this year).
+
+## 2025-07-21: (Monday)
+Minor additions to 'dev_plan.md."
