@@ -4,13 +4,14 @@
             "name": "GCC",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${env:wxwin}/**",
-                "${env:wxwin}/include/**",
-                "${env:wxwin}/lib/**",
+                "${env:wxwin}/include",
+                "${env:wx_lib_dir}/mswud",
+                // "C:/wxWidgets/3.2.8/dev/include/msvc",
                 "c:/users/andy"
-
             ],
             "defines": [
+                "__WXMSW__",
+                "WXUSINGDLL",
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
