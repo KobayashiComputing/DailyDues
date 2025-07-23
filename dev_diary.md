@@ -60,3 +60,9 @@ As much as I'd like to use VS Code for all of my editing, it is looking very muc
 
 ## 2025-07-21: (Monday)
 Minor additions to 'dev_plan.md."
+
+## 2025-07-22: (Tuesday)
+I took another look at wxWidgets - the documentation isn't as approachable as it could be or I'm a lot more dense than I could be, but at any rate I was able to make some progress with it. However, it is apparent that learning how to use wxWidgets is going to be a project in its own rite, so I'm going to move that effort to another project with its own repo.
+
+I hope to work on both in parallel... we'll see...
+
