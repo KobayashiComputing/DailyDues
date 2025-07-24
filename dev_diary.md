@@ -66,3 +66,10 @@ I took another look at wxWidgets - the documentation isn't as approachable as it
 
 I hope to work on both in parallel... we'll see...
 
+## 2025-07-23: (Wednesday)
+Created another project and repo - wxWidgets_My_Way - and copied the mxWidgets sample code, and all of the C/C++ code to it. 
+
+## 2025-07-24: (Thursday)
+Removed all of the "other" GUI framework directories and code from this project, so this project will be pure Python and FreeSimpleGUI for the foreseeable future. Also removed the *.json files from the .vscode directory. 
+
+

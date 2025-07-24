@@ -1,3 +1,0 @@
-{
-    "C_Cpp.default.compilerPath": "c:/msys2/ucrt/bin/g++.exe"
-}
