@@ -72,4 +72,6 @@ Created another project and repo - wxWidgets_My_Way - and copied the mxWidgets s
 ## 2025-07-24: (Thursday)
 Removed all of the "other" GUI framework directories and code from this project, so this project will be pure Python and FreeSimpleGUI for the foreseeable future. Also removed the *.json files from the .vscode directory. 
 
+## 2025-07-28: (Monday)
+Copied the "How to Spell Do's and Don'ts.pdf" into this project.
 
