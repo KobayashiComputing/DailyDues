@@ -75,3 +75,7 @@ Removed all of the "other" GUI framework directories and code from this project,
 ## 2025-07-28: (Monday)
 Copied the "How to Spell Do's and Don'ts.pdf" into this project.
 
+## 2025-08-23: (Saturday)
+I finished the Boot.dev course titled "Memory Management in C" today, and the next course is the "First Peronsal Project," which is *this* project! I should be starting this in earnest on Monday (August 25, 2025).
+
+One other minor update for today: I changed the name of the "requirements.md" file to "dev_requirements.md" to avoid any confusion with the "requirements.txt" file (which is used by/for pip).
