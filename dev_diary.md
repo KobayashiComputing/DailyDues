@@ -79,3 +79,7 @@ Copied the "How to Spell Do's and Don'ts.pdf" into this project.
 I finished the Boot.dev course titled "Memory Management in C" today, and the next course is the "First Peronsal Project," which is *this* project! I should be starting this in earnest on Monday (August 25, 2025).
 
 One other minor update for today: I changed the name of the "requirements.md" file to "dev_requirements.md" to avoid any confusion with the "requirements.txt" file (which is used by/for pip).
+
+## 2025-08-24: (Sunday)
+Moved source code from 'floating_toolbar_2.py' to 'main.py' and moved 'main.py' to the main 'src' directory. The code from the floating toolbar 2 example becomes the base for this project. 
+
