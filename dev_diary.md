@@ -83,3 +83,12 @@ One other minor update for today: I changed the name of the "requirements.md" fi
 ## 2025-08-24: (Sunday)
 Moved source code from 'floating_toolbar_2.py' to 'main.py' and moved 'main.py' to the main 'src' directory. The code from the floating toolbar 2 example becomes the base for this project. 
 
+## 2025-08-25: (Monday)
+Searched the web for "Preferred structure for Python applications" and found the following:
+- Layouts from [RealPython.com](https://realpython.com/python-application-layouts/)
+- Modules and Packages intro from [RealPython.com](https://realpython.com/python-modules-packages/)
+- How-To from [PowerfulPython.com](https://powerfulpython.com/blog/how-to-write-larger-more-complex-applications/)
+
+Based on the 'Layouts' post, I plan to use the layout for 'Applications with Internal Modules,' which may be overkill for this app, but should be good practice for building a good habit.
+
+Modified directory structure and layout and added 'bin', 'docs', and 'tests' directories i preparation for ramping up development. Renamed 'test_and_learn' directory to 'try_and_learn' to avoid confusion with 'tests' directory.

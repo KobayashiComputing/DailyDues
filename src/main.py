@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import sys
 import FreeSimpleGUI as sg
 import subprocess
@@ -38,17 +37,20 @@ def Launcher():
         event, values = window.read()
         if event == 'EXIT' or event == sg.WIN_CLOSED:
             break           # exit button clicked
-        if event == 'Program 1':
+        if event == 'Task 1':
             print('Run your program 1 here!')
-        elif event == 'Program 2':
+        elif event == 'Task 2':
             print('Run your program 2 here!')
-        elif event == 'Run':
+        elif event == 'Task 3':
+            print('Run your program 3 here!')
+        elif event == 'Task 0':
             file = values['demofile']
             print('Launching %s' % file)
             ExecuteCommandSubprocess('python', os.path.join(ROOT_PATH, file))
         else:
             print(event)
 
+    print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
     window.close()
 
 

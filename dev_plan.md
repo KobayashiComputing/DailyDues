@@ -87,3 +87,6 @@ Task details will be contained in an object.
 
 The code to handle database queries will be encapsulated to make changing database engines possible, if not "easy."
 
+## Application Layout
+Based on this post from [RealPython.com](https://realpython.com/python-application-layouts/), I will be using the layout for the "Application with Internal Packages" structure. This is likely a bit of overkill, but it will be good practice.
+
