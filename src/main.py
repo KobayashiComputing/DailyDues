@@ -16,19 +16,26 @@ def Launcher():
 
     sg.set_options(element_padding=(2, 2),
         button_element_size=(25, 2), auto_size_buttons=False)
+    
+    buttonStack = []
+    for tNum in range(5):
+        buttonStack.append([sg.Button(f'Task {tNum+1}', button_color=('white', '#35008B'))])
+    buttonStack.append([sg.Button('EXIT', button_color=('white', 'firebrick3'))])
 
-    layout = [
-#        [sg.Combo(values=namesonly, size=(35, 30), key='demofile'), sg.Button('Run', button_color=('white', '#00168B'))],
-               [sg.Button('Task 1', button_color=('white', '#35008B'))],
-               [sg.Button('Task 2', button_color=('white', '#35008B'))],
-               [sg.Button('Task 3', button_color=('white', '#35008B'))],
-               [sg.Button('EXIT', button_color=('white', 'firebrick3'))],
-#              [sg.Text('', text_color='white', size=(50, 1), key='output')]]
-    ]
+    layout = [ buttonStack ]
 
-    window = sg.Window('Floating Toolbar',
+#     layout = [
+# #        [sg.Combo(values=namesonly, size=(35, 30), key='demofile'), sg.Button('Run', button_color=('white', '#00168B'))],
+#                [sg.Button('Task 1', button_color=('white', '#35008B'))],
+#                [sg.Button('Task 2', button_color=('white', '#35008B'))],
+#                [sg.Button('Task 3', button_color=('white', '#35008B'))],
+#                [sg.Button('EXIT', button_color=('white', 'firebrick3'))],
+# #              [sg.Text('', text_color='white', size=(50, 1), key='output')]]
+#     ]
+
+    window = sg.Window('Daily Dues',
                        layout,
-                       no_titlebar=True,
+                       no_titlebar=False,
                        grab_anywhere=True,
                        keep_on_top=True)
 

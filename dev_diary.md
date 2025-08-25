@@ -92,3 +92,5 @@ Searched the web for "Preferred structure for Python applications" and found the
 Based on the 'Layouts' post, I plan to use the layout for 'Applications with Internal Modules,' which may be overkill for this app, but should be good practice for building a good habit.
 
 Modified directory structure and layout and added 'bin', 'docs', and 'tests' directories i preparation for ramping up development. Renamed 'test_and_learn' directory to 'try_and_learn' to avoid confusion with 'tests' directory.
+
+I need to delve into the 'Python Modules and Packages' article on [RealPython.com](https://realpython.com/python-modules-packages/).
