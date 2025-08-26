@@ -2,24 +2,21 @@ import sys
 import FreeSimpleGUI as sg
 import subprocess
 import os
+from task import *
 
 ROOT_PATH = './'
 
 def Launcher():
 
     sg.theme('Dark')
-
-    namesonly = [f for f in os.listdir(ROOT_PATH) if f.endswith('.py')]
-
-    if len(namesonly) == 0:
-        namesonly = ['test 1', 'test 2', 'test 3']
-
     sg.set_options(element_padding=(2, 2),
         button_element_size=(25, 2), auto_size_buttons=False)
     
+    taskList = testTaskList()
     buttonStack = []
-    for tNum in range(5):
-        buttonStack.append([sg.Button(f'Task {tNum+1}', button_color=('white', '#35008B'))])
+    for task in taskList:
+        buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=('white', '#35008B'))])
+    
     buttonStack.append([sg.Button('EXIT', button_color=('white', 'firebrick3'))])
 
     layout = [ buttonStack ]
@@ -50,45 +47,14 @@ def Launcher():
             print('Run your program 2 here!')
         elif event == 'Task 3':
             print('Run your program 3 here!')
-        elif event == 'Task 0':
-            file = values['demofile']
-            print('Launching %s' % file)
-            ExecuteCommandSubprocess('python', os.path.join(ROOT_PATH, file))
+        elif event == 'Demo':
+            file = values['']
+            print(f"Launching {event} '{values}'")
         else:
-            print(event)
+            print(f"Unhandled event '{event}'")
 
     print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
     window.close()
-
-
-def ExecuteCommandSubprocess(command, *args, wait=False):
-    try:
-        if sys.platform == 'linux':
-            arg_string = ''
-            arg_string = ' '.join([str(arg) for arg in args])
-            # for arg in args:
-            #     arg_string += ' ' + str(arg)
-            print('python3 ' + arg_string)
-            sp = subprocess.Popen(['python3 ', arg_string],
-                                  shell=True,
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE)
-        else:
-            arg_string = ' '.join([str(arg) for arg in args])
-            sp = subprocess.Popen([command, arg_string],
-                                  shell=True,
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE)
-            # sp = subprocess.Popen([command, list(args)], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        if wait:
-            out, err = sp.communicate()
-            if out:
-                print(out.decode("utf-8"))
-            if err:
-                print(err.decode("utf-8"))
-    except:
-        pass
 
 
 if __name__ == '__main__':
