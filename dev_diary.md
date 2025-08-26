@@ -94,3 +94,6 @@ Based on the 'Layouts' post, I plan to use the layout for 'Applications with Int
 Modified directory structure and layout and added 'bin', 'docs', and 'tests' directories i preparation for ramping up development. Renamed 'test_and_learn' directory to 'try_and_learn' to avoid confusion with 'tests' directory.
 
 I need to delve into the 'Python Modules and Packages' article on [RealPython.com](https://realpython.com/python-modules-packages/).
+
+## 2025-08-26: (Tuesday)
+Removed superfluous original example code, created 'task.py' file to contain task object and related code, and created a rudimentary task object definition.
