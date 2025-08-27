@@ -96,4 +96,8 @@ Modified directory structure and layout and added 'bin', 'docs', and 'tests' dir
 I need to delve into the 'Python Modules and Packages' article on [RealPython.com](https://realpython.com/python-modules-packages/).
 
 ## 2025-08-26: (Tuesday)
-Removed superfluous original example code, created 'task.py' file to contain task object and related code, and created a rudimentary task object definition.
+Removed superfluous original example code, created 'task.py' file to contain task object and related code, and created a rudimentary task object definition. Added class variable for 'current_task' and methods to get and set it.
+
+## 2025-08-27: (Wednesday)
+Reworked some instance var names for the Task class. Removed superfluous code from the main while loop. Worked on logic to start/switch tasks.
+

@@ -39,21 +39,22 @@ def Launcher():
     # ---===--- Loop taking in user input and executing appropriate program --- #
     while True:
         event, values = window.read()
-        if event == 'EXIT' or event == sg.WIN_CLOSED:
-            break           # exit button clicked
-        if event == 'Task 1':
-            print('Run your program 1 here!')
-        elif event == 'Task 2':
-            print('Run your program 2 here!')
-        elif event == 'Task 3':
-            print('Run your program 3 here!')
-        elif event == 'Demo':
-            file = values['']
-            print(f"Launching {event} '{values}'")
-        else:
-            print(f"Unhandled event '{event}'")
 
-    print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
+        if event == 'EXIT' or event == sg.WIN_CLOSED:
+            print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
+            break           # exit button clicked
+
+        print(f"Button for '{event}' clicked...")
+        for index, task in enumerate(taskList):
+            if task.name in event:
+                print(f"Found '{task.name}' at index: {index}")
+                tmpTask = taskList[index]
+                break
+
+        tmpTask.set_current_task()
+        
+
+
     window.close()
 
 
