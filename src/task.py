@@ -33,37 +33,60 @@ class Task:
         # internal fields...
         self.created = datetime.now()
         self.state = TaskState.READY
-        self.is_active = False
-        self.is_paused = False
-        self.finished = False       # or maybe 'self.done'?
         self.time_total = None
         self.time_session = None
         self.dtg_session_paused = None
         self.dtg_session_start = None
         self.dtg_session_stop = None
 
-    def set_current_task(self):
+    def change_task_state(self):
         # if no task is "running" then clicking a button makes that task current, active and running
+        if Task.current_task == None:
+            Task.current_task = self
+            Task.current_task.start_task()
+            return
+
         # if a task is "running" then clicking the button for that task
         #       - pauses the task if the task's target for the reset period has not been reached
         #       - finished the task if the task's target for the reset period has been reached
+        if Task.current_task == self:
+            Task.current_task.pause_task()
+            Task.current_task = None
+            return
+        
         # if a task is "running" then clicking another task's button switches to that new task and makes
         #     it active and running
         # 
         if Task.current_task != self and Task.current_task != None:
-            temp = Task.get_current_task(self)
-            temp.is_active = False
-        Task.current_task = self
-        self.is_active = True
+            Task.current_task.pause_task()
+            Task.current_task = self
+            Task.current_task.start_task()
+            return
 
-    def get_current_task(self):
+
+    def get_current_task():
         return Task.current_task
     
-    def no_current_task(self):
-        if self.is_active:
-            self.is_active = False
-        Task.current_task = None
-    
+    def clear_current_task():
+        if Task.current_task != None:
+            Task.current_task.pause_task()
+            Task.current_task = None
+
+    def start_task(self):
+        self.state = TaskState.CURRENT
+        pass
+
+    def pause_task(self):
+        self.state = TaskState.PAUSED
+        pass
+
+    def finish_task(self):
+        self.state = TaskState.FINISHED
+        pass
+
+
+def clean_up_for_exit():
+    Task.clear_current_task()  
 
 def testTaskList(count=10):
     taskList = []

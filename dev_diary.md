@@ -101,3 +101,6 @@ Removed superfluous original example code, created 'task.py' file to contain tas
 ## 2025-08-27: (Wednesday)
 Reworked some instance var names for the Task class. Removed superfluous code from the main while loop. Worked on logic to start/switch tasks.
 
+## 2025-08-28: (Thursday)
+Got task state change from UI working, including cleaning up 'current' task before exiting.
+

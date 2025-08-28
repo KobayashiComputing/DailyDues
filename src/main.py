@@ -42,6 +42,7 @@ def Launcher():
 
         if event == 'EXIT' or event == sg.WIN_CLOSED:
             print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
+            clean_up_for_exit()
             break           # exit button clicked
 
         print(f"Button for '{event}' clicked...")
@@ -51,7 +52,7 @@ def Launcher():
                 tmpTask = taskList[index]
                 break
 
-        tmpTask.set_current_task()
+        tmpTask.change_task_state()
         
 
 
