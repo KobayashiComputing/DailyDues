@@ -24,13 +24,23 @@ class TaskState(Enum):
 class Task:
     current_task = None
     task_colors = [
-        "#ffffff",          # white - not used, but need to fill this list space
-        "#11c807",        # 1 - green - ready
-        "#3707C8",          # 2 - blue - current
-        "#11c807",        # 3 - green - paused (ready to restart)
-        "#000000",          # 4 - black - finished for this period
-        "#C3D006",        # 5 - yellow - danger
-        "#BF0707"         # 6 - red - overdue
+        "#ffffff",              # white - not used, but need to fill this list space
+        "#11c807",              # 1 - green - ready
+        "#3707C8",              # 2 - blue - current
+        "#11c807",              # 3 - green - paused (ready to restart)
+        "#000000",              # 4 - black - finished for this period
+        "#C3D006",              # 5 - yellow - danger
+        "#BF0707"               # 6 - red - overdue
+    ]
+    task_color_pairs = [
+        ("black", "#ffffff"),    # black on white - not used, but need to fill this list space
+        ("white", "#11c807"),    # 1 - white on green - ready
+        ("white", "#3707C8"),    # 2 - white on blue - current
+        ("white", "#11c807"),    # 3 - white on green - paused (ready to restart)
+        ("white", "#000000"),    # 4 - white on black - finished for this period
+        ("black", "#C3D006"),    # 5 - black on yellow - danger
+        ("white", "#BF0707")     # 6 - white on red - overdue
+
     ]
 
     def __init__(self, name, desc="Default Task Description", priority=3, frequency=ResetFrequency.DAILY):
@@ -55,7 +65,7 @@ class Task:
         if Task.current_task == None:
             Task.current_task = self
             Task.current_task.start_task()
-            return
+            return Task.get_current_task()
 
         # if a task is "running" then clicking the button for that task
         #       - pauses the task if the task's target for the reset period has not been reached
@@ -63,7 +73,7 @@ class Task:
         if Task.current_task == self:
             Task.current_task.pause_task()
             Task.current_task = None
-            return
+            return Task.get_current_task()
         
         # if a task is "running" then clicking another task's button switches to that new task and makes
         #     it active and running
@@ -72,7 +82,7 @@ class Task:
             Task.current_task.pause_task()
             Task.current_task = self
             Task.current_task.start_task()
-            return
+            return Task.get_current_task()
 
 
     def get_current_task():

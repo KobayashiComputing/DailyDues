@@ -25,31 +25,12 @@ def Launcher():
     taskList = testTaskList()
     buttonStack = []
     for task in taskList:
-        # buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=('white', '#35008B'))])
-        buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=('white', Task.task_colors[task.state.value]))])
-    
+        buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
     buttonStack.append([sg.Button('EXIT', button_color=('white', 'firebrick3'))])
 
     window = show_button_stack(buttonStack)
 
-#     layout = [ buttonStack ]
-
-# #     layout = [
-# # #        [sg.Combo(values=namesonly, size=(35, 30), key='demofile'), sg.Button('Run', button_color=('white', '#00168B'))],
-# #                [sg.Button('Task 1', button_color=('white', '#35008B'))],
-# #                [sg.Button('Task 2', button_color=('white', '#35008B'))],
-# #                [sg.Button('Task 3', button_color=('white', '#35008B'))],
-# #                [sg.Button('EXIT', button_color=('white', 'firebrick3'))],
-# # #              [sg.Text('', text_color='white', size=(50, 1), key='output')]]
-# #     ]
-
-#     window = sg.Window('Daily Dues',
-#                        layout,
-#                        no_titlebar=False,
-#                        grab_anywhere=True,
-#                        keep_on_top=True)
-
-    # ---===--- Loop taking in user input and executing appropriate program --- #
+    # Main loop... repeat until window is closed or "Exit" is clicked...
     while True:
         event, values = window.read()
 
@@ -62,20 +43,24 @@ def Launcher():
         for index, task in enumerate(taskList):
             if task.name in event:
                 print(f"Found '{task.name}' at index: {index}")
-                tmpTask = taskList[index]
-                tmpButton = buttonStack[index]
-                tmpNdx = index
+                newTask = taskList[index]
                 break
 
+        oldTask = Task.get_current_task()
+        newTask = newTask.change_task_state()
+        if newTask == None:     # the old task was simply 'paused'
+            window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
         
-        tmpTask.change_task_state()
-        newButton = [sg.Button(f'{tmpTask.name} (P:{tmpTask.priority})', button_color=('white', Task.task_colors[tmpTask.state.value]))]
-        buttonStack[tmpNdx] = newButton
-        window.Layout(buttonStack)
-        # window = show_button_stack(buttonStack)
-        
+        elif newTask == oldTask:    # the old task was restarted
+            window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
 
+        else:   # a new task was started
+            if oldTask != None:
+                window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
+            if newTask != None:
+                window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
 
+    # We've exited the loop, so close the window and clean up...
     window.close()
 
 
