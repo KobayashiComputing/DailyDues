@@ -117,4 +117,7 @@ To-Do: determine what text/icons show up on the 'Task Buttons'
 
 Hmmm... updating the window is not working the way I thought it would, so need to look closely at [this page](https://freesimplegui.readthedocs.io/en/latest/#pattern-2-b-persistent-window-multiple-reads-using-an-event-loop-updates-data-in-window) in the docs.
 
+## 2025-08-29: (Friday)
+After reading the documentation (what a concept!), I was able to update the 'button_color' setting for the buttons for specific tasks. The state changes from 'ready' to 'current' to 'paused' and for switching to a new task are all working. 
 
+I think the next step will be to connect with a database (using SQLite at least for the beginning). This will allow me to save the task info, so I can then start keeping track of time spent on each task. 

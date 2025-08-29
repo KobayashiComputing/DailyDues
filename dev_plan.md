@@ -90,3 +90,11 @@ The code to handle database queries will be encapsulated to make changing databa
 ## Application Layout
 Based on this post from [RealPython.com](https://realpython.com/python-application-layouts/), I will be using the layout for the "Application with Internal Packages" structure. This is likely a bit of overkill, but it will be good practice.
 
+## GUI Design (Main)
+
+## Database Design and Connection
+
+## GUI Design (Anciallary: 'New Task Form', 'Export/Import Form', 'Database Backup', etc.)
+
+## Timekeeping (time spent on each task, moving completed tasks to bottom of list, etc.)
+
