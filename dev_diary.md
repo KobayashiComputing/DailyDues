@@ -104,3 +104,17 @@ Reworked some instance var names for the Task class. Removed superfluous code fr
 ## 2025-08-28: (Thursday)
 Got task state change from UI working, including cleaning up 'current' task before exiting.
 
+To-Do: determine color scheme for various states. Maybe this:
+  - Green: Ready to Start, whether paused or not yet started this period
+  - Blue: Running/Current
+  - Black: Finished for this period
+  - Yellow: Within X amount of time until 'overdue' (end of period without target time spent)
+  - Red: Overdue
+
+Also, it would be great to have the play/pause/stop/eject symbols for the 'buttons'
+
+To-Do: determine what text/icons show up on the 'Task Buttons'
+
+Hmmm... updating the window is not working the way I thought it would, so need to look closely at [this page](https://freesimplegui.readthedocs.io/en/latest/#pattern-2-b-persistent-window-multiple-reads-using-an-event-loop-updates-data-in-window) in the docs.
+
+

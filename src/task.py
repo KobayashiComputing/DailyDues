@@ -17,10 +17,21 @@ class TaskState(Enum):
     CURRENT = 2
     PAUSED = 3
     FINISHED = 4
+    DANGER = 5
+    OVERDUE = 6
 
 # Task Object
 class Task:
     current_task = None
+    task_colors = [
+        "#ffffff",          # white - not used, but need to fill this list space
+        "#11c807",        # 1 - green - ready
+        "#3707C8",          # 2 - blue - current
+        "#11c807",        # 3 - green - paused (ready to restart)
+        "#000000",          # 4 - black - finished for this period
+        "#C3D006",        # 5 - yellow - danger
+        "#BF0707"         # 6 - red - overdue
+    ]
 
     def __init__(self, name, desc="Default Task Description", priority=3, frequency=ResetFrequency.DAILY):
         # user supplied and user editable fields...
