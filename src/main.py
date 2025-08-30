@@ -1,7 +1,4 @@
-import sys
 import FreeSimpleGUI as sg
-import subprocess
-import os
 from task import *
 from commandline import *
 from database import *
@@ -26,7 +23,8 @@ def DailyDues():
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
-        button_element_size=(25, 2), auto_size_buttons=False)
+                   button_element_size=(25, 2), 
+                   auto_size_buttons=False)
     
     taskList = testTaskList()
     buttonStack = []

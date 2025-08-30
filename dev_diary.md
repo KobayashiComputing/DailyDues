@@ -124,3 +124,12 @@ I think the next step will be to connect with a database (using SQLite at least 
 
 Got command line arguments handling done (using 'argparse'), and got and SQLite3 database connected.
 
+## 2025-08-30: (Saturday)
+Investigating ways to convert task objects into something(s) that can be stored in the database. 
+
+Using the .__dict__ attribute for the object works to create a dictionary, then getting a string representation of that dictionary to store and then ultimately convert back to a dictionary which could be used to recreate the object looked promising. However, I guess the ENUMs I'm using trip up both the JSON and EVAL (the straight 'EVAL' and the ast.literal_eval) methods/functions when trying to convert the string back into a 'real' dictionary. 
+
+SQLAlchemy was mentioned in ths [StackOverflow](https://stackoverflow.com/questions/2047814/is-it-possible-to-store-python-class-objects-in-sqlite) article, and that may be the 'best' way to go. 
+
+I *might* do it manually with a class method that returns a databaseable string and then another method that turns that string back into an object... just to get the experience... we'll see.
+
