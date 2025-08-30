@@ -3,8 +3,14 @@ import FreeSimpleGUI as sg
 import subprocess
 import os
 from task import *
+from commandline import *
+from database import *
 
 ROOT_PATH = './'
+
+# Global vars used in this source file
+dbCursor = None
+dbConn = None
 
 def show_button_stack(b):
     layout = [ b ]
@@ -16,7 +22,7 @@ def show_button_stack(b):
     return window 
 
 
-def Launcher():
+def DailyDues():
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
@@ -35,14 +41,14 @@ def Launcher():
         event, values = window.read()
 
         if event == 'EXIT' or event == sg.WIN_CLOSED:
-            print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
+            # print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
             clean_up_for_exit()
             break           # exit button clicked
 
-        print(f"Button for '{event}' clicked...")
+        # print(f"Button for '{event}' clicked...")
         for index, task in enumerate(taskList):
             if task.name in event:
-                print(f"Found '{task.name}' at index: {index}")
+                # print(f"Found '{task.name}' at index: {index}")
                 newTask = taskList[index]
                 break
 
@@ -61,8 +67,20 @@ def Launcher():
                 window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
 
     # We've exited the loop, so close the window and clean up...
+    closeDB()
     window.close()
 
+def ConnectDB(dbname):
+    global dbConn
+    global dbCursor
+    dbConn, dbCursor = getDatabaseCursor(dbname)
+
+def closeDB():
+    global dbConn
+    saveDatabase(dbConn)
 
 if __name__ == '__main__':
-    Launcher()
+    dbname = GetDatabaseName()
+    # print(f"Using database file {dbname}")
+    ConnectDB(dbname)
+    DailyDues()

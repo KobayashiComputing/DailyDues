@@ -176,3 +176,6 @@ cython_debug/
 # Windows executables
 *.exe
 a.out
+
+# SQLite3 (and possibly other) databases...
+*.db
