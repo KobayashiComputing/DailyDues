@@ -121,3 +121,6 @@ Hmmm... updating the window is not working the way I thought it would, so need t
 After reading the documentation (what a concept!), I was able to update the 'button_color' setting for the buttons for specific tasks. The state changes from 'ready' to 'current' to 'paused' and for switching to a new task are all working. 
 
 I think the next step will be to connect with a database (using SQLite at least for the beginning). This will allow me to save the task info, so I can then start keeping track of time spent on each task. 
+
+Got command line arguments handling done (using 'argparse'), and got and SQLite3 database connected.
+
