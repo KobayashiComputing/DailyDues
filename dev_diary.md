@@ -131,5 +131,7 @@ Using the .__dict__ attribute for the object works to create a dictionary, then 
 
 SQLAlchemy was mentioned in ths [StackOverflow](https://stackoverflow.com/questions/2047814/is-it-possible-to-store-python-class-objects-in-sqlite) article, and that may be the 'best' way to go. 
 
-I *might* do it manually with a class method that returns a databaseable string and then another method that turns that string back into an object... just to get the experience... we'll see.
+A Wikipedia article on [Object-Relational Mapping](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping)...
+
+I *might* do it manually with a class method that returns a databaseable string or strings or whatever and then another method that turns that string back into an object... just to get the experience... we'll see.
 
