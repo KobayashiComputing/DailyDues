@@ -7,7 +7,16 @@ def getDatabaseCursor(db):
     # Create a cursor object to execute SQL commands
     cursor = connection.cursor()
 
-    return connection, cursor
+    cursor.execute("SELECT name FROM sqlite_schema WHERE type = 'table' ORDER BY name;")
+    tblList = cursor.fetchall()
+    if len(tblList) == 0:
+        dbEmpty = True
+        print(f"Database {db} is empty... probably newly created...")
+    else:
+        dbEmpty = False
+        print(f"Database {db} has tables:\n{tblList}")
+
+    return connection, cursor, dbEmpty
 
 def saveDatabase(conn):
     # Commit changes and close the connection

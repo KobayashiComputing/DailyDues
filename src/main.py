@@ -71,7 +71,9 @@ def DailyDues():
 def ConnectDB(dbname):
     global dbConn
     global dbCursor
-    dbConn, dbCursor = getDatabaseCursor(dbname)
+    dbConn, dbCursor, dbEmpty = getDatabaseCursor(dbname)
+    if dbEmpty:
+        print(f"Database {dbname} is empty!")
 
 def closeDB():
     global dbConn
@@ -79,6 +81,6 @@ def closeDB():
 
 if __name__ == '__main__':
     dbname = GetDatabaseName()
-    # print(f"Using database file {dbname}")
+    print(f"Using database file {dbname}")
     ConnectDB(dbname)
     DailyDues()

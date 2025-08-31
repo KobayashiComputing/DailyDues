@@ -135,3 +135,16 @@ A Wikipedia article on [Object-Relational Mapping](https://en.wikipedia.org/wiki
 
 I *might* do it manually with a class method that returns a databaseable string or strings or whatever and then another method that turns that string back into an object... just to get the experience... we'll see.
 
+## 2025-08-31: (Sunday)
+Before charging ahead with designing the database and creating queries, it occurs to me that we need to know whether or not the database existed before we opened it, or if it was newly created. Maybe the easiest way to know would be to check for the file first, or maybe get a list of tables after the open/create operation? I'm going to use the 'get a list of tables' approach...
+
+This [article](https://codefather.tech/blog/sqlite-database-python/) from codefather.tech looks helpful.
+
+### Code to get a list of tables from sqlite3:
+```
+SELECT name 
+FROM sqlite_schema 
+WHERE type = 'table' 
+ORDER BY name;
+
+```
