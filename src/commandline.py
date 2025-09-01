@@ -1,6 +1,6 @@
 import argparse
 
-def GetDatabaseName():
+def cliGetDatabaseName():
     # Create the parser
     parser = argparse.ArgumentParser(description="Daily Dues - a task tickler with time tracking")
 

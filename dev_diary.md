@@ -148,3 +148,22 @@ WHERE type = 'table'
 ORDER BY name;
 
 ```
+
+## 2025-09-01: (Monday)
+Working on database design and inialization today and likely for the next couple (or few) days. Along with that, this may be a good time to start working on the FreeSimpleGUI form to create/edit a task, as that's some of the data that will go into the database. 
+
+Actually, I've gotten the code to create the 'tasks' table working, although it will almost certainly need some updates as I go along.
+
+I've decided to write the code to save the taskList to the database next. Initially, it will save, and them maybe 'update' the bogus taskList that I've been used for development. Then I'll - hopefully - use that code as a model to read the taskList from the database at startup. I've got the flow in the code for the basic approach already: 
+- catch EXIT or window close 
+- clean up the state of Task
+- call 'saveTasksTable()
+  - loop through the taskList 
+    - call 'task.saveToDatabase' for each task
+      - convert the task object into savable strings/integers
+      - call 'dbUpdate(cursor, tableName, valuesDictionary)' to insert or update the record as appropriate
+- close the database
+- close the window (thus ending the process)
+
+This flow is now working down to and including checking the existence of the selected record. Next step is to actually write the record data into the database. 
+

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from enum import Enum
+from database import dbUpdate
 
 class ResetFrequency(Enum):
     DAILY = 1
@@ -84,6 +85,14 @@ class Task:
             Task.current_task.start_task()
             return Task.get_current_task()
 
+    def saveToDatabase(self, cursor):
+        # convert the task into text strings and integers that can be
+        # saved in the database
+        fldValues = self.__dict__
+        # call dbUpdate(cursor, tableName, <key tuple>, <values dictionary>) to 
+        # update or insert the record as appropriate
+        dbUpdate(cursor, 'tasks', key=('name', fldValues['name']), values=fldValues)
+        pass
 
     def get_current_task():
         return Task.current_task
@@ -105,9 +114,9 @@ class Task:
         self.state = TaskState.FINISHED
         pass
 
+    def clean_up_for_exit():
+        Task.clear_current_task()  
 
-def clean_up_for_exit():
-    Task.clear_current_task()  
 
 def testTaskList(count=10):
     taskList = []

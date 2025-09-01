@@ -6,8 +6,9 @@ from database import *
 ROOT_PATH = './'
 
 # Global vars used in this source file
-dbCursor = None
-dbConn = None
+dbCursor = None     # 
+dbConn = None       #
+dbVersion = None    # this will be a string
 
 def show_button_stack(b):
     layout = [ b ]
@@ -40,7 +41,7 @@ def DailyDues():
 
         if event == 'EXIT' or event == sg.WIN_CLOSED:
             # print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
-            clean_up_for_exit()
+            Task.clean_up_for_exit()
             break           # exit button clicked
 
         # print(f"Button for '{event}' clicked...")
@@ -65,22 +66,30 @@ def DailyDues():
                 window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
 
     # We've exited the loop, so close the window and clean up...
+    saveTasksTable(taskList)
     closeDB()
     window.close()
 
 def ConnectDB(dbname):
     global dbConn
     global dbCursor
-    dbConn, dbCursor, dbEmpty = getDatabaseCursor(dbname)
+    dbConn, dbCursor, dbEmpty = dbGetDatabaseCursor(dbname)
     if dbEmpty:
-        print(f"Database {dbname} is empty!")
+        # print(f"Database {dbname} is empty! (Probably just created...)")
+        dbVersion = dbInitDatabase(dbCursor)
+        dbCommit(dbConn)
+        print(f"Database {dbname} initialized to version {dbVersion}")
+
+def saveTasksTable(taskList):
+    for task in taskList:
+        task.saveToDatabase(dbCursor)
 
 def closeDB():
     global dbConn
-    saveDatabase(dbConn)
+    dbSaveDatabase(dbConn)
 
 if __name__ == '__main__':
-    dbname = GetDatabaseName()
+    dbname = cliGetDatabaseName()
     print(f"Using database file {dbname}")
     ConnectDB(dbname)
     DailyDues()

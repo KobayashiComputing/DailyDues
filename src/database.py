@@ -1,6 +1,7 @@
 import sqlite3
+import datetime
 
-def getDatabaseCursor(db):
+def dbGetDatabaseCursor(db):
     # Connect to the database (or create it if it doesn't exist)
     connection = sqlite3.connect(db)
 
@@ -18,13 +19,69 @@ def getDatabaseCursor(db):
 
     return connection, cursor, dbEmpty
 
-def saveDatabase(conn):
+def dbInitDatabase(cursor):
+    dbVersion = "0.00a"
+    dbDTG = datetime.datetime.now()
+    dbDTGstr = dbDTG.strftime("%I:%M%p on %B %d, %Y")
+    dbDTGstr = dbDTG.isoformat()
+    
+    # create and populate the 'dd_info' table...
+    sqlQuery = ""
+    sqlQuery += "CREATE TABLE IF NOT EXISTS dd_info"
+    sqlQuery += " (version TEXT NOT NULL,"
+    sqlQuery += "  create_on_raw TEXT NOT NULL,"
+    sqlQuery += "  created_on_txt TEXT NOT NULL);"
+    cursor.execute(sqlQuery)
+    sqlQuery = f'insert into dd_info values("{dbVersion}", "{dbDTG}", "{dbDTGstr}");'
+    cursor.execute(sqlQuery)
+
+    # create the 'tasks' table...
+    sqlQuery = ""
+    sqlQuery += "CREATE TABLE IF NOT EXISTS tasks ("
+    sqlQuery += "  name TEXT NOT NULL,"
+    sqlQuery += "  description TEXT NOT NULL,"
+    sqlQuery += "  priority INTEGER NOT NULL,"
+    sqlQuery += "  frequency INTEGER NOT NULL,"
+    sqlQuery += "  reset TEXT NOT NULL,"
+    sqlQuery += "  target TEXT NOT NULL,"
+    sqlQuery += "  created TEXT NOT NULL,"
+    sqlQuery += "  state INTEGER NOT NULL,"
+    sqlQuery += "  time_total TEXT,"
+    sqlQuery += "  time_session TEXT,"
+    sqlQuery += "  dtg_session_paused TEXT,"
+    sqlQuery += "  dtg_session_start TEXT,"
+    sqlQuery += "  dtg_session_stop TEXT NULL"
+    sqlQuery += ");"
+    cursor.execute(sqlQuery)
+
+    # all done, so return...
+    return dbVersion
+
+def dbUpdate(cursor, table, key=(None, None), values={}):
+    # determine if the record with the given key already exists
+    sqlQuery = f"SELECT EXISTS(SELECT 1 FROM {table} WHERE {key[0]} = '{key[1]}');"
+    cursor.execute(sqlQuery)
+    rowExists = cursor.fetchone()[0]
+    
+    if rowExists:
+        # record exists, so this is an update...
+        print(f"Table '{table}' contains a record with '{key[0]}' == '{key[1]}'")
+    else:
+        # record does not exist, so this is an insert...
+        print(f"Record with field '{key[0]}' == '{key[1]}' was not found in table '{table}'")
+
+    pass
+
+def dbCommit(connection):
+    connection.commit()
+
+def dbSaveDatabase(conn):
     # Commit changes and close the connection
     conn.commit()
     conn.close()
 
 
-def doQuery(cursor):
+def dbDoQuery(cursor):
     # Example: Create a table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
