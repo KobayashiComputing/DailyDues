@@ -40,17 +40,17 @@ def dbInitDatabase(cursor):
     sqlQuery += "CREATE TABLE IF NOT EXISTS tasks ("
     sqlQuery += "  name TEXT NOT NULL,"
     sqlQuery += "  description TEXT NOT NULL,"
-    sqlQuery += "  priority INTEGER NOT NULL,"
-    sqlQuery += "  frequency INTEGER NOT NULL,"
+    sqlQuery += "  priority TEXT NOT NULL,"
+    sqlQuery += "  frequency TEXT NOT NULL,"
     sqlQuery += "  reset TEXT NOT NULL,"
     sqlQuery += "  target TEXT NOT NULL,"
     sqlQuery += "  created TEXT NOT NULL,"
-    sqlQuery += "  state INTEGER NOT NULL,"
+    sqlQuery += "  state TEXT NOT NULL,"
     sqlQuery += "  time_total TEXT,"
     sqlQuery += "  time_session TEXT,"
     sqlQuery += "  dtg_session_paused TEXT,"
     sqlQuery += "  dtg_session_start TEXT,"
-    sqlQuery += "  dtg_session_stop TEXT NULL"
+    sqlQuery += "  dtg_session_stop TEXT"
     sqlQuery += ");"
     cursor.execute(sqlQuery)
 
@@ -66,11 +66,40 @@ def dbUpdate(cursor, table, key=(None, None), values={}):
     if rowExists:
         # record exists, so this is an update...
         print(f"Table '{table}' contains a record with '{key[0]}' == '{key[1]}'")
+        # basic update statement for sqlite3:
+        #   UPDATE employees
+        #       SET name = 'John Doe',
+        #           age = 30
+        #       WHERE id = 1;
+        sqlQuery = f"update {table} set "
+        needsComma = False
+        for field, data in values.items():
+            if needsComma:
+                sqlQuery += ", "
+            needsComma = True
+            sqlQuery += f"{field} = '{data}'"
+
+        sqlQuery += f" where {key[0]} = '{key[1]}';"
+
     else:
         # record does not exist, so this is an insert...
         print(f"Record with field '{key[0]}' == '{key[1]}' was not found in table '{table}'")
+        fieldList = ""
+        dataList = ""
+        needsComma = False
+        for field, data in values.items():
+            if needsComma:
+                fieldList += ", "
+                dataList += ", "
+            needsComma = True
+            fieldList += f"{field}"
+            dataList += f"'{data}'"
 
+        sqlQuery = f"insert into {table} ({fieldList}) values ({dataList});"
+
+    cursor.execute(sqlQuery)
     pass
+
 
 def dbCommit(connection):
     connection.commit()

@@ -167,3 +167,6 @@ I've decided to write the code to save the taskList to the database next. Initia
 
 This flow is now working down to and including checking the existence of the selected record. Next step is to actually write the record data into the database. 
 
+The code to write the records to the database is written and working, and that's enough for today. Tomorrow I'll work on reading the data back from the database and using it to initialize the 'taskList'.
+
+Note: TO-DO - the main window with the stack of task buttons needs to be resizable, specifically to make it shorter with a scrollable stack of buttons. It would be nice for the 'Exit' button to always show at the bottom of the stack.
