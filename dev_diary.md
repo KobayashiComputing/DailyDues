@@ -177,3 +177,9 @@ Side task excursion for today: make the stack of buttons resizable on the 'Y' ax
 That was actually pretty simple. See the code for the changes that were needed ;-)  
 
 This also solved the issue of the 'Exit' button fixed at the bottom. And... adding a menu row at the top should be easier now.
+
+Hmmm... testing a task list with more than 10 tasks (0 - 9) exposed a problem: I was checking for the current task with a 'task.name in event' construct, but it needed to be 'task.name == event'. That's fixed now.
+
+Testing with various numbers of tasks in the task list to see how that changed the window size. Apparently the default size of the window (vertically) is something like 60% of the height needed to show all 'rows' in the layout. 
+
+Added code flow to get the list of tasks from the database. Now I just need to fill in the function bodies.

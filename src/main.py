@@ -21,8 +21,10 @@ def show_button_stack(b):
                         no_titlebar=False,
                         grab_anywhere=True,
                         keep_on_top=True,
-                        resizable=True, 
+                        resizable=False, 
                         finalize=True)
+
+    # window.set_resizable(False, True)
     return window 
 
 
@@ -33,14 +35,14 @@ def DailyDues():
                    button_element_size=(25, 2), 
                    auto_size_buttons=False)
     
-    taskList = testTaskList()
+    taskList = Task.getTaskList(dbCursor)
+    taskList = testTaskList(25)
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
     
 
     window = show_button_stack(buttonStack)
-    window.set_resizable(False, True)
 
     # Main loop... repeat until window is closed or "Exit" is clicked...
     while True:
@@ -53,7 +55,7 @@ def DailyDues():
 
         # print(f"Button for '{event}' clicked...")
         for index, task in enumerate(taskList):
-            if task.name in event:
+            if task.name == event:
                 # print(f"Found '{task.name}' at index: {index}")
                 newTask = taskList[index]
                 break
@@ -97,6 +99,6 @@ def closeDB():
 
 if __name__ == '__main__':
     dbname = cliGetDatabaseName()
-    print(f"Using database file {dbname}")
+    # print(f"Using database file {dbname}")
     ConnectDB(dbname)
     DailyDues()

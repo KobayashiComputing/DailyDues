@@ -12,10 +12,10 @@ def dbGetDatabaseCursor(db):
     tblList = cursor.fetchall()
     if len(tblList) == 0:
         dbEmpty = True
-        print(f"Database {db} is empty... probably newly created...")
+        # print(f"Database {db} is empty... probably newly created...")
     else:
         dbEmpty = False
-        print(f"Database {db} has tables:\n{tblList}")
+        # print(f"Database {db} has tables:\n{tblList}")
 
     return connection, cursor, dbEmpty
 
@@ -57,6 +57,10 @@ def dbInitDatabase(cursor):
     # all done, so return...
     return dbVersion
 
+def dbGetTaskList(cursor):
+    taskList = []
+    return taskList
+
 def dbUpdate(cursor, table, key=(None, None), values={}):
     # determine if the record with the given key already exists
     sqlQuery = f"SELECT EXISTS(SELECT 1 FROM {table} WHERE {key[0]} = '{key[1]}');"
@@ -65,7 +69,7 @@ def dbUpdate(cursor, table, key=(None, None), values={}):
     
     if rowExists:
         # record exists, so this is an update...
-        print(f"Table '{table}' contains a record with '{key[0]}' == '{key[1]}'")
+        # print(f"Table '{table}' contains a record with '{key[0]}' == '{key[1]}'")
         # basic update statement for sqlite3:
         #   UPDATE employees
         #       SET name = 'John Doe',
@@ -83,7 +87,7 @@ def dbUpdate(cursor, table, key=(None, None), values={}):
 
     else:
         # record does not exist, so this is an insert...
-        print(f"Record with field '{key[0]}' == '{key[1]}' was not found in table '{table}'")
+        # print(f"Record with field '{key[0]}' == '{key[1]}' was not found in table '{table}'")
         fieldList = ""
         dataList = ""
         needsComma = False

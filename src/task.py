@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from enum import Enum
-from database import dbUpdate
+from database import dbUpdate, dbGetTaskList
 
 class ResetFrequency(Enum):
     DAILY = 1
@@ -117,6 +117,9 @@ class Task:
     def clean_up_for_exit():
         Task.clear_current_task()  
 
+    def getTaskList(cursor):
+        taskList = dbGetTaskList(cursor)
+        return taskList
 
 def testTaskList(count=10):
     taskList = []
