@@ -11,12 +11,18 @@ dbConn = None       #
 dbVersion = None    # this will be a string
 
 def show_button_stack(b):
-    layout = [ b ]
+    layout = [
+        [sg.Column(b, scrollable=True, vertical_scroll_only=True)],
+        [sg.Button('EXIT', button_color=('white', 'firebrick3'))]
+    ]
+
     window = sg.Window( 'Daily Dues',
                         layout,
                         no_titlebar=False,
                         grab_anywhere=True,
-                        keep_on_top=True)
+                        keep_on_top=True,
+                        resizable=True, 
+                        finalize=True)
     return window 
 
 
@@ -31,9 +37,10 @@ def DailyDues():
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
-    buttonStack.append([sg.Button('EXIT', button_color=('white', 'firebrick3'))])
+    
 
     window = show_button_stack(buttonStack)
+    window.set_resizable(False, True)
 
     # Main loop... repeat until window is closed or "Exit" is clicked...
     while True:

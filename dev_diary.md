@@ -170,3 +170,10 @@ This flow is now working down to and including checking the existence of the sel
 The code to write the records to the database is written and working, and that's enough for today. Tomorrow I'll work on reading the data back from the database and using it to initialize the 'taskList'.
 
 Note: TO-DO - the main window with the stack of task buttons needs to be resizable, specifically to make it shorter with a scrollable stack of buttons. It would be nice for the 'Exit' button to always show at the bottom of the stack.
+
+## 2025-09-02: (Tuesday)
+Side task excursion for today: make the stack of buttons resizable on the 'Y' axis with a scrollbar. It looks like this will require a slightly different layout. I'll need a layout with a column element for the button stack with a button below for the 'Exit'.
+
+That was actually pretty simple. See the code for the changes that were needed ;-)  
+
+This also solved the issue of the 'Exit' button fixed at the bottom. And... adding a menu row at the top should be easier now.
