@@ -185,3 +185,5 @@ Testing with various numbers of tasks in the task list to see how that changed t
 Added code flow to get the list of tasks from the database. Now I just need to fill in the function bodies.
 
 ## 2025-09-03: (Wednesday)
+Added code to get the task records out of the database and create a dictionary for each record that includes the field name and the data (so this will all still work if any fields are inserted at a later date - hopefully). Then wrote a function in the Task object to create a task object from a dictionary (slyly named it 'newTaskFromDictionary()'). Everything is working except I need to write convertor functions to handle converting the datetime and deltatime objects to and from strings to store in the database. 
+
