@@ -50,8 +50,8 @@ class Task:
         self.description = desc[:(len(desc) if len(desc) < 256 else 256)]
         self.priority = priority if (priority > 0 and priority < 6) else 3
         self.frequency = frequency
-        self.reset = timedelta(days=1, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
-        self.target = timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=1, weeks=0)
+        self.reset = timedelta(days=1)
+        self.target = timedelta(hours=1)
         # internal fields...
         self.created = datetime.now()
         self.state = TaskState.READY
@@ -118,7 +118,27 @@ class Task:
         Task.clear_current_task()  
 
     def newTaskFromDictionary(task_dictionary):
-        return Task(task_dictionary["name"], task_dictionary["description"])
+        task = Task(task_dictionary["name"], task_dictionary["description"], eval(task_dictionary["priority"]))
+        frequency = eval(task_dictionary["frequency"])
+        task.frequency = frequency
+        # reset = timedelta(task_dictionary["reset"])
+        # reset = eval(task_dictionary["reset"])
+        # task.reset = reset
+        # target = eval(task_dictionary["target"])
+        # task.target = target
+        # created = eval(task_dictionary["created"])
+        # task.created = created
+        # state = eval(task_dictionary["state"])
+        # task.state = state
+        # time_total = eval(task_dictionary["time_total"])
+        # task.time_total = eval(task_dictionary["time_total"])
+        # task.time_session = None
+        # task.dtg_session_paused = None
+        # task.dtg_session_start = None
+        # task.dtg_session_stop  = None
+
+
+        return task
 
     def getTaskList(cursor):
         taskList = []
