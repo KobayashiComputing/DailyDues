@@ -183,3 +183,5 @@ Hmmm... testing a task list with more than 10 tasks (0 - 9) exposed a problem: I
 Testing with various numbers of tasks in the task list to see how that changed the window size. Apparently the default size of the window (vertically) is something like 60% of the height needed to show all 'rows' in the layout. 
 
 Added code flow to get the list of tasks from the database. Now I just need to fill in the function bodies.
+
+## 2025-09-03: (Wednesday)

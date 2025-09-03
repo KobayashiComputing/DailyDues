@@ -57,9 +57,20 @@ def dbInitDatabase(cursor):
     # all done, so return...
     return dbVersion
 
-def dbGetTaskList(cursor):
-    taskList = []
-    return taskList
+def dbGetTaskData(cursor):
+    # Get column names
+    cursor.execute("PRAGMA table_info(tasks);")
+    info = cursor.fetchall()
+    # columns = [column[1] for column in cursor.fetchall()]    
+    columns = [column[1] for column in info]    
+
+    # Get the row data    
+    rows = []
+    sqlQuery = "SELECT * FROM tasks;"
+    cursor.execute(sqlQuery)
+    rows = cursor.fetchall()
+
+    return info, columns, rows
 
 def dbUpdate(cursor, table, key=(None, None), values={}):
     # determine if the record with the given key already exists

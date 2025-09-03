@@ -36,7 +36,7 @@ def DailyDues():
                    auto_size_buttons=False)
     
     taskList = Task.getTaskList(dbCursor)
-    taskList = testTaskList(25)
+    # taskList = testTaskList(25)
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
