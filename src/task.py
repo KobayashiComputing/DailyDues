@@ -55,8 +55,8 @@ class Task:
         # internal fields...
         self.created = datetime.now()
         self.state = TaskState.READY
-        self.time_total = None
-        self.time_session = None
+        self.duration_total = None
+        self.duration_session = None
         self.dtg_session_paused = None
         self.dtg_session_start = None
         self.dtg_session_stop = None
@@ -118,26 +118,24 @@ class Task:
         Task.clear_current_task()  
 
     def newTaskFromDictionary(task_dictionary):
+        # user configurable fields
         task = Task(task_dictionary["name"], task_dictionary["description"], eval(task_dictionary["priority"]))
         frequency = eval(task_dictionary["frequency"])
         task.frequency = frequency
-        # reset = timedelta(task_dictionary["reset"])
-        # reset = eval(task_dictionary["reset"])
-        # task.reset = reset
-        # target = eval(task_dictionary["target"])
-        # task.target = target
-        # created = eval(task_dictionary["created"])
-        # task.created = created
+        task.reset = timedelta_from_str(task_dictionary["reset"])
+        target = timedelta_from_str(task_dictionary["target"])
+        task.target = target
+        # internal persistent fields
+        task.created = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["created"]))
         # state = eval(task_dictionary["state"])
-        # task.state = state
-        # time_total = eval(task_dictionary["time_total"])
-        # task.time_total = eval(task_dictionary["time_total"])
-        # task.time_session = None
-        # task.dtg_session_paused = None
-        # task.dtg_session_start = None
-        # task.dtg_session_stop  = None
-
-
+        task.state = TaskState.READY
+        task.duration_total = timedelta_from_str(task_dictionary["duration_total"])
+        # internal temporary fields
+        task.duration_session = timedelta_from_str("None")
+        task.dtg_session_paused = None
+        task.dtg_session_start = None
+        task.dtg_session_stop  = None
+        # return the new task object
         return task
 
     def getTaskList(cursor):
@@ -150,6 +148,56 @@ class Task:
             taskList.append(Task.newTaskFromDictionary(taskDict))
         
         return taskList
+
+def datetime_str_to_ISO8601(s):
+    # example: 2025-09-03 16:29:43.455888 becomes "2025-09-03T14:30:00"
+    #         "2025-09-03T14:30:00"
+    return (s[:19]).replace(" ", "T")
+
+# def timedelta_str_to_ISO8601(s):
+#     days = 0
+#     hours = 0
+#     minutes = 0
+#     seconds = 0
+#     # example: 1 day, 0:00:00 or 1:00:00
+#     if "," in s:
+#         # must have a 'day(s)' value, which is at the beginning
+#         days = int((s[:(s.find(" "))]).strip())
+#         hms = (s[s.find(",")+1:]).strip()
+#     else:
+#         hms = s.strip()
+
+#     hc = hms.find(":")
+#     hours = int(hms[:hc])
+
+#     hms = hms[hc+1:]
+#     mc = hms.find(":")
+#     minutes = int(hms[:mc])
+
+#     hms = hms[mc+1:]
+#     seconds = int(hms)
+
+#     return f"P{days}DT{hours}H{minutes}M{seconds}S"
+
+# def timedelta_from_ISO8601(s):
+#     pass
+
+def timedelta_from_str(s):
+    # if the string is None, return Python None
+    if s == "None":
+        return None
+
+    if "," in s:
+        # Parse the string
+        days, time = s.split(", ")
+        hours, minutes, seconds = map(int, time.split(":"))
+        days = int(days.split()[0])
+    else:
+        hours, minutes, seconds = map(int, s.split(":"))
+        days = 0
+
+    # create and return the timedelta object
+    return timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
 
 def testTaskList(count=10):
     taskList = []

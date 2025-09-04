@@ -187,3 +187,6 @@ Added code flow to get the list of tasks from the database. Now I just need to f
 ## 2025-09-03: (Wednesday)
 Added code to get the task records out of the database and create a dictionary for each record that includes the field name and the data (so this will all still work if any fields are inserted at a later date - hopefully). Then wrote a function in the Task object to create a task object from a dictionary (slyly named it 'newTaskFromDictionary()'). Everything is working except I need to write convertor functions to handle converting the datetime and deltatime objects to and from strings to store in the database. 
 
+Read from database working, but need to sanitize the text fields in case they have any quote marks in them. 
+
+ToDo: think about if session start, stop, and paused DTG should be propagated as "None."
