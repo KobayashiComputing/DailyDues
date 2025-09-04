@@ -190,3 +190,12 @@ Added code to get the task records out of the database and create a dictionary f
 Read from database working, but need to sanitize the text fields in case they have any quote marks in them. 
 
 ToDo: think about if session start, stop, and paused DTG should be propagated as "None."
+
+## 2025-09-04: (Thursday)
+The mechanics are working so far. Need to think about the question above from yesterday, as well as start really thinking about:
+- new task creation form
+- task editing form
+- re-sorting buttons in the stack on *significant* state changes (that is, 'finish', 'hit target')
+- how the 'reset' is going to work and where it will be implemented (these are obviously related)
+
+Also, need to change the state to 'READY' when saving to the database when shutting down...

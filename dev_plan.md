@@ -1,6 +1,6 @@
 # Development Plan
 
-This is the overall plan for how to proceed with this project.
+This is the overall plan for how to proceed with this project. As ususal, plans seem great until the actual project starts, at which time issues present themselves. With that in mind, I have today (Thursday, September 4, 2025) created a separate file named ['dev_report.md'](dev_report.md) which will chronicle (well, more like summarize) what actually happened, rather than what I originally envisioned.
 
 ## Approach
 
