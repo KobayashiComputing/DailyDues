@@ -11,11 +11,21 @@ dbConn = None       #
 dbVersion = None    # this will be a string
 
 def show_button_stack(b):
+    menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
+        ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
+        ['View', ['Summary', 'Details']],
+        ['&Task', ['&New', 'Edit', 'Archive', 'Delete']],
+        ['&Help', ['Docs', '&About...']]
+    ]
     if len(b) < 12:
         b.append([sg.Button('EXIT', button_color=('white', 'firebrick3'))])
-        layout = [ b ]
+        layout = [ 
+            [sg.Menu(menu_def)],
+            [b]
+        ]
     else: 
         layout = [
+            [sg.Menu(menu_def)],
             [sg.Column(b, scrollable=True, vertical_scroll_only=True)],
             [sg.Button('EXIT', button_color=('white', 'firebrick3'))]
         ]
@@ -54,33 +64,46 @@ def DailyDues():
     while True:
         event, values = window.read()
 
+        # find out if we need to exit ('Exit' button or the window's 'X')
         if event == 'EXIT' or event == sg.WIN_CLOSED:
             # print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
             Task.clean_up_for_exit()
             break           # exit button clicked
 
         # print(f"Button for '{event}' clicked...")
+
+        # okay, so not exiting; find out if the 'event' was one of our task buttons...
+        isTaskButton = False
         for index, task in enumerate(taskList):
             if task.name == event:
                 # print(f"Found '{task.name}' at index: {index}")
                 newTask = taskList[index]
+                isTaskButton = True
                 break
-
-        oldTask = Task.get_current_task()
-        newTask = newTask.change_task_state()
-        if newTask == None:     # the old task was simply 'paused'
-            window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
         
-        elif newTask == oldTask:    # the old task was restarted
-            window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
-
-        else:   # a new task was started
-            if oldTask != None:
+        if isTaskButton:
+            oldTask = Task.get_current_task()
+            newTask = newTask.change_task_state()
+            if newTask == None:     # the old task was simply 'paused'
                 window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
-            if newTask != None:
-                window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
+            
+            elif newTask == oldTask:    # the old task was restarted
+                window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
 
-    # We've exited the loop, so close the window and clean up...
+            else:   # a new task was started
+                if oldTask != None:
+                    window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
+                if newTask != None:
+                    window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
+        else:
+            {
+            # if it wasn't an exit event, and not a task button, hopefully it's a menu selection
+            print(f"the '{event}' button was pressed...")
+            }
+
+
+
+    # We've exited the event loop, so close the window and clean up...
     saveTasksTable(taskList)
     closeDB()
     window.close()

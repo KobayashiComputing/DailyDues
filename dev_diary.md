@@ -199,3 +199,6 @@ The mechanics are working so far. Need to think about the question above from ye
 - how the 'reset' is going to work and where it will be implemented (these are obviously related)
 
 Also, need to change the state to 'READY' when saving to the database when shutting down... (I just took care of this).
+
+## 2025-09-05: (Friday)
+Added a menu bar with what I think will be the actual, final menu items. Next effort will be in the 'New' and 'Edit' items on the 'Task' menu. This will require an additional, separate window.
