@@ -86,6 +86,9 @@ class Task:
             return Task.get_current_task()
 
     def saveToDatabase(self, cursor):
+        # before saving to the database, change the state to READY so that
+        # it will be "ready" when it's read back in 
+        self.state = TaskState.READY
         # convert the task into text strings and integers that can be
         # saved in the database
         fldValues = self.__dict__

@@ -198,4 +198,4 @@ The mechanics are working so far. Need to think about the question above from ye
 - re-sorting buttons in the stack on *significant* state changes (that is, 'finish', 'hit target')
 - how the 'reset' is going to work and where it will be implemented (these are obviously related)
 
-Also, need to change the state to 'READY' when saving to the database when shutting down...
+Also, need to change the state to 'READY' when saving to the database when shutting down... (I just took care of this).
