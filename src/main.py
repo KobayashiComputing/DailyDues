@@ -65,7 +65,7 @@ def DailyDues():
         event, values = window.read()
 
         # find out if we need to exit ('Exit' button or the window's 'X')
-        if event == 'EXIT' or event == sg.WIN_CLOSED:
+        if event == 'EXIT' or event == 'Exit' or event == sg.WIN_CLOSED:
             # print(f"Ending program based on button press: 'event' is '%{event}' and 'values' is '%{values}'")
             Task.clean_up_for_exit()
             break           # exit button clicked
@@ -96,11 +96,47 @@ def DailyDues():
                 if newTask != None:
                     window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
         else:
-            {
             # if it wasn't an exit event, and not a task button, hopefully it's a menu selection
-            print(f"the '{event}' button was pressed...")
-            }
+            match event:
+                # The 'File' submenu...
+                case "Export":
+                    pass
+                case "Import":
+                    pass
+                case "Save Database":
+                    pass
+                case "Save Database As...":
+                    pass
+                case "New Empty Database":
+                    pass
+                case "New Test Database":
+                    pass
+                case "Exit":
+                    pass
 
+                # The 'View' submenu...
+                case "Summary":
+                    pass
+                case "Details":
+                    pass
+
+                # The 'Task' submenu...
+                case "New":
+                    pass
+                case "Edit":
+                    pass
+                case "Archive":
+                    pass
+                case "Delete":
+                    pass
+
+                # The 'Help' submenu
+                case "Docs":
+                    pass
+                case "About":
+                    pass
+                case _:
+                    print(f"Hmmm... the '{event}' button was pressed...")
 
 
     # We've exited the event loop, so close the window and clean up...

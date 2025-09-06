@@ -202,3 +202,5 @@ Also, need to change the state to 'READY' when saving to the database when shutt
 
 ## 2025-09-05: (Friday)
 Added a menu bar with what I think will be the actual, final menu items. Next effort will be in the 'New' and 'Edit' items on the 'Task' menu. This will require an additional, separate window.
+
+Added a 'match - case' block with cases for each of the menu items.
