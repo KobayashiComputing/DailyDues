@@ -70,8 +70,6 @@ def DailyDues():
             Task.clean_up_for_exit()
             break           # exit button clicked
 
-        # print(f"Button for '{event}' clicked...")
-
         # okay, so not exiting; find out if the 'event' was one of our task buttons...
         isTaskButton = False
         for index, task in enumerate(taskList):
