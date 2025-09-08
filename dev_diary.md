@@ -210,3 +210,6 @@ No real code changes today... planning to look at how to create a FreeSimpleGUI 
 
 ## 2025-09-07: (Sunday)
 I will be chaning the Task class so that the 'reset' field is the DTG of the *next* reset time, instead of the duration until the next reset. Then, I'll need to implement a timer to run a function to check the reset time of all tasks to see if it has passed, and, if so, 'reset' that task's state and status. This will be a major change, and might require deleting and recreating all of the current databases... or maybe not.
+
+## 2025-09-08: (Monday)
+Updated the 'reset' field in the Task class as outlined above. I changed the data in the current database file with 'DB Browser for SQLite' and it worked like a charm.

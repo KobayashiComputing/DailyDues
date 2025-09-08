@@ -49,11 +49,12 @@ class Task:
         self.name = name
         self.description = desc[:(len(desc) if len(desc) < 256 else 256)]
         self.priority = priority if (priority > 0 and priority < 6) else 3
-        self.frequency = frequency
-        self.reset = timedelta(days=1)
-        self.target = timedelta(hours=1)
+        self.frequency = frequency              # how often this task should 'reset'
+        # self.reset = datetime.now()           # the time of the next 'reset' for this task
+        self.reset = datetime.combine(datetime.now().date() + timedelta(days=1), datetime.min.time())
+        self.target = timedelta(hours=1)        # how much time to spend on this task each reset period
         # internal fields...
-        self.created = datetime.now()
+        self.created = datetime.now()           # creation date of this task
         self.state = TaskState.READY
         self.duration_total = None
         self.duration_session = None
@@ -125,7 +126,8 @@ class Task:
         task = Task(task_dictionary["name"], task_dictionary["description"], eval(task_dictionary["priority"]))
         frequency = eval(task_dictionary["frequency"])
         task.frequency = frequency
-        task.reset = timedelta_from_str(task_dictionary["reset"])
+        # task.reset = timedelta_from_str(task_dictionary["reset"])
+        task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
         # internal persistent fields
