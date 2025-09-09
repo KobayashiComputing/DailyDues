@@ -1,5 +1,6 @@
 import FreeSimpleGUI as sg
 from task import *
+from form_new_task import *
 from commandline import *
 from database import *
 
@@ -17,18 +18,18 @@ def show_button_stack(b):
         ['&Task', ['&New', 'Edit', 'Archive', 'Delete']],
         ['&Help', ['Docs', '&About...']]
     ]
+    
     if len(b) < 12:
-        b.append([sg.Button('EXIT', button_color=('white', 'firebrick3'))])
-        layout = [ 
-            [sg.Menu(menu_def)],
-            [b]
-        ]
-    else: 
-        layout = [
-            [sg.Menu(menu_def)],
-            [sg.Column(b, scrollable=True, vertical_scroll_only=True)],
-            [sg.Button('EXIT', button_color=('white', 'firebrick3'))]
-        ]
+        scrollIt = False
+    else:
+        scrollIt = True
+
+    layout = [ 
+        [sg.Menu(menu_def, key='MainMenu')],
+        # give the column element a 'key' so that it can be updated later... hopefully...
+        [sg.Column(b, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
+        [sg.Button('EXIT', button_color=('white', 'firebrick3'), key='EXIT')]
+    ]
 
     window = sg.Window( 'Daily Dues',
                         layout,
@@ -126,6 +127,7 @@ def DailyDues():
 
                 # The 'Task' submenu...
                 case "New":
+                    newTaskForm()
                     pass
                 case "Edit":
                     pass
