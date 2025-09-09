@@ -137,7 +137,7 @@ def DailyDues():
                 # The 'Help' submenu
                 case "Docs":
                     pass
-                case "About":
+                case "About...":
                     pass
                 case _:
                     print(f"Hmmm... the '{event}' button was pressed...")
