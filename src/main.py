@@ -51,8 +51,14 @@ def DailyDues():
     
     pass
 
-    # taskList = Task.getTaskList(dbCursor)
-    taskList = testTaskList(13)
+    # NOTE: only one of the 'taskList =' lines should be uncommented. Choose
+    # which one based on the comments...
+    #
+    # load the task list from the database...
+    taskList = Task.getTaskList(dbCursor)
+    # ...or generate one 
+    # taskList = testTaskList(13)
+    
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  

@@ -50,8 +50,8 @@ class Task:
         self.description = desc[:(len(desc) if len(desc) < 256 else 256)]
         self.priority = priority if (priority > 0 and priority < 6) else 3
         self.frequency = frequency              # how often this task should 'reset'
-        # self.reset = datetime.now()           # the time of the next 'reset' for this task
-        self.reset = datetime.combine(datetime.now().date() + timedelta(days=1), datetime.min.time())
+        # self.reset = datetime.combine(datetime.now().date() + timedelta(days=1), datetime.min.time())
+        self.reset = Task.calcResetDateTime(self.frequency) # the time of the next 'reset' for this task
         self.target = timedelta(hours=1)        # how much time to spend on this task each reset period
         # internal fields...
         self.created = datetime.now()           # creation date of this task
@@ -117,6 +117,11 @@ class Task:
     def finish_task(self):
         self.state = TaskState.FINISHED
         pass
+
+    def calcResetDateTime(rFreq=ResetFrequency.DAILY):
+        # ToDo: calculate timedelta for the different values of ResetFrequency...
+        deltaDays = rFreq.value
+        return datetime.combine(datetime.now().date() + timedelta(days=1), datetime.min.time())
 
     def clean_up_for_exit():
         Task.clear_current_task()  
