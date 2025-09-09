@@ -58,7 +58,7 @@ def DailyDues():
     taskList = Task.getTaskList(dbCursor)
     # ...or generate one 
     # taskList = testTaskList(13)
-    
+
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
@@ -168,6 +168,6 @@ def closeDB():
 
 if __name__ == '__main__':
     dbname = cliGetDatabaseName()
-    # print(f"Using database file {dbname}")
+    print(f"Using database file {dbname}")
     ConnectDB(dbname)
     DailyDues()
