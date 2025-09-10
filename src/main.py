@@ -127,7 +127,9 @@ def DailyDues():
 
                 # The 'Task' submenu...
                 case "New":
-                    newTaskForm()
+                    newTask = newTaskForm()
+                    if newTask != None:
+                        pass
                     pass
                 case "Edit":
                     pass

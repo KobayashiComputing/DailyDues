@@ -1,6 +1,47 @@
 import FreeSimpleGUI as sg
 from task import *
 
+#-----[ populate sg.listbox from enum ]-----
+
+# import PySimpleGUI as sg
+# from enum import Enum
+
+#-----[ populate sg.listbox from enum ]-----
+# # Define an Enum
+# class Colors(Enum):
+#     RED = 1
+#     GREEN = 2
+#     BLUE = 3
+#     YELLOW = 4
+
+# # Extract Enum names or values
+# enum_names = [color.name for color in Colors]  # ['RED', 'GREEN', 'BLUE', 'YELLOW']
+# # enum_values = [color.value for color in Colors]  # [1, 2, 3, 4] (if you prefer values)
+
+# # Define the layout with a Listbox
+# layout = [
+#     [sg.Text("Select a color:")],
+#     [sg.Listbox(values=enum_names, size=(20, len(enum_names)), key='-LISTBOX-')],
+#     [sg.Button("Submit"), sg.Button("Exit")]
+# ]
+
+# # Create the window
+# window = sg.Window("Enum to Listbox Example", layout)
+
+# # Event loop
+# while True:
+#     event, values = window.read()
+#     if event in (sg.WINDOW_CLOSED, "Exit"):
+#         break
+#     elif event == "Submit":
+#         selected = values['-LISTBOX-']
+#         sg.popup(f"You selected: {selected}")
+
+# # Close the window
+# window.close()
+#-----[ end: populate sg.listbox from enum ]-----
+
+
 
 def newTaskForm():
     # sg.theme('Dark')   # theme for this window, or all of sg?
@@ -30,6 +71,7 @@ def newTaskForm():
         [sg.Text('Priority defaults to 3 and Frequency to Daily')],
         [sg.Push(), sg.Text('Name'), sg.InputText(key='name')],
         [sg.Push(), sg.Text('Description'), sg.InputText(key='description')],
+        [sg.Push(), sg.Text('Target'), sg.InputText(key='target')],
         [
             sg.Push(),
             sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
@@ -40,14 +82,25 @@ def newTaskForm():
         [sg.Save(), sg.Cancel()]
     ]
 
-    # Create the Window
+    # newTask will be our return value, set it up here in case we get a 'Cancel'
+    # or 'WIN_CLOSED' event
+    newTask = None
+
+    # Create and show the Window
     form_new_task = sg.Window('Task', layout)
+
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = form_new_task.read()
         if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
             break
+
+        # the only non-exit button click is the 'Save' button, so handle that here
+        # 'values' is a dictionary with field names and data
         print('You entered ', values)
+        break
+
 
     form_new_task.close()
+    return newTask
 

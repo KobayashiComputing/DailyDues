@@ -213,3 +213,8 @@ I will be chaning the Task class so that the 'reset' field is the DTG of the *ne
 
 ## 2025-09-08: (Monday)
 Updated the 'reset' field in the Task class as outlined above. I changed the data in the current database file with 'DB Browser for SQLite' and it worked like a charm.
+
+## 2025-09-09: (Tuesday)
+Progress on the form for adding a new task.
+
+## 2025-09-10: (Wednesday)
