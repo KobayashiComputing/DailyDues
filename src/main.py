@@ -3,6 +3,7 @@ from task import *
 from form_new_task import *
 from commandline import *
 from database import *
+from ask_about_test_data import *
 
 ROOT_PATH = './'
 
@@ -10,6 +11,7 @@ ROOT_PATH = './'
 dbCursor = None     # 
 dbConn = None       #
 dbVersion = None    # this will be a string
+dbEmpty = None
 
 def show_button_stack(b):
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
@@ -52,13 +54,30 @@ def DailyDues():
     
     pass
 
-    # NOTE: only one of the 'taskList =' lines should be uncommented. Choose
-    # which one based on the comments...
-    #
-    # load the task list from the database...
-    taskList = Task.getTaskList(dbCursor)
-    # ...or generate one 
-    # taskList = testTaskList(13)
+    # Check to see if the database is empty (newly created), and if it is, display a window 
+    # to ask about creating 'test' data...
+    # Note that this will work only for a *new* database, because once it's created, it's not
+    # truly 'empty'
+    # Note also that this is for use only while in early (more or less) development; it will 
+    # be removed (probably) for production use.
+    if dbEmpty:
+        createTestData, testDataCount = askAboutTestData(dbname)
+    else:
+        createTestData = False
+        testDataCount = 0
+
+    if createTestData:
+        taskList = testTaskList(testDataCount)
+    else:
+        taskList = Task.getTaskList(dbCursor)
+    
+    # # NOTE: only one of the 'taskList =' lines should be uncommented. Choose
+    # # which one based on the comments...
+    # #
+    # # load the task list from the database...
+    # taskList = Task.getTaskList(dbCursor)
+    # # ...or generate one 
+    # # taskList = testTaskList(13)
 
     buttonStack = []
     for task in taskList:
@@ -155,6 +174,7 @@ def DailyDues():
 def ConnectDB(dbname):
     global dbConn
     global dbCursor
+    global dbEmpty
     dbConn, dbCursor, dbEmpty = dbGetDatabaseCursor(dbname)
     if dbEmpty:
         # print(f"Database {dbname} is empty! (Probably just created...)")
@@ -171,6 +191,7 @@ def closeDB():
     dbSaveDatabase(dbConn)
 
 if __name__ == '__main__':
+    global dbname
     dbname = cliGetDatabaseName()
     print(f"Using database file {dbname}")
     ConnectDB(dbname)

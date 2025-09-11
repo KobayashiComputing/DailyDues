@@ -218,3 +218,7 @@ Updated the 'reset' field in the Task class as outlined above. I changed the dat
 Progress on the form for adding a new task.
 
 ## 2025-09-10: (Wednesday)
+More progress on the 'new task' form.
+
+## 2025-09-11: (Thursday)
+Added logic to check for empty database and ask if the user wants to add 'test' data. This will be useful while in development, but will be removed for production use. 
