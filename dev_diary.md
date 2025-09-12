@@ -209,7 +209,7 @@ Added a 'match - case' block with cases for each of the menu items.
 No real code changes today... planning to look at how to create a FreeSimpleGUI window with a form to create a new task or edit an existing task. Not sure how easy (or difficult) that's going to be. Yet. ;-)
 
 ## 2025-09-07: (Sunday)
-I will be chaning the Task class so that the 'reset' field is the DTG of the *next* reset time, instead of the duration until the next reset. Then, I'll need to implement a timer to run a function to check the reset time of all tasks to see if it has passed, and, if so, 'reset' that task's state and status. This will be a major change, and might require deleting and recreating all of the current databases... or maybe not.
+I will be changing the Task class so that the 'reset' field is the DTG of the *next* reset time, instead of the duration until the next reset. Then, I'll need to implement a timer to run a function to check the reset time of all tasks to see if it has passed, and, if so, 'reset' that task's state and status. This will be a major change, and might require deleting and recreating all of the current databases... or maybe not.
 
 ## 2025-09-08: (Monday)
 Updated the 'reset' field in the Task class as outlined above. I changed the data in the current database file with 'DB Browser for SQLite' and it worked like a charm.
@@ -222,3 +222,4 @@ More progress on the 'new task' form.
 
 ## 2025-09-11: (Thursday)
 Added logic to check for empty database and ask if the user wants to add 'test' data. This will be useful while in development, but will be removed for production use. 
+
