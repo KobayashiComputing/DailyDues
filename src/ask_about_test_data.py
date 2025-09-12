@@ -11,7 +11,8 @@ def askAboutTestData(db):
         [sg.Yes(), sg.No()]
     ]
 
-    # createTestData will be our return value, defaulting to 'False'
+    # createTestData will be our main return value, defaulting to 'False', and testDataCount will
+    # be returned as well, used if createTestData is True
     createTestData = False
     testDataCount = 0
 

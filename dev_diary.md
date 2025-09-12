@@ -223,3 +223,6 @@ More progress on the 'new task' form.
 ## 2025-09-11: (Thursday)
 Added logic to check for empty database and ask if the user wants to add 'test' data. This will be useful while in development, but will be removed for production use. 
 
+## 2025-09-12: (Friday)
+Some minor changes to documentation and some comments. Some testing and debugging as well.
+
