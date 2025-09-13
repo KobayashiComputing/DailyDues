@@ -8,6 +8,10 @@ def dbGetDatabaseCursor(db):
     # Create a cursor object to execute SQL commands
     cursor = connection.cursor()
 
+    # Get version info for SQLite in use
+    cursor.execute("select sqlite_version();")
+    sqlVersion = cursor.fetchone()[0]
+
     # cursor.execute("SELECT name FROM sqlite_schema WHERE type = 'table' ORDER BY name;")
     cursor.execute("SELECT * FROM sqlite_master;")
     tblList = cursor.fetchall()
