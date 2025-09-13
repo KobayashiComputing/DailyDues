@@ -226,3 +226,13 @@ Added logic to check for empty database and ask if the user wants to add 'test' 
 ## 2025-09-12: (Friday)
 Some minor changes to documentation and some comments. Some testing and debugging as well.
 
+## 2025-09-13: (Saturday)
+More work (and some experimentation) on the form to create a new task.
+
+The form it *mostly* finished and working. Still need to
+- check if the new task name is already used and act appropriately
+- create a function to calculate the reset date given the created date and frequency...
+
+Once the new task functionality is completely working and added to the 'taskList', then I'll need to update the main window (and I don't know how to do that... yet...).
+
+That's enough for today... probably...
