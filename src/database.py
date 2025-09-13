@@ -8,7 +8,8 @@ def dbGetDatabaseCursor(db):
     # Create a cursor object to execute SQL commands
     cursor = connection.cursor()
 
-    cursor.execute("SELECT name FROM sqlite_schema WHERE type = 'table' ORDER BY name;")
+    # cursor.execute("SELECT name FROM sqlite_schema WHERE type = 'table' ORDER BY name;")
+    cursor.execute("SELECT * FROM sqlite_master;")
     tblList = cursor.fetchall()
     if len(tblList) == 0:
         dbEmpty = True
