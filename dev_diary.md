@@ -236,3 +236,25 @@ The form it *mostly* finished and working. Still need to
 Once the new task functionality is completely working and added to the 'taskList', then I'll need to update the main window (and I don't know how to do that... yet...).
 
 That's enough for today... probably...
+
+From something Bing search found on the Internet with Copilot:
+```
+The sqlite_schema table, previously known as sqlite_master, has been a 
+core part of SQLite since its early versions. It serves as a system table 
+that stores metadata about the database schema, including tables, indexes, 
+triggers, and views. The name sqlite_schema was introduced in SQLite 
+version 3.33.0, released in August 2020, to align with its purpose more 
+clearly.
+
+```
+
+## 2025-09-14: (Sunday)
+Added the 'taskList.append(newTask)' line to the conditional after calling 'newTaskForm()' and returning a new task object. This works (wasn't too worried about that), but, of course, it does not show up in the button stack in the main window unless the application is closed and then restarted. The fact that it shows up when closed and restarted implies that it's getting stored into the database correctly. I looked a the database with sqlitebrowser and, yes, it is in fact being stored in the database, and it's *almost* correct. The 'reset' in the database shows up as '1' instead of the enum 'ResetFrequency.DAILY', so I need to fix that. 
+
+Added a couple of lines of code to convert the frequency chosen from the list into a value for the ResetFrequency enum, and then into the proper string (as it appears in the database), and then replaced the value in the 'values' dictionary. To wit:
+```
+  fNdx = freqList.index(values['frequency'][0]) + 1
+  eName = next((member.name for member in ResetFrequency if member.value == fNdx), 'DAILY')
+  values['frequency'] = f"ResetFrequency.{eName}"
+```
+Yes, I could combine all of that into a single line of code, but that line would be *long* and somewhat less clear (I think).

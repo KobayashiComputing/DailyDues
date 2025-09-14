@@ -2,48 +2,6 @@ import FreeSimpleGUI as sg
 from task import *
 from datetime import datetime, timedelta
 
-#-----[ populate sg.listbox from enum ]-----
-
-# import PySimpleGUI as sg
-# from enum import Enum
-
-#-----[ populate sg.listbox from enum ]-----
-# # Define an Enum
-# class Colors(Enum):
-#     RED = 1
-#     GREEN = 2
-#     BLUE = 3
-#     YELLOW = 4
-
-# # Extract Enum names or values
-# enum_names = [color.name for color in Colors]  # ['RED', 'GREEN', 'BLUE', 'YELLOW']
-# # enum_values = [color.value for color in Colors]  # [1, 2, 3, 4] (if you prefer values)
-
-# # Define the layout with a Listbox
-# layout = [
-#     [sg.Text("Select a color:")],
-#     [sg.Listbox(values=enum_names, size=(20, len(enum_names)), key='-LISTBOX-')],
-#     [sg.Button("Submit"), sg.Button("Exit")]
-# ]
-
-# # Create the window
-# window = sg.Window("Enum to Listbox Example", layout)
-
-# # Event loop
-# while True:
-#     event, values = window.read()
-#     if event in (sg.WINDOW_CLOSED, "Exit"):
-#         break
-#     elif event == "Submit":
-#         selected = values['-LISTBOX-']
-#         sg.popup(f"You selected: {selected}")
-
-# # Close the window
-# window.close()
-#-----[ end: populate sg.listbox from enum ]-----
-
-
-
 def newTaskForm():
     # sg.theme('Dark')   # theme for this window, or all of sg?
     freqList = [
@@ -112,7 +70,9 @@ def newTaskForm():
         #   - Then convert the index to a string, because that's what Task.newTaskFromDictionary()
         #     expects
         #
-        values['frequency'] = str(freqList.index(values['frequency'][0]) + 1)
+        fNdx = freqList.index(values['frequency'][0]) + 1
+        eName = next((member.name for member in ResetFrequency if member.value == fNdx), 'DAILY')
+        values['frequency'] = f"ResetFrequency.{eName}"
         values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
         values['target'] = str(timedelta(hours=int(values['target'])))
 
@@ -127,4 +87,46 @@ def newTaskForm():
 
     # form_new_task.close()
     return newTask
+
+
+# Some example code I thought might be useful at some point...
+#-----[ populate sg.listbox from enum ]-----
+
+# import PySimpleGUI as sg
+# from enum import Enum
+
+#-----[ populate sg.listbox from enum ]-----
+# # Define an Enum
+# class Colors(Enum):
+#     RED = 1
+#     GREEN = 2
+#     BLUE = 3
+#     YELLOW = 4
+
+# # Extract Enum names or values
+# enum_names = [color.name for color in Colors]  # ['RED', 'GREEN', 'BLUE', 'YELLOW']
+# # enum_values = [color.value for color in Colors]  # [1, 2, 3, 4] (if you prefer values)
+
+# # Define the layout with a Listbox
+# layout = [
+#     [sg.Text("Select a color:")],
+#     [sg.Listbox(values=enum_names, size=(20, len(enum_names)), key='-LISTBOX-')],
+#     [sg.Button("Submit"), sg.Button("Exit")]
+# ]
+
+# # Create the window
+# window = sg.Window("Enum to Listbox Example", layout)
+
+# # Event loop
+# while True:
+#     event, values = window.read()
+#     if event in (sg.WINDOW_CLOSED, "Exit"):
+#         break
+#     elif event == "Submit":
+#         selected = values['-LISTBOX-']
+#         sg.popup(f"You selected: {selected}")
+
+# # Close the window
+# window.close()
+#-----[ end: populate sg.listbox from enum ]-----
 

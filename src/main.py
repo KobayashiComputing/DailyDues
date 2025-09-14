@@ -71,14 +71,6 @@ def DailyDues():
     else:
         taskList = Task.getTaskList(dbCursor)
     
-    # # NOTE: only one of the 'taskList =' lines should be uncommented. Choose
-    # # which one based on the comments...
-    # #
-    # # load the task list from the database...
-    # taskList = Task.getTaskList(dbCursor)
-    # # ...or generate one 
-    # # taskList = testTaskList(13)
-
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
@@ -148,8 +140,7 @@ def DailyDues():
                 case "New":
                     newTask = newTaskForm()
                     if newTask != None:
-                        pass
-                    pass
+                        taskList.append(newTask)
                 case "Edit":
                     pass
                 case "Archive":
@@ -163,7 +154,7 @@ def DailyDues():
                 case "About...":
                     pass
                 case _:
-                    print(f"Hmmm... the '{event}' button was pressed...")
+                    print(f"Hmmm... the '{event}' button was chosen...")
 
 
     # We've exited the event loop, so close the window and clean up...
