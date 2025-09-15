@@ -258,3 +258,22 @@ Added a couple of lines of code to convert the frequency chosen from the list in
   values['frequency'] = f"ResetFrequency.{eName}"
 ```
 Yes, I could combine all of that into a single line of code, but that line would be *long* and somewhat less clear (I think).
+
+Thinking about how to 'replace' the button stack, which is in a column element in the main window, I'm hoping it will be possible to simply add the button for the new task (which is already added to the 'taskList') and then use the update() method on the column element something like the code below:
+
+```
+  taskList.append(newTask)
+  buttonStack.append([
+          sg.Button(f'{newTask.name} (P:{newTask.priority})', 
+          button_color=Task.task_color_pairs[newTask.state.value],
+          key=newTask.name)
+      ])
+  window["ButtonColumn"].update(buttonStack)
+  window.refresh()
+```
+
+After some review of the FreeSimpleGUI documents, and a couple of questions on StackOverflow and Reddit asking about exactly this situation, the appears to not be possible. The accepted approach is evidently to create a new window of the same size (or presumably larger, as necessary) in the same location (the x,y coordinate of the upper left window corner) and then to close the old window. 
+
+Sigh. Trying to use the same function to create a new window produces an error that the layout for the column had already been used, and that a 'new, fresh layout' (or something to that effect) has to be used each time. The problem seems to stem from duplicate 'key' values for the task buttons. Maybe using an additional identifier appended to the key will work? I could swap back and forth between 'w0' and 'w1' to identify which window the task buttons will be in...
+
+That will likely require putting the code to create the button stack into the 'show_button_stack()' function and passing in the taskList and a 'main' window identifier. That would somewhat simplify adding the button for the new task to the buttonStack, as it would just be done in the 'show_button_stack()' function. It sure would be a lot easier if FreeSimpleGUI had an update function that could replace the layout of an element with a new/modified layout.

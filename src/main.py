@@ -26,10 +26,12 @@ def show_button_stack(b):
     else:
         scrollIt = True
 
+    cLayout = b
+
     layout = [ 
         [sg.Menu(menu_def, key='MainMenu')],
         # give the column element a 'key' so that it can be updated later... hopefully...
-        [sg.Column(b, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
+        [sg.Column(cLayout, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
         [sg.Button('EXIT', button_color=('white', 'firebrick3'), key='EXIT')]
     ]
 
@@ -40,6 +42,8 @@ def show_button_stack(b):
                         keep_on_top=True,
                         resizable=False, 
                         finalize=True)
+
+    cLayout = None
 
     # window.set_resizable(False, True)
     return window 
@@ -141,6 +145,16 @@ def DailyDues():
                     newTask = newTaskForm()
                     if newTask != None:
                         taskList.append(newTask)
+                        buttonStack.append([
+                                sg.Button(f'{newTask.name} (P:{newTask.priority})', 
+                                button_color=Task.task_color_pairs[newTask.state.value],
+                                key=newTask.name)
+                            ])
+                        # newWindow = show_button_stack(buttonStack)
+                        # # window["ButtonColumn"].update(buttonStack)
+                        # # window.refresh()
+                        pass
+
                 case "Edit":
                     pass
                 case "Archive":
