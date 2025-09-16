@@ -277,3 +277,6 @@ After some review of the FreeSimpleGUI documents, and a couple of questions on S
 Sigh. Trying to use the same function to create a new window produces an error that the layout for the column had already been used, and that a 'new, fresh layout' (or something to that effect) has to be used each time. The problem seems to stem from duplicate 'key' values for the task buttons. Maybe using an additional identifier appended to the key will work? I could swap back and forth between 'w0' and 'w1' to identify which window the task buttons will be in...
 
 That will likely require putting the code to create the button stack into the 'show_button_stack()' function and passing in the taskList and a 'main' window identifier. That would somewhat simplify adding the button for the new task to the buttonStack, as it would just be done in the 'show_button_stack()' function. It sure would be a lot easier if FreeSimpleGUI had an update function that could replace the layout of an element with a new/modified layout.
+
+## 2025-09-15: (Monday)
+Yesterday's efforts spilled into the early morning of today. 
