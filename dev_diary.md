@@ -280,3 +280,9 @@ That will likely require putting the code to create the button stack into the 's
 
 ## 2025-09-15: (Monday)
 Yesterday's efforts spilled into the early morning of today. 
+
+## 2025-09-16: (Tuesday)
+Vacation day!
+
+## 2025-09-17: (Wednesday)
+Vacation day!
