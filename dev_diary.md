@@ -80,7 +80,7 @@ I finished the Boot.dev course titled "Memory Management in C" today, and the ne
 
 One other minor update for today: I changed the name of the "requirements.md" file to "dev_requirements.md" to avoid any confusion with the "requirements.txt" file (which is used by/for pip).
 
-## 2025-08-24: (Sunday)
+## 2025-08-24: (Sunday) (Start of Actual Coding)
 Moved source code from 'floating_toolbar_2.py' to 'main.py' and moved 'main.py' to the main 'src' directory. The code from the floating toolbar 2 example becomes the base for this project. 
 
 ## 2025-08-25: (Monday)
