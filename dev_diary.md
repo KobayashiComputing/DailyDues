@@ -292,3 +292,12 @@ Vacation day!
 
 ## 2025-09-19: (Friday)
 Travel day.
+
+## 2025-09-20: (Saturday)
+Back in the 'office' today. So... where was I... oh, yeah, trying to *refresh* the stack of task buttons in the main window when the task list is updated. I'm going to try to create a new window with the updated task list, then close the original window, then reassign the new window's handle to the original variable. We'll see...
+
+That doesn't quite work, but I think I'm getting closer. The 'layout' for the column element generates a FreeSimpleGUI error that - if I'm understanding it correctly - is complaining about the keys used for the buttons. I think what it means is that I need new, unique, keys for the buttons. I will try to generate 'new' keys by appending a string version of a counter to each one. In order to do this, it will be better to pass the taskList into the 'show_button_stack()' function and build the buttonStask there...
+
+Hmmm... so the 'event' that is returned when a button is pressed is the *key* for that button. 
+
+Okay! That works! Now I need to get the new window to appear at the same place as the old window.

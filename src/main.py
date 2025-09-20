@@ -12,26 +12,36 @@ dbCursor = None     #
 dbConn = None       #
 dbVersion = None    # this will be a string
 dbEmpty = None
+sgKeyNdx = 0
+sgKeyList = ['0', '1', '2', '3', '4']
 
-def show_button_stack(b):
+def show_button_stack(taskList):
+    global sgKeyNdx, sgKeyList
+
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
         ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
         ['View', ['Summary', 'Details']],
         ['&Task', ['&New', 'Edit', 'Archive', 'Delete']],
         ['&Help', ['Docs', '&About...']]
     ]
+
+    # increment the sgKeyNdx... do this here so that the global value is the same throughout this file
+    sgKeyNdx = (sgKeyNdx + 1) %5
     
-    if len(b) < 12:
+    # build the buttonStack with the sgKeyList[snKeyNdx] string appended to the key values of the buttons...
+    buttonStack = []
+    for task in taskList:
+        buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
+                                      button_color=Task.task_color_pairs[task.state.value], 
+                                      key=task.name+sgKeyList[sgKeyNdx])])
+    if len(buttonStack) < 12:
         scrollIt = False
     else:
         scrollIt = True
 
-    cLayout = b
-
     layout = [ 
         [sg.Menu(menu_def, key='MainMenu')],
-        # give the column element a 'key' so that it can be updated later... hopefully...
-        [sg.Column(cLayout, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
+        [sg.Column(buttonStack, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
         [sg.Button('EXIT', button_color=('white', 'firebrick3'), key='EXIT')]
     ]
 
@@ -43,13 +53,11 @@ def show_button_stack(b):
                         resizable=False, 
                         finalize=True)
 
-    cLayout = None
-
-    # window.set_resizable(False, True)
     return window 
 
 
 def DailyDues():
+    global sgKeyNdx, sgKeyList
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
@@ -74,17 +82,13 @@ def DailyDues():
         taskList = testTaskList(testDataCount)
     else:
         taskList = Task.getTaskList(dbCursor)
-    
-    buttonStack = []
-    for task in taskList:
-        buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', button_color=Task.task_color_pairs[task.state.value], key=task.name)])  
-    
 
-    window = show_button_stack(buttonStack)
+    window = show_button_stack(taskList)
 
     # Main loop... repeat until window is closed or "Exit" is clicked...
     while True:
         event, values = window.read()
+        pass
 
         # find out if we need to exit ('Exit' button or the window's 'X')
         if event == 'EXIT' or event == 'Exit' or event == sg.WIN_CLOSED:
@@ -95,7 +99,7 @@ def DailyDues():
         # okay, so not exiting; find out if the 'event' was one of our task buttons...
         isTaskButton = False
         for index, task in enumerate(taskList):
-            if task.name == event:
+            if task.name+sgKeyList[sgKeyNdx] == event:
                 # print(f"Found '{task.name}' at index: {index}")
                 newTask = taskList[index]
                 isTaskButton = True
@@ -105,16 +109,20 @@ def DailyDues():
             oldTask = Task.get_current_task()
             newTask = newTask.change_task_state()
             if newTask == None:     # the old task was simply 'paused'
-                window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
+                # window.find_element(oldTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).Update(button_color=Task.task_color_pairs[oldTask.state.value])
+                window[oldTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[oldTask.state.value])
             
             elif newTask == oldTask:    # the old task was restarted
-                window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
+                # window.find_element(oldTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).Update(button_color=Task.task_color_pairs[oldTask.state.value])
+                window[oldTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[oldTask.state.value])
 
             else:   # a new task was started
                 if oldTask != None:
-                    window[oldTask.name].update(button_color=Task.task_color_pairs[oldTask.state.value])
+                    # window.find_element(oldTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).update(button_color=Task.task_color_pairs[oldTask.state.value])
+                    window[oldTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[oldTask.state.value])
                 if newTask != None:
-                    window[newTask.name].update(button_color=Task.task_color_pairs[newTask.state.value])
+                    # window.find_element(newTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).update(button_color=Task.task_color_pairs[newTask.state.value])
+                    window[newTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[newTask.state.value])
         else:
             # if it wasn't an exit event, and not a task button, hopefully it's a menu selection
             match event:
@@ -145,14 +153,8 @@ def DailyDues():
                     newTask = newTaskForm()
                     if newTask != None:
                         taskList.append(newTask)
-                        buttonStack.append([
-                                sg.Button(f'{newTask.name} (P:{newTask.priority})', 
-                                button_color=Task.task_color_pairs[newTask.state.value],
-                                key=newTask.name)
-                            ])
-                        # newWindow = show_button_stack(buttonStack)
-                        # # window["ButtonColumn"].update(buttonStack)
-                        # # window.refresh()
+                        window.close()
+                        window = show_button_stack(taskList)
                         pass
 
                 case "Edit":
