@@ -15,7 +15,7 @@ dbEmpty = None
 sgKeyNdx = 0
 sgKeyList = ['0', '1', '2', '3', '4']
 
-def show_button_stack(taskList):
+def show_button_stack(taskList, location=(None, None)):
     global sgKeyNdx, sgKeyList
 
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
@@ -34,6 +34,7 @@ def show_button_stack(taskList):
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
                                       button_color=Task.task_color_pairs[task.state.value], 
                                       key=task.name+sgKeyList[sgKeyNdx])])
+
     if len(buttonStack) < 12:
         scrollIt = False
     else:
@@ -47,6 +48,7 @@ def show_button_stack(taskList):
 
     window = sg.Window( 'Daily Dues',
                         layout,
+                        location=location,
                         no_titlebar=False,
                         grab_anywhere=True,
                         keep_on_top=True,
@@ -153,9 +155,11 @@ def DailyDues():
                     newTask = newTaskForm()
                     if newTask != None:
                         taskList.append(newTask)
-                        window.close()
-                        window = show_button_stack(taskList)
+                        oldWindow = window
+                        # window.close()
+                        window = show_button_stack(taskList, location=window.current_location())
                         pass
+                        oldWindow.close()
 
                 case "Edit":
                     pass
