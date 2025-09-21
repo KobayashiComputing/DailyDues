@@ -18,12 +18,16 @@ sgKeyList = ['0', '1', '2', '3', '4']
 def show_button_stack(taskList, location=(None, None)):
     global sgKeyNdx, sgKeyList
 
-    menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
-        ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
-        ['View', ['Summary', 'Details']],
-        ['&Task', ['&New', 'Edit', 'Archive', 'Delete']],
-        ['&Help', ['Docs', '&About...']]
-    ]
+    tList = ['Test Task 1', 'Test Task 2']
+    deleteTaskList = []
+    editTaskList = []
+
+    # menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
+    #     ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
+    #     ['View', ['Summary', 'Details']],
+    #     ['&Task', ['&New', 'Edit', 'Archive', 'Delete', tList]],
+    #     ['&Help', ['Docs', '&About...']]
+    # ]
 
     # increment the sgKeyNdx... do this here so that the global value is the same throughout this file
     sgKeyNdx = (sgKeyNdx + 1) %5
@@ -34,11 +38,20 @@ def show_button_stack(taskList, location=(None, None)):
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
                                       button_color=Task.task_color_pairs[task.state.value], 
                                       key=task.name+sgKeyList[sgKeyNdx])])
+        deleteTaskList.append(f'{task.name}::Delete')
+        editTaskList.append(f'{task.name}::Edit')
 
     if len(buttonStack) < 12:
         scrollIt = False
     else:
         scrollIt = True
+
+    menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
+        ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
+        ['View', ['Summary', 'Details']],
+        ['&Task', ['&New', 'Edit', editTaskList, 'Archive', 'Delete', deleteTaskList]],
+        ['&Help', ['Docs', '&About...']]
+    ]
 
     layout = [ 
         [sg.Menu(menu_def, key='MainMenu')],
@@ -127,6 +140,13 @@ def DailyDues():
                     window[newTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[newTask.state.value])
         else:
             # if it wasn't an exit event, and not a task button, hopefully it's a menu selection
+            #
+            # The 'Task' menu has two submenus - 'Edit' and 'Delete', and we need to determine if our event
+            # is one of those...
+            tmpNdx = event.find('::')
+            if tmpNdx != -1:    # we have an edit, a delete, or a problem...
+                tmpTaskID = event[:tmpNdx]
+                event = event[tmpNdx+2:]
             match event:
                 # The 'File' submenu...
                 case "Export":
@@ -162,10 +182,12 @@ def DailyDues():
                         oldWindow.close()
 
                 case "Edit":
+                    print(f'Editing task "{tmpTaskID}"')
                     pass
                 case "Archive":
                     pass
                 case "Delete":
+                    print(f'Deleting task "{tmpTaskID}"')
                     pass
 
                 # The 'Help' submenu

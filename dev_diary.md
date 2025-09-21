@@ -316,3 +316,22 @@ Hmmm... so the 'event' that is returned when a button is pressed is the *key* fo
 ```
 
 Okay! That works! Now I need to get the new window to appear at the same place as the old window. Getting the old windows location was easy (window.current_location()) and passing that into the 'show_button_stack()' function as a named paramater - and then actually using that in the window creation - did the trick.
+
+## 2025-09-21: (Sunday)
+Next thing to do is the 'Task Delete' menu item. Hopefully this will be easier now that I have the 'show_button_stack()' function handling the creation of a new, updated window. The trick here will be to determine which task to delete. I think my approach will be to add another dropdown list to the 'Task | Delete' menu item. This *should* be as simple as creating a list of possibly abbriviated task names and passing it in as an additional parameter into the 'Menu'.
+
+This is working to display the current list of tasks as a submenu from each of the menu buttons ('Edit' and 'Delete'). The way to distinguish *which* button it is - and differentiate either from the task buttons in the main stack - is by using menu keys. So in the loop to create the task buttons for the main button stack, I just added the following to create the lists for edit and delete.
+```
+        deleteTaskList.append(f'{task.name}::Delete')
+        editTaskList.append(f'{task.name}::Edit')
+```
+
+That works, and adding the following code just before the 'match-case' statement for the menu handling gets us to the point in the code where we need to be for each case:
+```
+            # The 'Task' menu has two submenus - 'Edit' and 'Delete', and we need to determine if our event
+            # is one of those...
+            tmpNdx = event.find('::')
+            if tmpNdx != -1:    # we have an edit, a delete, or a problem...
+                tmpTaskID = event[:tmpNdx]
+                event = event[tmpNdx+2:]
+```
