@@ -1,26 +1,16 @@
 import sqlite3
 import datetime
 
-def dbInsertNewTask(cursor, tbl='tasks', t=None):
+def dbDeleteTask(conn, cursor, tbl='tasks', t=None):
     if t == None:
         return None
     
-    print(f'Inserting "{t.name}" into table "{tbl}"')
-    pass
-
-def dbDeleteTask(cursor, tbl='tasks', t=None):
-    if t == None:
-        return None
-    
-    print(f'Deleting "{t.name}" from table "{tbl}"')
-    pass
-
-def dbUpdateTask(cursor, tbl='tasks', t=None):
-    if t == None:
-        return None
-    
-    print(f'Updating "{t.name}" in table "{tbl}"')
-    pass
+    # print(f'Deleting "{t.name}" from table "{tbl}"')
+    sqlQuery = f'DELETE FROM {tbl} WHERE name = "{t.name}";'
+    cursor.execute(sqlQuery)
+    result = cursor.fetchall()
+    conn.commit()
+    return result
 
 def dbGetDatabaseCursor(db):
     # Connect to the database (or create it if it doesn't exist)
@@ -98,7 +88,7 @@ def dbGetTaskData(cursor):
 
     return info, columns, rows
 
-def dbUpdate(cursor, table, key=(None, None), values={}):
+def dbUpdate(conn, cursor, table, key=(None, None), values={}):
     # determine if the record with the given key already exists
     sqlQuery = f"SELECT EXISTS(SELECT 1 FROM {table} WHERE {key[0]} = '{key[1]}');"
     cursor.execute(sqlQuery)
@@ -139,8 +129,7 @@ def dbUpdate(cursor, table, key=(None, None), values={}):
         sqlQuery = f"insert into {table} ({fieldList}) values ({dataList});"
 
     cursor.execute(sqlQuery)
-    pass
-
+    dbCommit(conn)
 
 def dbCommit(connection):
     connection.commit()

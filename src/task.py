@@ -86,16 +86,16 @@ class Task:
             Task.current_task.start_task()
             return Task.get_current_task()
 
-    def saveToDatabase(self, cursor):
+    def saveToDatabase(self, conn, cursor):
         # before saving to the database, change the state to READY so that
         # it will be "ready" when it's read back in 
         self.state = TaskState.READY
         # convert the task into text strings and integers that can be
         # saved in the database
         fldValues = self.__dict__
-        # call dbUpdate(cursor, tableName, <key tuple>, <values dictionary>) to 
+        # call dbUpdate(conn, cursor, tableName, <key tuple>, <values dictionary>) to 
         # update or insert the record as appropriate
-        dbUpdate(cursor, 'tasks', key=('name', fldValues['name']), values=fldValues)
+        dbUpdate(conn, cursor, 'tasks', key=('name', fldValues['name']), values=fldValues)
         pass
 
     def get_current_task():

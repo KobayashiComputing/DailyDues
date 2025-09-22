@@ -4,6 +4,7 @@ from form_new_task import *
 from commandline import *
 from database import *
 from ask_about_test_data import *
+from form_really_do_it import *
 
 ROOT_PATH = './'
 
@@ -173,9 +174,7 @@ def DailyDues():
                     newTask = newTaskForm()
                     if newTask != None:
                         taskList.append(newTask)
-                        # oldWindow = window
-                        # window = show_button_stack(taskList, location=window.current_location())
-                        # oldWindow.close()
+                        newTask.saveToDatabase(dbConn, dbCursor)
                         window = update_main_window(window, taskList)
 
                 case "Edit":
@@ -188,13 +187,9 @@ def DailyDues():
                     tmpNdx = next((i for i, obj in enumerate(taskList) if obj.name == tmpTaskID), -1)
                     if tmpNdx != -1:
                         # show dialog window to confirm delete...
-                        # if areYouSure("Delete", "Task"):
-                        if True:
+                        if reallyDoIt(f'Really delete task "{taskList[tmpNdx].name}"? (This is immediately permanent!)'):
                             tmpTask = taskList.pop(tmpNdx)
-                            dbDeleteTask(dbCursor, 'tasks', tmpTask)
-                            # oldWindow = window
-                            # window = show_button_stack(taskList, location=window.current_location())
-                            # oldWindow.close()
+                            dbDeleteTask(dbConn, dbCursor, 'tasks', tmpTask)
                             window = update_main_window(window, taskList)
                     pass
 
@@ -212,6 +207,9 @@ def DailyDues():
     closeDB()
     window.close()
 
+def reallyDoIt(msgString):
+    return really_do_it(msgString)
+
 def ConnectDB(dbname):
     global dbConn
     global dbCursor
@@ -225,7 +223,7 @@ def ConnectDB(dbname):
 
 def saveTasksTable(taskList):
     for task in taskList:
-        task.saveToDatabase(dbCursor)
+        task.saveToDatabase(dbConn, dbCursor)
 
 def closeDB():
     global dbConn
