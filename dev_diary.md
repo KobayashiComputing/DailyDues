@@ -338,7 +338,7 @@ That works, and adding the following code just before the 'match-case' statement
 
 I need to remember this code for finding the index of an object in a list of objects:
 ```
-  index = next((i for i, obj in enumerate(my_list) if obj.<attribute_name> == 2), -1)
+  index = next((i for i, obj in enumerate(my_list) if obj.<attribute_name> == <value_sought>), -1)
 ```
 
 Finally (for today), created a function 'update_main_window()' to call whenever the tasklist changes. It creates a new window over the old one, paints it, and then closes the old window.
@@ -346,3 +346,4 @@ Finally (for today), created a function 'update_main_window()' to call whenever 
 ## 2025-09-22: (Monday)
 Finished the 'Task - Delete' functionality, which included some updates to a couple of other functions. The 'New Task' and 'Delete Task' functionality is now completely working.
 
+Got the 'Task - Edit' functionality working. I need to go back and add input checking to both the 'New Task' and 'Edit Task' functions, and check to make sure that the name is not only provided, but is also unique.

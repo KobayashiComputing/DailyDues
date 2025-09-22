@@ -1,9 +1,10 @@
 import FreeSimpleGUI as sg
 from task import *
 from form_new_task import *
+from form_edit_task import *
 from commandline import *
 from database import *
-from ask_about_test_data import *
+from form_ask_about_test_data import *
 from form_really_do_it import *
 
 ROOT_PATH = './'
@@ -43,7 +44,7 @@ def show_button_stack(taskList, location=(None, None)):
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
         ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
         ['View', ['Summary', 'Details']],
-        ['&Task', ['&New', 'Edit', editTaskList, 'Archive', 'Delete', deleteTaskList]],
+        ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
         ['&Help', ['Docs', '&About...']]
     ]
 
@@ -178,7 +179,15 @@ def DailyDues():
                         window = update_main_window(window, taskList)
 
                 case "Edit":
-                    print(f'Editing task "{tmpTaskID}"')
+                    # print(f'Editing task "{tmpTaskID}"')
+                    tmpNdx = next((i for i, obj in enumerate(taskList) if obj.name == tmpTaskID), -1)
+                    if tmpNdx != -1:
+                        # tmpTask = taskList[tmpNdx]
+                        newTask = editTaskForm(taskList[tmpNdx])
+                        if newTask != None:
+                            taskList[tmpNdx] = newTask
+                            newTask.saveToDatabase(dbConn, dbCursor)
+                            window = update_main_window(window, taskList)
                     pass
                 case "Archive":
                     pass

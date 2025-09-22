@@ -2,7 +2,7 @@ import FreeSimpleGUI as sg
 from task import *
 from datetime import datetime, timedelta
 
-def newTaskForm():
+def editTaskForm(task):
     # sg.theme('Dark')   # theme for this window, or all of sg?
     freqList = [
         "Daily",
@@ -24,18 +24,21 @@ def newTaskForm():
         "5"
     ]
 
-    # All the stuff inside your window.
+    freqCurrent = freqList[task.frequency.value - 1]
+    priorityCurrent = priorityList[task.priority - 1]
+    targetCurrent = task.target.total_seconds() / 3600
+
+    # All the stuff inside the window.
     layout = [
-        [sg.Text('New Task - Name and Description are required')],
-        [sg.Text('Priority defaults to 3 and Frequency to Daily')],
-        [sg.Push(), sg.Text('Name'), sg.InputText(key='name')],
-        [sg.Push(), sg.Text('Description'), sg.InputText(key='description')],
-        [sg.Push(), sg.Text('Target (hours per period)'), sg.InputText(key='target')],
+        [sg.Text('Edit Task - Name and Description are required')],
+        [sg.Push(), sg.Text('Name'), sg.InputText(default_text=task.name, key='name')],
+        [sg.Push(), sg.Text('Description'), sg.InputText(default_text=task.description, key='description')],
+        [sg.Push(), sg.Text('Target (hours per period)'), sg.InputText(default_text=f'{targetCurrent}', key='target')],
         [
             sg.Push(),
-            sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
+            sg.Text('Frequency'), sg.Listbox(freqList, default_values=[freqCurrent], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
             sg.Text('          '),
-            sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
+            sg.Text('Priority'), sg.Listbox(priorityList, default_values=[priorityCurrent], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
             sg.Text('                       ')
         ],
         [sg.Save(), sg.Cancel()]
@@ -46,11 +49,11 @@ def newTaskForm():
     newTask = None
 
     # Create and show the Window
-    form_new_task = sg.Window('Task', layout)
+    form_edit_task = sg.Window('Task', layout)
 
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
-        event, values = form_new_task.read()
+        event, values = form_edit_task.read()
         if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
             break
 
@@ -59,7 +62,7 @@ def newTaskForm():
         # print('You entered ', values)
         break
 
-    form_new_task.close()
+    form_edit_task.close()
 
     if event == "Save":
         # Convert the 'frequency' and 'priority' into values that the Task.newTaskFromDictionary()
