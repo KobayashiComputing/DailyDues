@@ -343,3 +343,6 @@ I need to remember this code for finding the index of an object in a list of obj
 
 Finally (for today), created a function 'update_main_window()' to call whenever the tasklist changes. It creates a new window over the old one, paints it, and then closes the old window.
 
+## 2025-09-22: (Monday)
+Finished the 'Task - Delete' functionality, which included some updates to a couple of other functions. The 'New Task' and 'Delete Task' functionality is now completely working.
+
