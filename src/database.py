@@ -1,6 +1,27 @@
 import sqlite3
 import datetime
 
+def dbInsertNewTask(cursor, tbl='tasks', t=None):
+    if t == None:
+        return None
+    
+    print(f'Inserting "{t.name}" into table "{tbl}"')
+    pass
+
+def dbDeleteTask(cursor, tbl='tasks', t=None):
+    if t == None:
+        return None
+    
+    print(f'Deleting "{t.name}" from table "{tbl}"')
+    pass
+
+def dbUpdateTask(cursor, tbl='tasks', t=None):
+    if t == None:
+        return None
+    
+    print(f'Updating "{t.name}" in table "{tbl}"')
+    pass
+
 def dbGetDatabaseCursor(db):
     # Connect to the database (or create it if it doesn't exist)
     connection = sqlite3.connect(db)

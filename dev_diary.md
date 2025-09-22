@@ -335,3 +335,11 @@ That works, and adding the following code just before the 'match-case' statement
                 tmpTaskID = event[:tmpNdx]
                 event = event[tmpNdx+2:]
 ```
+
+I need to remember this code for finding the index of an object in a list of objects:
+```
+  index = next((i for i, obj in enumerate(my_list) if obj.<attribute_name> == 2), -1)
+```
+
+Finally (for today), created a function 'update_main_window()' to call whenever the tasklist changes. It creates a new window over the old one, paints it, and then closes the old window.
+

@@ -22,13 +22,6 @@ def show_button_stack(taskList, location=(None, None)):
     deleteTaskList = []
     editTaskList = []
 
-    # menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
-    #     ['&File', ['Backup', ['Export', 'Import'], ['Save Database', 'Save Database As...', 'New Empty Database', 'New Test Database', 'E&xit']]],
-    #     ['View', ['Summary', 'Details']],
-    #     ['&Task', ['&New', 'Edit', 'Archive', 'Delete', tList]],
-    #     ['&Help', ['Docs', '&About...']]
-    # ]
-
     # increment the sgKeyNdx... do this here so that the global value is the same throughout this file
     sgKeyNdx = (sgKeyNdx + 1) %5
     
@@ -70,9 +63,14 @@ def show_button_stack(taskList, location=(None, None)):
 
     return window 
 
+def update_main_window(oldWindow, taskList):
+    window = show_button_stack(taskList, location=oldWindow.current_location())
+    oldWindow.close()
+    return window
 
 def DailyDues():
     global sgKeyNdx, sgKeyList
+    global dbCursor
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
@@ -175,11 +173,10 @@ def DailyDues():
                     newTask = newTaskForm()
                     if newTask != None:
                         taskList.append(newTask)
-                        oldWindow = window
-                        # window.close()
-                        window = show_button_stack(taskList, location=window.current_location())
-                        pass
-                        oldWindow.close()
+                        # oldWindow = window
+                        # window = show_button_stack(taskList, location=window.current_location())
+                        # oldWindow.close()
+                        window = update_main_window(window, taskList)
 
                 case "Edit":
                     print(f'Editing task "{tmpTaskID}"')
@@ -187,7 +184,18 @@ def DailyDues():
                 case "Archive":
                     pass
                 case "Delete":
-                    print(f'Deleting task "{tmpTaskID}"')
+                    # print(f'Deleting task "{tmpTaskID}"')
+                    tmpNdx = next((i for i, obj in enumerate(taskList) if obj.name == tmpTaskID), -1)
+                    if tmpNdx != -1:
+                        # show dialog window to confirm delete...
+                        # if areYouSure("Delete", "Task"):
+                        if True:
+                            tmpTask = taskList.pop(tmpNdx)
+                            dbDeleteTask(dbCursor, 'tasks', tmpTask)
+                            # oldWindow = window
+                            # window = show_button_stack(taskList, location=window.current_location())
+                            # oldWindow.close()
+                            window = update_main_window(window, taskList)
                     pass
 
                 # The 'Help' submenu
