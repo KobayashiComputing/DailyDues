@@ -347,3 +347,6 @@ Finally (for today), created a function 'update_main_window()' to call whenever 
 Finished the 'Task - Delete' functionality, which included some updates to a couple of other functions. The 'New Task' and 'Delete Task' functionality is now completely working.
 
 Got the 'Task - Edit' functionality working. I need to go back and add input checking to both the 'New Task' and 'Edit Task' functions, and check to make sure that the name is not only provided, but is also unique.
+
+Added checks for empty fields for 'New Task' and 'Edit Task', and check for duplicate name for 'New Task', but still need to display error message in a modal window...
+
