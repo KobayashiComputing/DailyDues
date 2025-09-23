@@ -185,6 +185,8 @@ def DailyDues():
                     if tmpNdx != -1:
                         newTask = editTaskForm(taskList[tmpNdx], taskList)
                         if newTask != None:
+                            # if we changed the name (which is the main key for the task object and record),
+                            # we need to delete the task with the old name from the database...
                             if newTask.name != taskList[tmpNdx].name:
                                 dbDeleteTask(dbConn, dbCursor, 'tasks', taskList[tmpNdx])
                             taskList[tmpNdx] = newTask
