@@ -100,11 +100,19 @@ def DailyDues():
         taskList = Task.getTaskList(dbCursor)
 
     window = show_button_stack(taskList)
+    bg_counter = 0
 
     # Main loop... repeat until window is closed or "Exit" is clicked...
     while True:
-        event, values = window.read()
+        # read any events from the window, but if idle for "x" seconds, run the 
+        # housekeeping chores...
+        event, values = window.read(timeout=10000, timeout_key='--housekeeping--', close=False)
         pass
+
+        if event == '--housekeeping--':
+            bg_counter += 1
+            print(f'Housekeeping run # {bg_counter}...')
+            continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')
         if event == 'EXIT' or event == 'Exit' or event == sg.WIN_CLOSED:
