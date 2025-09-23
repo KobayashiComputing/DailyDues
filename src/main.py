@@ -1,7 +1,8 @@
 import FreeSimpleGUI as sg
+from helpers import *
 from task import *
-from form_new_task import *
-from form_edit_task import *
+from form_new_task import newTaskForm
+from form_edit_task import editTaskForm
 from commandline import *
 from database import *
 from form_ask_about_test_data import *
@@ -172,7 +173,7 @@ def DailyDues():
 
                 # The 'Task' submenu...
                 case "New":
-                    newTask = newTaskForm()
+                    newTask = newTaskForm(taskList)
                     if newTask != None:
                         taskList.append(newTask)
                         newTask.saveToDatabase(dbConn, dbCursor)
@@ -182,9 +183,10 @@ def DailyDues():
                     # print(f'Editing task "{tmpTaskID}"')
                     tmpNdx = next((i for i, obj in enumerate(taskList) if obj.name == tmpTaskID), -1)
                     if tmpNdx != -1:
-                        # tmpTask = taskList[tmpNdx]
-                        newTask = editTaskForm(taskList[tmpNdx])
+                        newTask = editTaskForm(taskList[tmpNdx], taskList)
                         if newTask != None:
+                            if newTask.name != taskList[tmpNdx].name:
+                                dbDeleteTask(dbConn, dbCursor, 'tasks', taskList[tmpNdx])
                             taskList[tmpNdx] = newTask
                             newTask.saveToDatabase(dbConn, dbCursor)
                             window = update_main_window(window, taskList)
@@ -216,8 +218,13 @@ def DailyDues():
     closeDB()
     window.close()
 
-def reallyDoIt(msgString):
-    return really_do_it(msgString)
+# def reallyDoIt(msgString):
+#     return really_do_it(msgString)
+
+# def isDuplicateTask(task, taskList):
+#     if next((i for i, t in enumerate(taskList) if t.name == task.name), -1) != -1:
+#         return True
+#     return False
 
 def ConnectDB(dbname):
     global dbConn

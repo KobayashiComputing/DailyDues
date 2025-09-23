@@ -1,8 +1,9 @@
 import FreeSimpleGUI as sg
+from helpers import *
 from task import *
 from datetime import datetime, timedelta
 
-def newTaskForm():
+def newTaskForm(taskList):
     # sg.theme('Dark')   # theme for this window, or all of sg?
     freqList = [
         "Daily",
@@ -33,9 +34,9 @@ def newTaskForm():
         [sg.Push(), sg.Text('Target (hours per period)'), sg.InputText(key='target')],
         [
             sg.Push(),
-            sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
+            sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
             sg.Text('          '),
-            sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
+            sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
             sg.Text('                       ')
         ],
         [sg.Save(), sg.Cancel()]
@@ -57,35 +58,41 @@ def newTaskForm():
         # the only non-exit button click is the 'Save' button, so handle that here
         # 'values' is a dictionary with field names and data
         # print('You entered ', values)
-        break
+
+        if event == "Save":
+            # Check to make sure all fields are filled in...
+            if values['name'] == "" or values['description'] == "" or values['target'] == "" or values['frequency'] == "" or values['priority'] == "":
+                pass
+                continue
+            elif isDuplicateTask(values['name'], taskList):
+                pass
+                continue
+            else:
+                # Convert the 'frequency' and 'priority' into values that the Task.newTaskFromDictionary()
+                # can process...
+                # Note:
+                #   - FreeSimpleGUI Listbox element returns a list
+                #   - We need to add 1 to the index because the list is zero-bassed
+                #   - Then convert the index to a string, because that's what Task.newTaskFromDictionary()
+                #     expects
+                #
+                fNdx = freqList.index(values['frequency'][0]) + 1
+                eName = next((member.name for member in ResetFrequency if member.value == fNdx), 'DAILY')
+                values['frequency'] = f"ResetFrequency.{eName}"
+                values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
+                values['target'] = str(timedelta(hours=float(values['target'])))
+
+                # Next, we need to add the other Task fields to the dictionary
+                values['created'] = '2025-09-13 00:00:00'
+                values['duration_total'] = "None"
+                # the 'reset' needs to be calculated based on 'created' and 'frequency'...
+                values['reset'] = '2025-09-13 00:00:00'
+
+                newTask = Task.newTaskFromDictionary(values)
+                break
+
 
     form_new_task.close()
-
-    if event == "Save":
-        # Convert the 'frequency' and 'priority' into values that the Task.newTaskFromDictionary()
-        # can process...
-        # Note:
-        #   - FreeSimpleGUI Listbox element returns a list
-        #   - We need to add 1 to the index because the list is zero-bassed
-        #   - Then convert the index to a string, because that's what Task.newTaskFromDictionary()
-        #     expects
-        #
-        fNdx = freqList.index(values['frequency'][0]) + 1
-        eName = next((member.name for member in ResetFrequency if member.value == fNdx), 'DAILY')
-        values['frequency'] = f"ResetFrequency.{eName}"
-        values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
-        values['target'] = str(timedelta(hours=float(values['target'])))
-
-        # Next, we need to add the other Task fields to the dictionary
-        values['created'] = '2025-09-13 00:00:00'
-        values['duration_total'] = "None"
-        # the 'reset' needs to be calculated based on 'created' and 'frequency'...
-        values['reset'] = '2025-09-13 00:00:00'
-
-        newTask = Task.newTaskFromDictionary(values)
-
-
-    # form_new_task.close()
     return newTask
 
 
