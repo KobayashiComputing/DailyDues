@@ -65,7 +65,7 @@ def editTaskForm(task, taskList):
         if event == "Save":
             # Check to make sure all fields are filled in...
             if values['name'] == "" or values['description'] == "" or values['target'] == "" or values['frequency'] == "" or values['priority'] == "":
-                pass
+                displayErrorDialog("All fields must be filled in with appropriate values.")
                 continue
             elif isDuplicateTask(values['name'], taskList) and values['name'] != task.name:
                 pass

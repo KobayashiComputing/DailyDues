@@ -1,4 +1,5 @@
 from form_really_do_it import *
+from form_error_message import *
 from task import *
 
 def reallyDoIt(msgString):
@@ -9,3 +10,5 @@ def isDuplicateTask(taskName, taskList):
         return True
     return False
 
+def displayErrorDialog(msgString):
+    return error_message_dialog(msgString)
