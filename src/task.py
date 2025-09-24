@@ -70,8 +70,8 @@ class Task:
         # internal fields...
         self.created = datetime.now()           # creation date of this task
         self.state = TaskState.READY
-        self.duration_total = None
-        self.duration_session = None
+        self.duration_total = 0.0               # probably best to store this in decimal minutes
+        self.duration_session = 0.0             # probably best to store this in decimal minutes
         self.dtg_session_paused = None
         self.dtg_session_start = None
         self.dtg_session_stop = None
@@ -85,7 +85,7 @@ class Task:
 
         # if a task is "running" then clicking the button for that task
         #       - pauses the task if the task's target for the reset period has not been reached
-        #       - finished the task if the task's target for the reset period has been reached
+        #       - finishes the task if the task's target for the reset period has been reached
         if Task.current_task == self:
             Task.current_task.pause_task()
             Task.current_task = None
@@ -125,10 +125,21 @@ class Task:
 
     def start_task(self):
         self.state = TaskState.CURRENT
+        self.dtg_session_start = datetime.now()
         pass
 
     def pause_task(self):
         self.state = TaskState.PAUSED
+        self.dtg_session_paused = datetime.now()
+        self.duration_session = self.dtg_session_paused - self.dtg_session_start
+        self.duration_session = self.duration_session.total_seconds() / 60.0
+        if self.duration_total == None:
+            self.duration_total = self.duration_session
+        else:
+            self.duration_total = self.duration_total + self.duration_session
+
+        # To-Do: check for and handle when a task is finished for the current period
+
         pass
 
     def finish_task(self):
@@ -158,16 +169,18 @@ class Task:
             task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
+
         # internal persistent fields
         task.created = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["created"]))
-        # state = eval(task_dictionary["state"])
         task.state = TaskState.READY
-        task.duration_total = timedelta_from_str(task_dictionary["duration_total"])
+        task.duration_total = eval(task_dictionary["duration_total"])
+
         # internal temporary fields
-        task.duration_session = timedelta_from_str("None")
-        task.dtg_session_paused = None
-        task.dtg_session_start = None
-        task.dtg_session_stop  = None
+        task.duration_session = eval(task_dictionary["duration_session"])
+        task.dtg_session_paused = task_dictionary["dtg_session_paused"]
+        task.dtg_session_start = task_dictionary["dtg_session_start"]
+        task.dtg_session_stop  = task_dictionary["dtg_session_stop"]
+
         # return the new task object
         return task
 

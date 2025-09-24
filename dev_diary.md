@@ -358,3 +358,14 @@ Grayed out menu items that have not yet been implemented.
 Added 'Housekeeping' hook to main loop, but not doing any just yet (just printing a line when it runs).
 
 Some progress calculating reset datetime. I think I've got the creatition time correct. These are in both the 'Task - New' and 'Task - Edit' functions. 
+
+## 2025-09-24: (Wednesday)
+Added call to 'displayErrorDialog()' for duplicate task name for both 'Task - New' and 'Task - Edit'.
+
+Added logic to handle session duration and total duration. 
+
+Still need to work on:
+- 'Finishing' a task for the current period
+- Sorting of the button stack according to task priority, etc.
+- Updating button colors when tasks get close to their reset without new work
+- Updating button colors when tasks are overdue

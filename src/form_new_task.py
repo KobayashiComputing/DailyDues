@@ -65,7 +65,7 @@ def newTaskForm(taskList):
                 displayErrorDialog("All fields must be filled in with appropriate values.")
                 continue
             elif isDuplicateTask(values['name'], taskList):
-                pass
+                displayErrorDialog(f'A task with the name "{values['name']}" already exists. Please choose another name...')
                 continue
             else:
                 # Convert the 'frequency' and 'priority' into values that the Task.newTaskFromDictionary()
@@ -84,8 +84,11 @@ def newTaskForm(taskList):
 
                 # Next, we need to add the other Task fields to the dictionary
                 values['created'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                # values['created'] = '2025-09-13 00:00:00'
-                values['duration_total'] = "None"
+                values['duration_total'] = "0.0"
+                values['duration_session'] = "0.0"
+                values['dtg_session_start'] = "None"
+                values['dtg_session_paused'] = "None"
+                values['dtg_session_stop'] = "None"
                 # the 'reset' will be calculated in the 'newTaskFromDictionary()' function.
                 # If it's 'None', it will be based on 'created' and 'frequency'.
                 values['reset'] = None

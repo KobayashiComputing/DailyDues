@@ -69,7 +69,7 @@ def editTaskForm(task, taskList):
                 displayErrorDialog("All fields must be filled in with appropriate values.")
                 continue
             elif isDuplicateTask(values['name'], taskList) and values['name'] != task.name:
-                pass
+                displayErrorDialog(f'A task with the name "{values['name']}" already exists. Please choose another name...')
                 continue
             else:
                 # Convert the 'frequency' and 'priority' into values that the Task.newTaskFromDictionary()
@@ -86,14 +86,14 @@ def editTaskForm(task, taskList):
                 values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
                 values['target'] = str(timedelta(hours=float(values['target'])))
 
-                # Next, we need to add the other Task fields to the dictionary from the original 
-                # task passed in... this requires some conversions...
+                # Next, we need to add the non-editable fields from the original task
                 values['created'] = task.created.strftime("%Y-%m-%d %H:%M:%S")
-                # values['created'] = '2025-09-13 00:00:00'
-                values['duration_total'] = task.duration_total
-                # values['duration_total'] = "None"
+                values['duration_total'] = str(task.duration_total)
+                values['duration_session'] = str(task.duration_session)
+                values['dtg_session_start'] = task.dtg_session_start
+                values['dtg_session_paused'] = task.dtg_session_paused
+                values['dtg_session_stop'] = task.dtg_session_stop
                 values['reset'] = task.reset.strftime("%Y-%m-%d %H:%M:%S")
-                # values['reset'] = '2025-09-13 00:00:00'
 
                 newTask = Task.newTaskFromDictionary(values)
                 break
