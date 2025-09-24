@@ -350,3 +350,11 @@ Got the 'Task - Edit' functionality working. I need to go back and add input che
 
 Added checks for empty fields for 'New Task' and 'Edit Task', and check for duplicate name for 'New Task', but still need to display error message in a modal window...
 
+## 2025-09-23: (Tuesday)
+'New Task' and 'Edit Task' functionality working with error display in modal window.
+
+Grayed out menu items that have not yet been implemented.
+
+Added 'Housekeeping' hook to main loop, but not doing any just yet (just printing a line when it runs).
+
+Some progress calculating reset datetime. I think I've got the creatition time correct. These are in both the 'Task - New' and 'Task - Edit' functions. 
