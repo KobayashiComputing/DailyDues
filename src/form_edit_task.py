@@ -25,6 +25,7 @@ def editTaskForm(task, taskList):
         "5"
     ]
 
+    # first, save the original task's data in dictionary format:
     freqCurrent = freqList[task.frequency.value - 1]
     priorityCurrent = priorityList[task.priority - 1]
     targetCurrent = task.target.total_seconds() / 3600
@@ -85,11 +86,14 @@ def editTaskForm(task, taskList):
                 values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
                 values['target'] = str(timedelta(hours=float(values['target'])))
 
-                # Next, we need to add the other Task fields to the dictionary
-                values['created'] = '2025-09-13 00:00:00'
-                values['duration_total'] = "None"
-                # the 'reset' needs to be calculated based on 'created' and 'frequency'...
-                values['reset'] = '2025-09-13 00:00:00'
+                # Next, we need to add the other Task fields to the dictionary from the original 
+                # task passed in... this requires some conversions...
+                values['created'] = task.created.strftime("%Y-%m-%d %H:%M:%S")
+                # values['created'] = '2025-09-13 00:00:00'
+                values['duration_total'] = task.duration_total
+                # values['duration_total'] = "None"
+                values['reset'] = task.reset.strftime("%Y-%m-%d %H:%M:%S")
+                # values['reset'] = '2025-09-13 00:00:00'
 
                 newTask = Task.newTaskFromDictionary(values)
                 break

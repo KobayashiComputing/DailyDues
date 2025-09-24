@@ -83,10 +83,12 @@ def newTaskForm(taskList):
                 values['target'] = str(timedelta(hours=float(values['target'])))
 
                 # Next, we need to add the other Task fields to the dictionary
-                values['created'] = '2025-09-13 00:00:00'
+                values['created'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                # values['created'] = '2025-09-13 00:00:00'
                 values['duration_total'] = "None"
-                # the 'reset' needs to be calculated based on 'created' and 'frequency'...
-                values['reset'] = '2025-09-13 00:00:00'
+                # the 'reset' will be calculated in the 'newTaskFromDictionary()' function.
+                # If it's 'None', it will be based on 'created' and 'frequency'.
+                values['reset'] = None
 
                 newTask = Task.newTaskFromDictionary(values)
                 break

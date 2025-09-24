@@ -10,7 +10,7 @@ class ResetFrequency(Enum):
     BIWEEKLY = 5
     MONTHLY = 6
     QUARTERLY = 7
-    BIANNUALLY = 8
+    SEMIANNUALLY = 8      # twice a year, basically every 6 months
     ANNUALLY = 9
 
 class TaskState(Enum):
@@ -24,6 +24,20 @@ class TaskState(Enum):
 # Task Object
 class Task:
     current_task = None
+
+    # the number of days in eacy of the ResetFrequencies
+    day_counts = {
+        "DAILY": 1,
+        "WEEKDAY": 5, 
+        "WEEKLY": 7, 
+        "WORKWEEKLY": 5, 
+        "BIWEEKLY": 14,
+        "MONTHLY": 30,
+        "QUARTERLY": 91.313,
+        "SEMIANNUALY": 182.625,
+        "ANNUALLY": 365.25
+    }
+
     task_colors = [
         "#ffffff",              # white - not used, but need to fill this list space
         "#11c807",              # 1 - green - ready
@@ -98,6 +112,9 @@ class Task:
         dbUpdate(conn, cursor, 'tasks', key=('name', fldValues['name']), values=fldValues)
         pass
 
+    def taskToDictionary(self):
+        return self.__dict__
+
     def get_current_task():
         return Task.current_task
     
@@ -120,8 +137,9 @@ class Task:
 
     def calcResetDateTime(rFreq=ResetFrequency.DAILY):
         # ToDo: calculate timedelta for the different values of ResetFrequency...
-        deltaDays = rFreq.value
-        return datetime.combine(datetime.now().date() + timedelta(days=1), datetime.min.time())
+        deltaDays = Task.day_counts[rFreq.name]
+        nextDate = datetime.combine(datetime.now().date() + timedelta(days=deltaDays), datetime.min.time())
+        return nextDate
 
     def clean_up_for_exit():
         Task.clear_current_task()  
@@ -131,8 +149,13 @@ class Task:
         task = Task(task_dictionary["name"], task_dictionary["description"], eval(task_dictionary["priority"]))
         frequency = eval(task_dictionary["frequency"])
         task.frequency = frequency
-        # task.reset = timedelta_from_str(task_dictionary["reset"])
-        task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
+        # if the reset date is 'None', then this is a newly added task, and we need to 
+        # calculate the reset date from the frequency and the current date;
+        # otherwise, just use the date from the database record.
+        if task_dictionary["reset"] == None:
+            task.reset = Task.calcResetDateTime(frequency)
+        else:
+            task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
         # internal persistent fields
@@ -194,7 +217,7 @@ def datetime_str_to_ISO8601(s):
 
 def timedelta_from_str(s):
     # if the string is None, return Python None
-    if s == "None":
+    if s == "None" or s == None:
         return None
 
     if "," in s:
