@@ -142,6 +142,9 @@ class Task:
             self.duration_period = self.duration_period + self.duration_session
 
         # To-Do: check for and handle when a task is finished for the current period
+        task_is_finished = False
+        if task_is_finished:
+            self.finish_task()
 
         pass
 

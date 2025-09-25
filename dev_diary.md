@@ -372,3 +372,5 @@ Still need to work on:
 
 ## 2025-09-25: (Thursday)
 After working on the timekeeping functionality, it occurs to me that I will need to add a field to the Task object (and, subsequently, to the database) to keep track of 'duration this period'. I will work on that today.
+
+Added the field for 'duration_period' (the amount of time spent on a task during the current reset period), to the Task object and the database. Also added code to update it when the task it started or paused. Note that determinining when a task is 'finished' will be done whever it is paused, and if it is finished, the state will be set accordingly. Also, note that even a 'finished' task can be started again during the same reset period.
