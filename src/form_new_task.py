@@ -86,6 +86,7 @@ def newTaskForm(taskList):
                 values['created'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 values['duration_total'] = "0.0"
                 values['duration_session'] = "0.0"
+                values['duration_period'] = "0.0"
                 values['dtg_session_start'] = "None"
                 values['dtg_session_paused'] = "None"
                 values['dtg_session_stop'] = "None"

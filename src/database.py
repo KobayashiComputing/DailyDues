@@ -63,6 +63,7 @@ def dbInitDatabase(cursor):
     sqlQuery += "  created TEXT NOT NULL,"
     sqlQuery += "  state TEXT NOT NULL,"
     sqlQuery += "  duration_total TEXT,"
+    sqlQuery += "  duration_period TEXT,"
     sqlQuery += "  duration_session TEXT,"
     sqlQuery += "  dtg_session_paused TEXT,"
     sqlQuery += "  dtg_session_start TEXT,"

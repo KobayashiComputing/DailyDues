@@ -96,6 +96,7 @@ def DailyDues():
 
     if createTestData:
         taskList = testTaskList(testDataCount)
+        saveTasksTable(taskList)
     else:
         taskList = Task.getTaskList(dbCursor)
 
@@ -106,12 +107,18 @@ def DailyDues():
     while True:
         # read any events from the window, but if idle for "x" seconds, run the 
         # housekeeping chores...
-        event, values = window.read(timeout=10000, timeout_key='--housekeeping--', close=False)
+        # Note: the 'timeout' value is in milliseconds...
+        #       1 second is 1000 milliseconds
+        #       10 seconds is 10000 milliseconds
+        #       1 minute is 60,000 milliseconds
+        #       5 minutes is 300,000 milliseconds
+        hkCycleTime = 60000
+        event, values = window.read(timeout=hkCycleTime, timeout_key='--housekeeping--', close=False)
         pass
 
         if event == '--housekeeping--':
             bg_counter += 1
-            print(f'Housekeeping run # {bg_counter}...')
+            print(f'Housekeeping run # {bg_counter} (cycle time is {hkCycleTime/60000} minutes)...')
             continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')

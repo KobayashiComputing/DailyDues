@@ -369,3 +369,6 @@ Still need to work on:
 - Sorting of the button stack according to task priority, etc.
 - Updating button colors when tasks get close to their reset without new work
 - Updating button colors when tasks are overdue
+
+## 2025-09-25: (Thursday)
+After working on the timekeeping functionality, it occurs to me that I will need to add a field to the Task object (and, subsequently, to the database) to keep track of 'duration this period'. I will work on that today.

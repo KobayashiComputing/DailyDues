@@ -89,6 +89,7 @@ def editTaskForm(task, taskList):
                 # Next, we need to add the non-editable fields from the original task
                 values['created'] = task.created.strftime("%Y-%m-%d %H:%M:%S")
                 values['duration_total'] = str(task.duration_total)
+                values['duration_period'] = str(task.duration_period)
                 values['duration_session'] = str(task.duration_session)
                 values['dtg_session_start'] = task.dtg_session_start
                 values['dtg_session_paused'] = task.dtg_session_paused

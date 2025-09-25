@@ -70,8 +70,9 @@ class Task:
         # internal fields...
         self.created = datetime.now()           # creation date of this task
         self.state = TaskState.READY
-        self.duration_total = 0.0               # probably best to store this in decimal minutes
-        self.duration_session = 0.0             # probably best to store this in decimal minutes
+        self.duration_total = 0.0               # decimal minutes
+        self.duration_period = 0.0              # decimal minutes
+        self.duration_session = 0.0             # decimal minutes
         self.dtg_session_paused = None
         self.dtg_session_start = None
         self.dtg_session_stop = None
@@ -135,8 +136,10 @@ class Task:
         self.duration_session = self.duration_session.total_seconds() / 60.0
         if self.duration_total == None:
             self.duration_total = self.duration_session
+            self.duration_period = self.duration_session
         else:
             self.duration_total = self.duration_total + self.duration_session
+            self.duration_period = self.duration_period + self.duration_session
 
         # To-Do: check for and handle when a task is finished for the current period
 
@@ -177,6 +180,7 @@ class Task:
 
         # internal temporary fields
         task.duration_session = eval(task_dictionary["duration_session"])
+        task.duration_period = eval(task_dictionary["duration_period"])
         task.dtg_session_paused = task_dictionary["dtg_session_paused"]
         task.dtg_session_start = task_dictionary["dtg_session_start"]
         task.dtg_session_stop  = task_dictionary["dtg_session_stop"]
