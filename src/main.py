@@ -7,6 +7,7 @@ from commandline import *
 from database import *
 from form_ask_about_test_data import *
 from form_really_do_it import *
+from menu_help import *
 
 ROOT_PATH = './'
 
@@ -14,7 +15,7 @@ ROOT_PATH = './'
 appVersion = "0.00"
 dbCursor = None     # 
 dbConn = None       #
-dbVersion = None    # this will be a string
+dbVersion = "0.10"    # this will be a string
 dbEmpty = None
 sgKeyNdx = 0
 sgKeyList = ['0', '1', '2', '3', '4']
@@ -49,7 +50,7 @@ def show_button_stack(taskList, location=(None, None)):
         ['&File', ['Backup', ['!Export', '!Import'], ['!Save Database', '!Save Database As...', '!New Empty Database', '!New Test Database', 'E&xit']]],
         ['View', ['!Summary', '!Details']],
         ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
-        ['&Help', ['!Docs', '!&About...']]
+        ['&Help', ['User Guide', '&About...']]
     ]
 
     layout = [ 
@@ -121,7 +122,7 @@ def DailyDues():
 
         if event == '--housekeeping--':
             bg_counter += 1
-            print(f'Housekeeping run # {bg_counter} (cycle time is {hkCycleTime/60000} minutes)...')
+            # print(f'Housekeeping run # {bg_counter} (cycle time is {hkCycleTime/60000} minutes)...')
             continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')
@@ -225,12 +226,13 @@ def DailyDues():
                     pass
 
                 # The 'Help' submenu
-                case "Docs":
-                    pass
+                case "User Guide":
+                    app_user_guide()
                 case "About...":
-                    pass
+                    app_about(dbname, appVersion, dbVersion, sgKeyNdx, bg_counter)
                 case _:
-                    print(f"Hmmm... the '{event}' button was chosen...")
+                    error_message_dialog(f"Hmmm... the '{event}' button was chosen...")
+                    # print(f"Hmmm... the '{event}' button was chosen...")
 
 
     # We've exited the event loop, so close the window and clean up...
@@ -255,7 +257,8 @@ def ConnectDB(dbname):
         # print(f"Database {dbname} is empty! (Probably just created...)")
         dbVersion = dbInitDatabase(dbCursor)
         dbCommit(dbConn)
-        print(f"Database {dbname} initialized to version {dbVersion}")
+        error_message_dialog(f"'{dbname}' was not found, so it was created and initialized to version {dbVersion}")
+        # print(f"Database {dbname} initialized to version {dbVersion}")
 
 def saveTasksTable(taskList):
     for task in taskList:
@@ -268,6 +271,6 @@ def closeDB():
 if __name__ == '__main__':
     global dbname
     dbname = cliGetDatabaseName()
-    print(f"Using database file {dbname}")
+    # print(f"Using database file {dbname}")
     ConnectDB(dbname)
     DailyDues()

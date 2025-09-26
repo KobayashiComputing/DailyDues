@@ -5,7 +5,7 @@ def error_message_dialog(msgString):
     # The layout for the FreeSimpleGUI window.
     layout = [
         [sg.Text(msgString)],
-        [sg.Ok()]
+        [sg.Push(), sg.Ok()]
     ]
 
     gotIt = False
