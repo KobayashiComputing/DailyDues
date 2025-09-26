@@ -391,3 +391,5 @@ So, what's left?
 - The 'D' word - *documentation* (gasp!).
 
 Activity for today: I changed the dbVersion string from "0.00a" to "0.10" (and updated this file!).
+
+I also created the functions for the 'Help' menu, and either commented out all 'print()' statements, or changed them to calls to 'error_message_dialog()'.
