@@ -36,7 +36,7 @@ def dbGetDatabaseCursor(db):
     return connection, cursor, dbEmpty
 
 def dbInitDatabase(cursor):
-    dbVersion = "0.00a"
+    dbVersion = "0.10"
     dbDTG = datetime.datetime.now()
     dbDTGstr = dbDTG.strftime("%I:%M%p on %B %d, %Y")
     dbDTGstr = dbDTG.isoformat()

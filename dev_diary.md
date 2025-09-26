@@ -374,3 +374,20 @@ Still need to work on:
 After working on the timekeeping functionality, it occurs to me that I will need to add a field to the Task object (and, subsequently, to the database) to keep track of 'duration this period'. I will work on that today.
 
 Added the field for 'duration_period' (the amount of time spent on a task during the current reset period), to the Task object and the database. Also added code to update it when the task it started or paused. Note that determinining when a task is 'finished' will be done whever it is paused, and if it is finished, the state will be set accordingly. Also, note that even a 'finished' task can be started again during the same reset period.
+
+## 2025-09-26: (Friday)
+With much of the coding done, it's time to think about where I am in this project, what's left to do, and what to do next. 
+
+Everything works for adding, modifying, updating, and deleting tasks. Tracking time spent on an active task is working as well. The app is, I think, in a usable state - for me, but not for anyone else at this point. 
+
+So, what's left? 
+- The 'details' display window (the 'View' menu items).
+- Sorting and re-sorting the list of task objects as tasks get 'finished' and other tasks get near a state of 'overdue.'
+- Reset period processing, which will impact the sorting/re-sorting as well as the colors of the buttons through the reset period.
+- 'Housekeeping' function(s), which will handle both of the above, and probably more as well.
+- Implement the remaining menu items (some of which might just be removed).
+- Checking the version of the database on startup and update the database as needed.
+- Unit tests for all (most? some?) of the functions.
+- The 'D' word - *documentation* (gasp!).
+
+Activity for today: I changed the dbVersion string from "0.00a" to "0.10" (and updated this file!).
