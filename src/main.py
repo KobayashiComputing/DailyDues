@@ -11,6 +11,7 @@ from form_really_do_it import *
 ROOT_PATH = './'
 
 # Global vars used in this source file
+appVersion = "0.00"
 dbCursor = None     # 
 dbConn = None       #
 dbVersion = None    # this will be a string
@@ -29,6 +30,8 @@ def show_button_stack(taskList, location=(None, None)):
     sgKeyNdx = (sgKeyNdx + 1) %5
     
     # build the buttonStack with the sgKeyList[snKeyNdx] string appended to the key values of the buttons...
+    # we need to do this to distinguish the buttons in this window from buttons in the 'old' window, which 
+    # will be behind the new window when adding, deleting, or rearranging buttons in the stack.
     buttonStack = []
     for task in taskList:
         buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
