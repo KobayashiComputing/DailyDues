@@ -393,3 +393,5 @@ So, what's left?
 Activity for today: I changed the dbVersion string from "0.00a" to "0.10" (and updated this file!).
 
 I also created the functions for the 'Help' menu, and either commented out all 'print()' statements, or changed them to calls to 'error_message_dialog()'.
+
+Added base code to support 'Details' view vs 'Summary' view. Now I need to fill in the details in 'Details' view...

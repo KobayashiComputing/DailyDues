@@ -1,4 +1,5 @@
 import FreeSimpleGUI as sg
+import copy
 from helpers import *
 from task import *
 from form_new_task import newTaskForm
@@ -19,6 +20,7 @@ dbVersion = "0.10"    # this will be a string
 dbEmpty = None
 sgKeyNdx = 0
 sgKeyList = ['0', '1', '2', '3', '4']
+currentView = "Summary"     # vs "Details"
 
 def show_button_stack(taskList, location=(None, None)):
     global sgKeyNdx, sgKeyList
@@ -35,9 +37,17 @@ def show_button_stack(taskList, location=(None, None)):
     # will be behind the new window when adding, deleting, or rearranging buttons in the stack.
     buttonStack = []
     for task in taskList:
-        buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
-                                      button_color=Task.task_color_pairs[task.state.value], 
-                                      key=task.name+sgKeyList[sgKeyNdx])])
+        if currentView == "Details":
+            buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
+                                        button_color=Task.task_color_pairs[task.state.value], 
+                                        key=task.name+sgKeyList[sgKeyNdx]),
+                                sg.Text(f'{task.name} Details...')
+                                ])
+        else:
+            buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
+                                        button_color=Task.task_color_pairs[task.state.value], 
+                                        key=task.name+sgKeyList[sgKeyNdx])])
+            
         deleteTaskList.append(f'{task.name}::Delete')
         editTaskList.append(f'{task.name}::Edit')
 
@@ -48,17 +58,18 @@ def show_button_stack(taskList, location=(None, None)):
 
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
         ['&File', ['Backup', ['!Export', '!Import'], ['!Save Database', '!Save Database As...', '!New Empty Database', '!New Test Database', 'E&xit']]],
-        ['View', ['!Summary', '!Details']],
+        ['View', ['Summary', 'Details']],
         ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
         ['&Help', ['User Guide', '&About...']]
     ]
 
     layout = [ 
         [sg.Menu(menu_def, key='MainMenu')],
+        [sg.Text(f'Current View: {currentView}')],
         [sg.Column(buttonStack, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
         [sg.Button('EXIT', button_color=('white', 'firebrick3'), key='EXIT')]
     ]
-
+    
     window = sg.Window( 'Daily Dues',
                         layout,
                         location=location,
@@ -78,6 +89,7 @@ def update_main_window(oldWindow, taskList):
 def DailyDues():
     global sgKeyNdx, sgKeyList
     global dbCursor
+    global currentView
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
@@ -186,9 +198,14 @@ def DailyDues():
 
                 # The 'View' submenu...
                 case "Summary":
-                    pass
+                    if currentView != "Summary":
+                        currentView = "Summary"
+                        window = update_main_window(window, taskList)                        
+
                 case "Details":
-                    pass
+                    if currentView != "Details":
+                        currentView = "Details"
+                        window = update_main_window(window, taskList)                        
 
                 # The 'Task' submenu...
                 case "New":
