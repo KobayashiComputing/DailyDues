@@ -395,3 +395,35 @@ Activity for today: I changed the dbVersion string from "0.00a" to "0.10" (and u
 I also created the functions for the 'Help' menu, and either commented out all 'print()' statements, or changed them to calls to 'error_message_dialog()'.
 
 Added base code to support 'Details' view vs 'Summary' view. Now I need to fill in the details in 'Details' view...
+
+## 2025-09-27: (Saturday)
+It occurs to me that I could/should store a couple of additional pieces of data in the database:
+- The last location of the main window when it's closed
+- The state of the 'View' when the main window was closed (or maybe when the 'View' is changed?)
+
+Thinking about how to keep these data items together and 'at hand', I wonder if a dictionary would be appropriate, and maybe that would be the easiest thing to store in the database? Adding and updating items in the dictionary would be easy, and if it could be converted to a long string and stored in the database that way, that would reduce the number of changes to the database schema (and, also, the code), although I'd need some mechanism to get new items into the dictionary between reading from and writing to the database. This problem might be overcome by:
+- Creating and initializing the dictionary early in the code
+- Read the string from the database
+- Convert the string to a second, temporary dictionary
+- 'Update()' the first dictionary (from the code) with the items from the second dictionary
+- use the dictionary in the code
+- Convert updated dictionary to string and store in db at shutdown
+
+The following code works to do just that:
+```
+    import json
+
+    # Set up the dictionaries
+    settings_from_code = {"name": None, "age": None, "city": None, "lastname": None}
+
+    settings_from_db = {'name': 'Alice', 'age': 25, 'city': 'New York'}
+    string_from_db = json.dumps(settings_from_db)
+    settings_from_db = json.loads(string_from_db)
+
+    # use the 'update()' method to update one dictionary with items from the other
+    settings_from_code.update(settings_from_db)
+
+    # now we can use 'settings_from_code' in the code with the appropriate values 
+    # from the database, and new items with the default values
+    print(settings_from_code)
+```
