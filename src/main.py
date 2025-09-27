@@ -21,8 +21,14 @@ dbEmpty = None
 sgKeyNdx = 0
 sgKeyList = ['0', '1', '2', '3', '4']
 currentView = "Summary"     # vs "Details"
+possibleViews = [
+    ['Summary (Current)', 'Details'],
+    ['Summary', 'Details (Current)']
+]
+possibleViewsNdx = 0
 
 def show_button_stack(taskList, location=(None, None)):
+    global possibleViewsNdx, possibleViews
     global sgKeyNdx, sgKeyList
 
     tList = ['Test Task 1', 'Test Task 2']
@@ -58,7 +64,8 @@ def show_button_stack(taskList, location=(None, None)):
 
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
         ['&File', ['Backup', ['!Export', '!Import'], ['!Save Database', '!Save Database As...', '!New Empty Database', '!New Test Database', 'E&xit']]],
-        ['View', ['Summary', 'Details']],
+        # ['View', ['Summary', 'Details']],
+        ['View', possibleViews[possibleViewsNdx]],
         ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
         ['&Help', ['User Guide', '&About...']]
     ]
@@ -75,7 +82,7 @@ def show_button_stack(taskList, location=(None, None)):
                         location=location,
                         no_titlebar=False,
                         grab_anywhere=True,
-                        keep_on_top=True,
+                        keep_on_top=False,
                         resizable=False, 
                         finalize=True)
 
@@ -90,6 +97,7 @@ def DailyDues():
     global sgKeyNdx, sgKeyList
     global dbCursor
     global currentView
+    global possibleViewsNdx, possibleViews
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
@@ -197,15 +205,27 @@ def DailyDues():
                     pass
 
                 # The 'View' submenu...
-                case "Summary":
+                case "Summary" | "Summary (Current)":
                     if currentView != "Summary":
                         currentView = "Summary"
+                        possibleViewsNdx = 0
                         window = update_main_window(window, taskList)                        
 
-                case "Details":
+                # case "Summary (Current)":
+                #     if currentView != "Summary":
+                #         currentView = "Summary"
+                #         window = update_main_window(window, taskList)                        
+
+                case "Details" | "Details (Current)":
                     if currentView != "Details":
                         currentView = "Details"
+                        possibleViewsNdx = 1
                         window = update_main_window(window, taskList)                        
+
+                # case "Details (Current)":
+                #     if currentView != "Details":
+                #         currentView = "Details"
+                #         window = update_main_window(window, taskList)                        
 
                 # The 'Task' submenu...
                 case "New":
