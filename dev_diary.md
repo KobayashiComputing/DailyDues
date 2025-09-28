@@ -427,3 +427,8 @@ The following code works to do just that:
     # from the database, and new items with the default values
     print(settings_from_code)
 ```
+
+Created an 'appSettings' dictionary to contain various settings related to the app, and will store this in the database soon.
+
+## 2025-09-28: (Sunday)
+Taking today off (mostly...)
