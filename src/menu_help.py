@@ -23,7 +23,7 @@ def app_user_guide():
     tempWindow.close()
     return True
 
-def app_about(dbName = "unknown", appVersion="0.00", dbVersion="0.10", sgKeyNdx=0, bg_counter=0):
+def app_about(dbName = "unknown", appVersion="0.00", dbVersion="0.10", sgKeyNdx=0, bg_counter=0, currentView="Summary"):
     # All the stuff inside the window.
     layout = [
         [sg.Text('Daily Dues (or "Daily Do\'s")')],
@@ -38,6 +38,7 @@ def app_about(dbName = "unknown", appVersion="0.00", dbVersion="0.10", sgKeyNdx=
         [sg.Push(), sg.Text(f'Database Connected: {dbName}')],
         [sg.Push(), sg.Text(f'App Version: {appVersion}')],
         [sg.Push(), sg.Text(f'Database Version: {dbVersion}')],
+        [sg.Push(), sg.Text(f'Current View: {currentView}')],
         [sg.Push(), sg.Text(f'Current Housekeeping Cycle: {bg_counter}')],
         [sg.Push(), sg.Text(f'Main Window Distinguisher Key: {sgKeyNdx}')],
         [sg.Text(f'')],
@@ -45,7 +46,7 @@ def app_about(dbName = "unknown", appVersion="0.00", dbVersion="0.10", sgKeyNdx=
     ]
 
     # Create and show the Window
-    tempWindow = sg.Window('Task', layout, modal=True)
+    tempWindow = sg.Window('Daily Dues - About', layout, modal=True)
 
     # Event Loop to process "events" and get the "values" of the inputs
     while True:

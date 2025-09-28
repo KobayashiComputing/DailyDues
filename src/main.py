@@ -12,6 +12,16 @@ from menu_help import *
 
 ROOT_PATH = './'
 
+# Settings dictionary, which will be stored in the database and recovered when 
+# starting up
+appSettings = {
+    "currentView": "Summary",
+    "possibleViewsNdx": 0,
+    "winLocX": None,
+    "winLocY": None,
+    "appVersion": "0.00"
+}
+
 # Global vars used in this source file
 appVersion = "0.00"
 dbCursor = None     # 
@@ -20,18 +30,16 @@ dbVersion = "0.10"    # this will be a string
 dbEmpty = None
 sgKeyNdx = 0
 sgKeyList = ['0', '1', '2', '3', '4']
-currentView = "Summary"     # vs "Details"
 possibleViews = [
     ['Summary (Current)', 'Details'],
     ['Summary', 'Details (Current)']
 ]
-possibleViewsNdx = 0
 
 def show_button_stack(taskList, location=(None, None)):
-    global possibleViewsNdx, possibleViews
+    global appSettings
+    global possibleViews
     global sgKeyNdx, sgKeyList
 
-    tList = ['Test Task 1', 'Test Task 2']
     deleteTaskList = []
     editTaskList = []
 
@@ -43,7 +51,7 @@ def show_button_stack(taskList, location=(None, None)):
     # will be behind the new window when adding, deleting, or rearranging buttons in the stack.
     buttonStack = []
     for task in taskList:
-        if currentView == "Details":
+        if appSettings['currentView'] == "Details":
             buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
                                         button_color=Task.task_color_pairs[task.state.value], 
                                         key=task.name+sgKeyList[sgKeyNdx]),
@@ -64,15 +72,14 @@ def show_button_stack(taskList, location=(None, None)):
 
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
         ['&File', ['Backup', ['!Export', '!Import'], ['!Save Database', '!Save Database As...', '!New Empty Database', '!New Test Database', 'E&xit']]],
-        # ['View', ['Summary', 'Details']],
-        ['View', possibleViews[possibleViewsNdx]],
+        ['View', possibleViews[appSettings['possibleViewsNdx']]],
         ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
         ['&Help', ['User Guide', '&About...']]
     ]
 
     layout = [ 
         [sg.Menu(menu_def, key='MainMenu')],
-        [sg.Text(f'Current View: {currentView}')],
+        # [sg.Text(f'Current View: {appSettings['currentView']}')],
         [sg.Column(buttonStack, scrollable=scrollIt, vertical_scroll_only=True, key='ButtonColumn')],
         [sg.Button('EXIT', button_color=('white', 'firebrick3'), key='EXIT')]
     ]
@@ -89,15 +96,23 @@ def show_button_stack(taskList, location=(None, None)):
     return window 
 
 def update_main_window(oldWindow, taskList):
+    update_settings_location(oldWindow)
     window = show_button_stack(taskList, location=oldWindow.current_location())
     oldWindow.close()
     return window
+
+def update_settings_location(window):
+    global appSettings
+    appSettings['winLocX'] = window.current_location()[0]
+    appSettings['winLocY'] = window.current_location()[1]
+    return (appSettings['winLocX'], appSettings['winLocY'])
 
 def DailyDues():
     global sgKeyNdx, sgKeyList
     global dbCursor
     global currentView
-    global possibleViewsNdx, possibleViews
+    global appSettings
+    global possibleViews
 
     sg.theme('Dark')
     sg.set_options(element_padding=(2, 2),
@@ -143,6 +158,7 @@ def DailyDues():
         if event == '--housekeeping--':
             bg_counter += 1
             # print(f'Housekeeping run # {bg_counter} (cycle time is {hkCycleTime/60000} minutes)...')
+            update_settings_location(window)
             continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')
@@ -206,26 +222,17 @@ def DailyDues():
 
                 # The 'View' submenu...
                 case "Summary" | "Summary (Current)":
-                    if currentView != "Summary":
-                        currentView = "Summary"
-                        possibleViewsNdx = 0
+                    if appSettings['currentView'] != "Summary":
+                        appSettings['currentView'] = "Summary"
+                        appSettings['possibleViewsNdx'] = 0
                         window = update_main_window(window, taskList)                        
-
-                # case "Summary (Current)":
-                #     if currentView != "Summary":
-                #         currentView = "Summary"
-                #         window = update_main_window(window, taskList)                        
 
                 case "Details" | "Details (Current)":
-                    if currentView != "Details":
+                    if appSettings['currentView'] != "Details":
                         currentView = "Details"
-                        possibleViewsNdx = 1
+                        appSettings['currentView'] = "Details"
+                        appSettings['possibleViewsNdx'] = 1
                         window = update_main_window(window, taskList)                        
-
-                # case "Details (Current)":
-                #     if currentView != "Details":
-                #         currentView = "Details"
-                #         window = update_main_window(window, taskList)                        
 
                 # The 'Task' submenu...
                 case "New":
@@ -266,7 +273,7 @@ def DailyDues():
                 case "User Guide":
                     app_user_guide()
                 case "About...":
-                    app_about(dbname, appVersion, dbVersion, sgKeyNdx, bg_counter)
+                    app_about(dbname, appSettings['appVersion'], dbVersion, sgKeyNdx, bg_counter, appSettings['currentView'])
                 case _:
                     error_message_dialog(f"Hmmm... the '{event}' button was chosen...")
                     # print(f"Hmmm... the '{event}' button was chosen...")
