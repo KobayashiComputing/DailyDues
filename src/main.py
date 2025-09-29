@@ -1,5 +1,6 @@
 import FreeSimpleGUI as sg
 import copy
+import json
 from helpers import *
 from task import *
 from form_new_task import newTaskForm
@@ -36,6 +37,7 @@ possibleViews = [
 ]
 
 def show_button_stack(taskList, location=(None, None)):
+# def show_button_stack(taskList, location=(appSettings['winLocX'], appSettings['winLocY'])):
     global appSettings
     global possibleViews
     global sgKeyNdx, sgKeyList
@@ -109,7 +111,7 @@ def update_settings_location(window):
 
 def DailyDues():
     global sgKeyNdx, sgKeyList
-    global dbCursor
+    global dbCursor, dbVersion
     global currentView
     global appSettings
     global possibleViews
@@ -139,7 +141,7 @@ def DailyDues():
     else:
         taskList = Task.getTaskList(dbCursor)
 
-    window = show_button_stack(taskList)
+    window = show_button_stack(taskList, location=(appSettings['winLocX'], appSettings['winLocY']))
     bg_counter = 0
 
     # Main loop... repeat until window is closed or "Exit" is clicked...
@@ -281,6 +283,7 @@ def DailyDues():
 
     # We've exited the event loop, so close the window and clean up...
     saveTasksTable(taskList)
+    saveAppSettings()
     closeDB()
     window.close()
 
@@ -294,7 +297,7 @@ def DailyDues():
 
 def ConnectDB(dbname):
     global dbConn
-    global dbCursor
+    global dbCursor, dbVersion
     global dbEmpty
     dbConn, dbCursor, dbEmpty = dbGetDatabaseCursor(dbname)
     if dbEmpty:
@@ -303,10 +306,29 @@ def ConnectDB(dbname):
         dbCommit(dbConn)
         error_message_dialog(f"'{dbname}' was not found, so it was created and initialized to version {dbVersion}")
         # print(f"Database {dbname} initialized to version {dbVersion}")
+    else:
+        dbVersion = dbGetDatabaseVersion(dbCursor)
+    
+    # get the app_settings from the database...
+    appSettingsString = dbGetAppSettings(dbCursor)
+    if appSettingsString != "None":
+        mergeAppSettings(appSettingsString)
+
+def mergeAppSettings(s):
+    global appSettings
+    appSettings.update(json.loads(s))
+    pass
 
 def saveTasksTable(taskList):
     for task in taskList:
         task.saveToDatabase(dbConn, dbCursor)
+
+def saveAppSettings():
+    global appSettings
+    appSettingsString = json.dumps(appSettings)
+    saved_string = dbSaveAppSettings(dbCursor, appSettingsString)
+    if saved_string != appSettingsString:
+        error_message_dialog("Application settings not correctly saved... please check...")
 
 def closeDB():
     global dbConn

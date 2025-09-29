@@ -435,3 +435,5 @@ Taking today off (mostly...)
 
 ## 2025-09-29: (Monday)
 Updated database schema to include a field for the 'appSettings' string version.
+
+Added code to save and get the 'appSettings' to and from the database, and appropriately merge them with the existing settings from the code. Also added a 'dbGetDatabaseVersion()' function to get the database version when the database is not empty at startup. 

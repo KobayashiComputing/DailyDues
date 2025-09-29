@@ -76,11 +76,57 @@ def dbInitDatabase(cursor):
     # all done, so return...
     return dbVersion
 
+def dbGetAppSettings(cursor):
+    # Get column names for the dd_info table...
+    cursor.execute("PRAGMA table_info(dd_info);")
+    info = cursor.fetchall()
+    columns = [column[1] for column in info]    
+
+    # Get the dd_info record from the database
+    rows = []
+    sqlQuery = "SELECT * FROM dd_info;"
+    cursor.execute(sqlQuery)
+    rows = cursor.fetchall()
+
+    # Find the index of a specific value
+    field_to_find = 'app_settings'
+
+    try:
+        index = columns.index(field_to_find)
+        return rows[0][index]
+    except ValueError:
+        return "None"
+
+def dbGetDatabaseVersion(cursor):
+    # Get column names for the dd_info table...
+    cursor.execute("PRAGMA table_info(dd_info);")
+    info = cursor.fetchall()
+    columns = [column[1] for column in info]    
+
+    # Get the dd_info record from the database
+    rows = []
+    sqlQuery = "SELECT * FROM dd_info;"
+    cursor.execute(sqlQuery)
+    rows = cursor.fetchall()
+
+    # Find the index of a specific value
+    field_to_find = 'version'
+
+    try:
+        index = columns.index(field_to_find)
+        return rows[0][index]
+    except ValueError:
+        return "None"
+
+def dbSaveAppSettings(cursor, appSettingsString="None"):
+    sqlQuery = f"UPDATE dd_info SET app_settings = '{appSettingsString}';"
+    cursor.execute(sqlQuery)
+    return dbGetAppSettings(cursor)
+
 def dbGetTaskData(cursor):
     # Get column names
     cursor.execute("PRAGMA table_info(tasks);")
     info = cursor.fetchall()
-    # columns = [column[1] for column in cursor.fetchall()]    
     columns = [column[1] for column in info]    
 
     # Get the row data    
@@ -143,13 +189,13 @@ def dbSaveDatabase(conn):
     conn.close()
 
 
-def dbDoQuery(cursor):
-    # Example: Create a table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        age INTEGER
-    )
-    """)
+# def dbDoQuery(cursor):
+#     # Example: Create a table
+#     cursor.execute("""
+#     CREATE TABLE IF NOT EXISTS users (
+#         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         name TEXT NOT NULL,
+#         age INTEGER
+#     )
+#     """)
 
