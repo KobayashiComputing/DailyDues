@@ -36,8 +36,9 @@ def dbGetDatabaseCursor(db):
     return connection, cursor, dbEmpty
 
 def dbInitDatabase(cursor):
-    dbVersion = "0.10"
+    dbVersion = "0.20"
     dbDTG = datetime.datetime.now()
+    app_settings = "None"
     dbDTGstr = dbDTG.strftime("%I:%M%p on %B %d, %Y")
     dbDTGstr = dbDTG.isoformat()
     
@@ -45,10 +46,11 @@ def dbInitDatabase(cursor):
     sqlQuery = ""
     sqlQuery += "CREATE TABLE IF NOT EXISTS dd_info"
     sqlQuery += " (version TEXT NOT NULL,"
-    sqlQuery += "  create_on_raw TEXT NOT NULL,"
+    sqlQuery += "  app_settings TEXT NOT NULL,"
+    sqlQuery += "  created_on_raw TEXT NOT NULL,"
     sqlQuery += "  created_on_txt TEXT NOT NULL);"
     cursor.execute(sqlQuery)
-    sqlQuery = f'insert into dd_info values("{dbVersion}", "{dbDTG}", "{dbDTGstr}");'
+    sqlQuery = f'insert into dd_info values("{dbVersion}", "{app_settings}", "{dbDTG}", "{dbDTGstr}");'
     cursor.execute(sqlQuery)
 
     # create the 'tasks' table...

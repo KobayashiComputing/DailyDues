@@ -432,3 +432,6 @@ Created an 'appSettings' dictionary to contain various settings related to the a
 
 ## 2025-09-28: (Sunday)
 Taking today off (mostly...)
+
+## 2025-09-29: (Monday)
+Updated database schema to include a field for the 'appSettings' string version.
