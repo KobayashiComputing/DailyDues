@@ -53,13 +53,21 @@ def show_button_stack(taskList, location=(None, None)):
     buttonStack = []
     for task in taskList:
         if appSettings['currentView'] == "Details":
-            buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
+            detailString = ''
+            detailString += f'Priority: {task.priority},    Next Reset: {task.reset} ({task.frequency.name.lower()})'
+            detailString += f'\nDuration (in minutes): {round(task.duration_session, 2)} (this session), {round(task.duration_period, 2)} (this period), {round(task.duration_total, 2)} (total)'
+            buttonStack.append([sg.Button(f'{task.name}', 
                                         button_color=Task.task_color_pairs[task.state.value], 
                                         key=task.name+sgKeyList[sgKeyNdx]),
-                                sg.Text(f'{task.name} Details...')
+                                # sg.Text(f'Details for {task.name}')
+                                sg.Multiline(detailString,
+                                             key=task.name+"D"+sgKeyList[sgKeyNdx],
+                                             size=(None, 2),
+                                             no_scrollbar=True,
+                                             write_only=True)
                                 ])
         else:
-            buttonStack.append([sg.Button(f'{task.name} (P:{task.priority})', 
+            buttonStack.append([sg.Button(f'{task.name}', 
                                         button_color=Task.task_color_pairs[task.state.value], 
                                         key=task.name+sgKeyList[sgKeyNdx])])
             
