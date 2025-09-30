@@ -437,3 +437,15 @@ Taking today off (mostly...)
 Updated database schema to include a field for the 'appSettings' string version.
 
 Added code to save and get the 'appSettings' to and from the database, and appropriately merge them with the existing settings from the code. Also added a 'dbGetDatabaseVersion()' function to get the database version when the database is not empty at startup. 
+
+## 2025-09-30: (Tuesday)
+Added code to show a FreeSimpleGUI 'multiline' element with the details of the tasks in the task button stack. Next, I'm going to create a function to return the string used for the details pane, because it will need to be updated during the housekeeping and possibly other times as well.
+
+Added method 'getTaskDetailsString(self)' to 'task.py', and it works well.
+
+So, the details pane - for only the current, active task - should be updated during 'housekeeping' *if* the details pane is being displayed. Other times it might make sense to update it (again, if the details pane is displayed):
+- when a task is started
+- when a task it paused/stopped
+- when another task is started
+
+Corrected an error in the way I was computing durations for the current reset period and the total. I *think* it's fixed now.

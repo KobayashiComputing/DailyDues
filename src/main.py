@@ -53,14 +53,10 @@ def show_button_stack(taskList, location=(None, None)):
     buttonStack = []
     for task in taskList:
         if appSettings['currentView'] == "Details":
-            detailString = ''
-            detailString += f'Priority: {task.priority},    Next Reset: {task.reset} ({task.frequency.name.lower()})'
-            detailString += f'\nDuration (in minutes): {round(task.duration_session, 2)} (this session), {round(task.duration_period, 2)} (this period), {round(task.duration_total, 2)} (total)'
             buttonStack.append([sg.Button(f'{task.name}', 
                                         button_color=Task.task_color_pairs[task.state.value], 
                                         key=task.name+sgKeyList[sgKeyNdx]),
-                                # sg.Text(f'Details for {task.name}')
-                                sg.Multiline(detailString,
+                                sg.Multiline(task.getTaskDetailsString(),
                                              key=task.name+"D"+sgKeyList[sgKeyNdx],
                                              size=(None, 2),
                                              no_scrollbar=True,
@@ -117,6 +113,13 @@ def update_settings_location(window):
     saveAppSettings()
     return (appSettings['winLocX'], appSettings['winLocY'])
 
+def update_task_details_pane(task, window):
+    global sgKeyList, sgKeyNdx
+    detailsString = task.getTaskDetailsString()
+    eKey = task.name+"D"+sgKeyList[sgKeyNdx]
+    window[eKey].update(detailsString)
+    pass
+
 def DailyDues():
     global sgKeyNdx, sgKeyList
     global dbCursor, dbVersion
@@ -161,7 +164,8 @@ def DailyDues():
         #       10 seconds is 10000 milliseconds
         #       1 minute is 60,000 milliseconds
         #       5 minutes is 300,000 milliseconds
-        hkCycleTime = 60000
+        hkCycleTime = 60000     # 60 seconds, or 1 minute
+        hkCycleTime = 30000     # 30 seconds
         event, values = window.read(timeout=hkCycleTime, timeout_key='--housekeeping--', close=False)
         pass
 
@@ -169,6 +173,11 @@ def DailyDues():
             bg_counter += 1
             # print(f'Housekeeping run # {bg_counter} (cycle time is {hkCycleTime/60000} minutes)...')
             update_settings_location(window)
+            current_task = Task.get_current_task()
+            if current_task != None:
+                current_task.updateTaskDurations()
+                if appSettings['currentView'] == "Details":
+                    update_task_details_pane(current_task, window)
             continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')
@@ -189,6 +198,10 @@ def DailyDues():
         if isTaskButton:
             oldTask = Task.get_current_task()
             newTask = newTask.change_task_state()
+            
+            if appSettings['currentView'] == "Details" and oldTask != None:
+                update_task_details_pane(oldTask, window)
+
             if newTask == None:     # the old task was simply 'paused'
                 # window.find_element(oldTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).Update(button_color=Task.task_color_pairs[oldTask.state.value])
                 window[oldTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[oldTask.state.value])
@@ -201,9 +214,13 @@ def DailyDues():
                 if oldTask != None:
                     # window.find_element(oldTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).update(button_color=Task.task_color_pairs[oldTask.state.value])
                     window[oldTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[oldTask.state.value])
+                    if appSettings['currentView'] == "Details":
+                        update_task_details_pane(oldTask, window)
                 if newTask != None:
                     # window.find_element(newTask.name+sgKeyList[sgKeyNdx], silent_on_error=True).update(button_color=Task.task_color_pairs[newTask.state.value])
                     window[newTask.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[newTask.state.value])
+                    if appSettings['currentView'] == "Details":
+                        update_task_details_pane(newTask, window)
         else:
             # if it wasn't an exit event, and not a task button, hopefully it's a menu selection
             #

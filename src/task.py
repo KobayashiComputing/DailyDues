@@ -124,22 +124,47 @@ class Task:
             Task.current_task.pause_task()
             Task.current_task = None
 
+    def getTaskDetailsString(self):
+        if self == Task.get_current_task():
+            sessionMoniker = "this"
+        else:
+            sessionMoniker = "last"
+        detailString = ''
+        detailString += f'Priority: {self.priority},    Next Reset: {self.reset} ({self.frequency.name.lower()})'
+        detailString += f'\nDuration (in decimal minutes): {round(self.duration_session, 2)} ({sessionMoniker} session), {round(self.duration_period, 2)} (this period), {round(self.duration_total, 2)} (total)'
+        return detailString
+
+    def updateTaskDurations(self):
+        oldSessionDuration = self.duration_session
+        session = datetime.now() - self.dtg_session_start
+        self.duration_session = session.total_seconds() / 60.0
+        delta = self.duration_session - oldSessionDuration
+
+        if self.duration_total == None:
+            self.duration_total = delta
+            self.duration_period = delta
+        else:
+            self.duration_total = self.duration_total + delta
+            self.duration_period = self.duration_period + delta
+
     def start_task(self):
         self.state = TaskState.CURRENT
+        self.duration_session = 0.0
         self.dtg_session_start = datetime.now()
-        pass
 
     def pause_task(self):
         self.state = TaskState.PAUSED
         self.dtg_session_paused = datetime.now()
-        self.duration_session = self.dtg_session_paused - self.dtg_session_start
-        self.duration_session = self.duration_session.total_seconds() / 60.0
-        if self.duration_total == None:
-            self.duration_total = self.duration_session
-            self.duration_period = self.duration_session
-        else:
-            self.duration_total = self.duration_total + self.duration_session
-            self.duration_period = self.duration_period + self.duration_session
+        self.updateTaskDurations()
+
+        # session = self.dtg_session_paused - self.dtg_session_start
+        # self.duration_session = session.total_seconds() / 60.0
+        # if self.duration_total == None:
+        #     self.duration_total = self.duration_session
+        #     self.duration_period = self.duration_session
+        # else:
+        #     self.duration_total = self.duration_total + self.duration_session
+        #     self.duration_period = self.duration_period + self.duration_session
 
         # To-Do: check for and handle when a task is finished for the current period
         task_is_finished = False
