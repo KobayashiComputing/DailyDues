@@ -37,7 +37,6 @@ possibleViews = [
 ]
 
 def show_button_stack(taskList, location=(None, None)):
-# def show_button_stack(taskList, location=(appSettings['winLocX'], appSettings['winLocY'])):
     global appSettings
     global possibleViews
     global sgKeyNdx, sgKeyList
@@ -107,6 +106,7 @@ def update_settings_location(window):
     global appSettings
     appSettings['winLocX'] = window.current_location()[0]
     appSettings['winLocY'] = window.current_location()[1]
+    saveAppSettings()
     return (appSettings['winLocX'], appSettings['winLocY'])
 
 def DailyDues():
@@ -140,8 +140,8 @@ def DailyDues():
         saveTasksTable(taskList)
     else:
         taskList = Task.getTaskList(dbCursor)
-
     window = show_button_stack(taskList, location=(appSettings['winLocX'], appSettings['winLocY']))
+    update_settings_location(window)
     bg_counter = 0
 
     # Main loop... repeat until window is closed or "Exit" is clicked...
