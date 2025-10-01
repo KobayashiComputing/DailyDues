@@ -131,7 +131,7 @@ class Task:
             sessionMoniker = "last"
         detailString = ''
         detailString += f'Priority: {self.priority},    Next Reset: {self.reset} ({self.frequency.name.lower()})'
-        detailString += f'\nDuration (in decimal minutes): {round(self.duration_session, 2)} ({sessionMoniker} session), {round(self.duration_period, 2)} (this period), {round(self.duration_total, 2)} (total)'
+        detailString += f'\nDuration (in decimal minutes): {round(self.duration_session, 1)} ({sessionMoniker} session), {round(self.duration_period, 1)} (this period), {round(self.duration_total, 1)} (total)'
         return detailString
 
     def updateTaskDurations(self):

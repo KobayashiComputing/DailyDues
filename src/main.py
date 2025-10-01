@@ -166,6 +166,7 @@ def DailyDues():
         #       5 minutes is 300,000 milliseconds
         hkCycleTime = 60000     # 60 seconds, or 1 minute
         hkCycleTime = 30000     # 30 seconds
+        hkCycleTime = 6000      # every 6 seconds, or .1 minutes
         event, values = window.read(timeout=hkCycleTime, timeout_key='--housekeeping--', close=False)
         pass
 

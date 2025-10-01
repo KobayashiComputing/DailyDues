@@ -449,3 +449,21 @@ So, the details pane - for only the current, active task - should be updated dur
 - when another task is started
 
 Corrected an error in the way I was computing durations for the current reset period and the total. I *think* it's fixed now.
+
+## 2025-10-01: (Wednesday)
+Changed the 'timeout' on the 'sg.window()' call to 6 seconds (which is .1 minutes), and changed the display to round to the nearest tenth of a minute. 
+
+Everything so far seems to be working, and I've started using the app on my local machine. 
+
+So, ***now*** what's left? To my mind (in the order I'll probably do them):
+- Reset period processing, which will impact the sorting/re-sorting as well as the colors of the buttons through the reset period.
+- Sorting and re-sorting the list of task objects as tasks get 'finished' and other tasks get near a state of 'overdue.'
+- 'Housekeeping' function(s), which will handle both of the above, and probably more as well.
+- Implement the remaining menu items (some of which might just be removed).
+- Unit tests for all (most? some?) of the functions.
+- The 'D' word - *documentation* (gasp!).
+- Checking the version of the database on startup and update the database as needed.
+
+I plan to 'release' the first version once the reset period processing and sorting/resorting is complete and added to 'housekeeping'. That will still leave a lot of typing to do.
+
+I've already started thinking about how to do the reset period processing, but it's all vague at this point. I will likely try out some approaches in the 'try_and_learn' directory. 
