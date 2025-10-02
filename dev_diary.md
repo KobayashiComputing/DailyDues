@@ -467,3 +467,33 @@ So, ***now*** what's left? To my mind (in the order I'll probably do them):
 I plan to 'release' the first version once the reset period processing and sorting/resorting is complete and added to 'housekeeping'. That will still leave a lot of typing to do.
 
 I've already started thinking about how to do the reset period processing, but it's all vague at this point. I will likely try out some approaches in the 'try_and_learn' directory. 
+
+## 2025-10-02: (Thursday)
+Thoughs on the algorithm to use for reset period processing:
+- The next reset date should be a multiple of the reset period added to the last know reset date
+  - multiplier = int(days_since_last_reset_date / reset_freq_days)
+  - next_reset_date = last_reset_date + (delta_days * multiplier)
+
+Maybe something like this:
+```
+    # the number of days in each of the ResetFrequencies
+    day_counts = {
+        "DAILY": 1,
+        "WEEKDAY": 5,
+        "WEEKLY": 7, 
+        "WORKWEEKLY": 5, 
+        "BIWEEKLY": 14,
+        "MONTHLY": 30,
+        "QUARTERLY": 91.313,
+        "SEMIANNUALY": 182.625,
+        "ANNUALLY": 365.25
+    }
+
+    def calcResetDateTime(rFreq=ResetFrequency.DAILY, lastResetDate=datetime.now().date()):
+        # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency
+        deltaDays = Task.day_counts[rFreq.name]
+        nextDate = datetime.now().date() - 1
+        while nextDate <= datetime.now().date():
+            nextDate = datetime.combine(lastResetDate + timedelta(days=deltaDays), datetime.min.time())
+        return nextDate
+```

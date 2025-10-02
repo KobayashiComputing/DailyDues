@@ -25,10 +25,10 @@ class TaskState(Enum):
 class Task:
     current_task = None
 
-    # the number of days in eacy of the ResetFrequencies
+    # the number of days in each of the ResetFrequencies
     day_counts = {
         "DAILY": 1,
-        "WEEKDAY": 5, 
+        "WEEKDAY": 5,
         "WEEKLY": 7, 
         "WORKWEEKLY": 5, 
         "BIWEEKLY": 14,
@@ -64,7 +64,6 @@ class Task:
         self.description = desc[:(len(desc) if len(desc) < 256 else 256)]
         self.priority = priority if (priority > 0 and priority < 6) else 3
         self.frequency = frequency              # how often this task should 'reset'
-        # self.reset = datetime.combine(datetime.now().date() + timedelta(days=1), datetime.min.time())
         self.reset = Task.calcResetDateTime(self.frequency) # the time of the next 'reset' for this task
         self.target = timedelta(hours=1)        # how much time to spend on this task each reset period
         # internal fields...
@@ -177,10 +176,12 @@ class Task:
         self.state = TaskState.FINISHED
         pass
 
-    def calcResetDateTime(rFreq=ResetFrequency.DAILY):
-        # ToDo: calculate timedelta for the different values of ResetFrequency...
+    def calcResetDateTime(rFreq=ResetFrequency.DAILY, lastResetDate=datetime.now().date()):
+        # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency
         deltaDays = Task.day_counts[rFreq.name]
-        nextDate = datetime.combine(datetime.now().date() + timedelta(days=deltaDays), datetime.min.time())
+        nextDate = datetime.now().date()
+        while nextDate <= datetime.now().date():
+            nextDate = datetime.combine(lastResetDate + timedelta(days=deltaDays), datetime.min.time())
         return nextDate
 
     def clean_up_for_exit():
