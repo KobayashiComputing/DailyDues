@@ -473,6 +473,7 @@ Thoughs on the algorithm to use for reset period processing:
 - The next reset date should be a multiple of the reset period added to the last know reset date
   - multiplier = int(days_since_last_reset_date / reset_freq_days)
   - next_reset_date = last_reset_date + (delta_days * multiplier)
+- This should only happen if the last reset date has passed (or is today?)
 
 Maybe something like this:
 ```
@@ -490,10 +491,22 @@ Maybe something like this:
     }
 
     def calcResetDateTime(rFreq=ResetFrequency.DAILY, lastResetDate=datetime.now().date()):
-        # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency
-        deltaDays = Task.day_counts[rFreq.name]
-        nextDate = datetime.now().date() - 1
-        while nextDate <= datetime.now().date():
-            nextDate = datetime.combine(lastResetDate + timedelta(days=deltaDays), datetime.min.time())
-        return nextDate
+        # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency (?)
+
+        # if the current reset date has passed, we calculate what the next one should be,
+        # otherwise, we keep the current one
+        if currentResetDateTime <= datetime.now():
+            # the current reset date has passed...
+            deltaDays = Task.day_counts[rFreq.name]
+            nextDateTime = currentResetDateTime
+            while nextDateTime.date() <= datetime.now().date():
+                nextDateTime = datetime.combine(nextDateTime.date() + timedelta(days=deltaDays), datetime.min.time())
+        else:
+            # the current reset date is in the future...
+            nextDateTime = currentResetDateTime
+        return nextDateTime
 ```
+
+Now reset date calculation is working (except for "WEEKDAY" and "WORKWEEKLY", which I will work on at some point in the future; not sure how useful those will really be). 
+
+Next task is to integrate the reset date calculation into 'housekeeping' and reset the time duration for the current period as appropriate.

@@ -176,13 +176,21 @@ class Task:
         self.state = TaskState.FINISHED
         pass
 
-    def calcResetDateTime(rFreq=ResetFrequency.DAILY, lastResetDate=datetime.now().date()):
-        # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency
-        deltaDays = Task.day_counts[rFreq.name]
-        nextDate = datetime.now().date()
-        while nextDate <= datetime.now().date():
-            nextDate = datetime.combine(lastResetDate + timedelta(days=deltaDays), datetime.min.time())
-        return nextDate
+    def calcResetDateTime(rFreq=ResetFrequency.DAILY, currentResetDateTime=datetime.now()):
+        # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency (?)
+
+        # if the current reset date has passed, we calculate what the next one should be,
+        # otherwise, we keep the current one
+        if currentResetDateTime <= datetime.now():
+            # the current reset date has passed...
+            deltaDays = Task.day_counts[rFreq.name]
+            nextDateTime = currentResetDateTime
+            while nextDateTime.date() <= datetime.now().date():
+                nextDateTime = datetime.combine(nextDateTime.date() + timedelta(days=deltaDays), datetime.min.time())
+        else:
+            # the current reset date is in the future...
+            nextDateTime = currentResetDateTime
+        return nextDateTime
 
     def clean_up_for_exit():
         Task.clear_current_task()  
@@ -199,6 +207,7 @@ class Task:
             task.reset = Task.calcResetDateTime(frequency)
         else:
             task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
+            task.reset = Task.calcResetDateTime(task.frequency, task.reset)
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
 
