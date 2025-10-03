@@ -512,5 +512,4 @@ Now reset date calculation is working (except for "WEEKDAY" and "WORKWEEKLY", wh
 Next task is to integrate the reset date calculation into 'housekeeping' and reset the time duration for the current period as appropriate.
 
 ## 2025-10-03: (Friday)
-No work on this today... probably tomorrow, though.
-
+Added code to 'newTaskFromDictionary()' to check for expired period and reset last session duration and period duration to 0.0.

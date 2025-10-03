@@ -205,9 +205,16 @@ class Task:
         # otherwise, just use the date from the database record.
         if task_dictionary["reset"] == None:
             task.reset = Task.calcResetDateTime(frequency)
+            task.duration_period = 0.0
         else:
-            task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
-            task.reset = Task.calcResetDateTime(task.frequency, task.reset)
+            currentReset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
+            task.reset = Task.calcResetDateTime(task.frequency, currentReset)
+            if task.reset != currentReset:
+                task.duration_period = 0.0
+                task.duration_session = 0.0
+            else:
+                task.duration_period = eval(task_dictionary["duration_period"])
+                task.duration_session = eval(task_dictionary["duration_session"])
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
 
@@ -217,8 +224,8 @@ class Task:
         task.duration_total = eval(task_dictionary["duration_total"])
 
         # internal temporary fields
-        task.duration_session = eval(task_dictionary["duration_session"])
-        task.duration_period = eval(task_dictionary["duration_period"])
+        # task.duration_session = eval(task_dictionary["duration_session"])
+        # task.duration_period = eval(task_dictionary["duration_period"])
         task.dtg_session_paused = task_dictionary["dtg_session_paused"]
         task.dtg_session_start = task_dictionary["dtg_session_start"]
         task.dtg_session_stop  = task_dictionary["dtg_session_stop"]
