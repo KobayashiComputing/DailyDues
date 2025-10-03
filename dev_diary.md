@@ -510,3 +510,5 @@ Maybe something like this:
 Now reset date calculation is working (except for "WEEKDAY" and "WORKWEEKLY", which I will work on at some point in the future; not sure how useful those will really be). 
 
 Next task is to integrate the reset date calculation into 'housekeeping' and reset the time duration for the current period as appropriate.
+
+## 2025-10-03: (Friday)
