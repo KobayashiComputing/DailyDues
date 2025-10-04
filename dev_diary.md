@@ -513,3 +513,7 @@ Next task is to integrate the reset date calculation into 'housekeeping' and res
 
 ## 2025-10-03: (Friday)
 Added code to 'newTaskFromDictionary()' to check for expired period and reset last session duration and period duration to 0.0.
+
+## 2025-10-04: (Saturday)
+Today's task (not pun intended): work on sorting the stack of task buttons so that they are in the order that they 'should' be done, with the most pressing at the top. Of course, this means I have to define the algorithm that determines what that order is... hmmm...
+
