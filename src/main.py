@@ -52,6 +52,7 @@ def show_button_stack(taskList, location=(None, None)):
     # will be behind the new window when adding, deleting, or rearranging buttons in the stack.
     buttonStack = []
     for task in taskList:
+        task.updateTaskState()
         if appSettings['currentView'] == "Details":
             buttonStack.append([sg.Button(f'{task.name}', 
                                         button_color=Task.task_color_pairs[task.state.value], 
@@ -179,6 +180,8 @@ def DailyDues():
                 current_task.updateTaskDurations()
                 if appSettings['currentView'] == "Details":
                     update_task_details_pane(current_task, window)
+                # current_task.updateTaskState()
+            
             continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')

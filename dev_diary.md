@@ -517,3 +517,33 @@ Added code to 'newTaskFromDictionary()' to check for expired period and reset la
 ## 2025-10-04: (Saturday)
 Today's task (not pun intended): work on sorting the stack of task buttons so that they are in the order that they 'should' be done, with the most pressing at the top. Of course, this means I have to define the algorithm that determines what that order is... hmmm...
 
+First, I need to decide when to change the colors of the buttons. The lists of task colors and task color pairs is:
+```
+    task_colors = [
+        "#ffffff",              # white - not used, but need to fill this list space
+        "#11c807",              # 1 - green - ready
+        "#3707C8",              # 2 - blue - current
+        "#11c807",              # 3 - green - paused (ready to restart)
+        "#000000",              # 4 - black - finished for this period
+        "#C3D006",              # 5 - yellow - danger
+        "#BF0707"               # 6 - red - overdue
+    ]
+    task_color_pairs = [
+        ("black", "#ffffff"),    # black on white - not used, but need to fill this list space
+        ("white", "#11c807"),    # 1 - white on green - ready
+        ("white", "#3707C8"),    # 2 - white on blue - current
+        ("white", "#11c807"),    # 3 - white on green - paused (ready to restart)
+        ("white", "#000000"),    # 4 - white on black - finished for this period
+        ("black", "#C3D006"),    # 5 - black on yellow - danger
+        ("white", "#BF0707")     # 6 - white on red - overdue
+
+    ]
+```
+
+'Finished for this period' is easy! So, under what circumstances should a task be 'In Danger' or considered 'Overdue'? We'll start with the following and may need to adjust later:
+- In Danger:
+  - if a task is > 60% through its period and its duration_period is < 50% of target
+- Overdue:
+  - if a task is > 80% through its period and its duration_period is < 90% of target
+
+This will all be handled in the 'updateTaskState()' method in task.py.

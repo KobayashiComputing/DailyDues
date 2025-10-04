@@ -145,6 +145,15 @@ class Task:
         else:
             self.duration_total = self.duration_total + delta
             self.duration_period = self.duration_period + delta
+    
+    def updateTaskState(self):
+        targetInMinutes = float(self.target.total_seconds() / 60)
+        if self.duration_period >= targetInMinutes:
+            self.state = TaskState.FINISHED
+            return
+        
+        self.state=TaskState.READY
+        return
 
     def start_task(self):
         self.state = TaskState.CURRENT
