@@ -180,8 +180,11 @@ def DailyDues():
                 current_task.updateTaskDurations()
                 if appSettings['currentView'] == "Details":
                     update_task_details_pane(current_task, window)
-                # current_task.updateTaskState()
-            
+
+            if (bg_counter % 10) == 0:
+                for tTmp in taskList:
+                    tTmp.updateTaskState()
+
             continue
 
         # find out if we need to exit ('Exit' button or the window's 'X')

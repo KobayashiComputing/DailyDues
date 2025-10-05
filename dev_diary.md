@@ -554,3 +554,7 @@ This will all be handled in the 'updateTaskState()' method in task.py.
 
 ## 2025-10-05: (Sunday)
 Some more thoughts on period reset processing. 
+
+Added code to 'updateTaskState()' in task.py to check for 'overdue' (not enough time left in period to meet target) and 'danger' (less that 25% of the task period left).
+
+Need to run 'updateTaskState()' at some reasonable multiple of the 'housekeeping' period (currently set at 6 seconds) and update the current buttons as needed. 
