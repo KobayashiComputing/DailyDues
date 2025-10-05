@@ -540,10 +540,17 @@ First, I need to decide when to change the colors of the buttons. The lists of t
     ]
 ```
 
+The colors for 'ready' and 'current' are already working. 
+
 'Finished for this period' is easy! So, under what circumstances should a task be 'In Danger' or considered 'Overdue'? We'll start with the following and may need to adjust later:
+- Finished:
+  - if duration_period >= target
 - In Danger:
   - if a task is > 60% through its period and its duration_period is < 50% of target
 - Overdue:
   - if a task is > 80% through its period and its duration_period is < 90% of target
 
 This will all be handled in the 'updateTaskState()' method in task.py.
+
+## 2025-10-05: (Sunday)
+Some more thoughts on period reset processing. 
