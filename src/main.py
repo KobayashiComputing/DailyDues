@@ -181,9 +181,12 @@ def DailyDues():
                 if appSettings['currentView'] == "Details":
                     update_task_details_pane(current_task, window)
 
+            # run 'updateTaskState()' for each task, and return true if any change was made
+            # do this once per minute
             if (bg_counter % 10) == 0:
                 for tTmp in taskList:
-                    tTmp.updateTaskState()
+                    if tTmp.updateTaskState():
+                        window[tTmp.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[tTmp.state.value])
 
             continue
 

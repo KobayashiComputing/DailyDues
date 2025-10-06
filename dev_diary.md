@@ -558,3 +558,7 @@ Some more thoughts on period reset processing.
 Added code to 'updateTaskState()' in task.py to check for 'overdue' (not enough time left in period to meet target) and 'danger' (less that 25% of the task period left).
 
 Need to run 'updateTaskState()' at some reasonable multiple of the 'housekeeping' period (currently set at 6 seconds) and update the current buttons as needed. 
+
+## 2025-10-06: (Monday)
+Updated 'updateTaskState()' method in 'task.py' to return True if any change was made, or False otherwise. The housekeeping loop now uses this return to know if an update is needed to the button color, and the change is made appropriately.
+

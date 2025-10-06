@@ -147,11 +147,18 @@ class Task:
             self.duration_period = self.duration_period + delta
     
     def updateTaskState(self):
+        # update the task's state based on criteria that include how much
+        # time is left before the period reset for the task, how much time
+        # has been spent on the task, etc.
+        #
+        # Returns False if no changes were made to the task's state
+        # Returns True if any change was made to the task's state
+        
         # id duration_period >= to target duration, FINISHED for this period
         targetInMinutes = float(self.target.total_seconds() / 60)
         if self.duration_period >= targetInMinutes:
             self.state = TaskState.FINISHED
-            return
+            return True
         
         # if next reset - now less than (.25 * days in reset freq), then in DANGER
         daysLeft = self.reset - datetime.now()
@@ -159,15 +166,15 @@ class Task:
         deltaDays = Task.day_counts[self.frequency.name] * .25
         if (daysLeft * 24) < (self.target.total_seconds()/3600.0):
             self.state = TaskState.OVERDUE
-            return
+            return True
         if daysLeft < deltaDays:
             self.state = TaskState.DANGER
-            return
+            return True
 
 
         # if we get here, we're okay, and state is just READY
         self.state=TaskState.READY
-        return
+        return False
 
     def start_task(self):
         self.state = TaskState.CURRENT
