@@ -562,3 +562,5 @@ Need to run 'updateTaskState()' at some reasonable multiple of the 'housekeeping
 ## 2025-10-06: (Monday)
 Updated 'updateTaskState()' method in 'task.py' to return True if any change was made, or False otherwise. The housekeeping loop now uses this return to know if an update is needed to the button color, and the change is made appropriately.
 
+## 2025-10-07: (Tuesday)
+Planning to use the 'priority' field for storing the sort order. Do I'm going to replace that field in the 'New' and 'Edit' forms with a date picker for the destined next reset date. 
