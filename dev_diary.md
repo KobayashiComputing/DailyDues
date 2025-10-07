@@ -564,3 +564,9 @@ Updated 'updateTaskState()' method in 'task.py' to return True if any change was
 
 ## 2025-10-07: (Tuesday)
 Planning to use the 'priority' field for storing the sort order. Do I'm going to replace that field in the 'New' and 'Edit' forms with a date picker for the destined next reset date. 
+
+Updated 'editTaskForm()' and 'newTaskForm()' to remove priority and add reset date. Still need to clean up a few things:
+- check format of input date
+- change input datetime 'time' to '00:00:00' (or maybe don't show it at all?)
+- display the correct date (or date time) format, probably below the input field
+
