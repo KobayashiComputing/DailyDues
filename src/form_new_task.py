@@ -28,18 +28,19 @@ def newTaskForm(taskList):
     # All the stuff inside your window.
     layout = [
         [sg.Text('New Task - Name and Description are required')],
-        [sg.Text('Priority defaults to 3 and Frequency to Daily')],
+        [sg.Text('Frequency defaults to Daily')],
         [sg.Push(), sg.Text('Name'), sg.InputText(key='name')],
         [sg.Push(), sg.Text('Description'), sg.InputText(key='description')],
         [sg.Push(), sg.Text('Target (hours per period)'), sg.InputText(key='target')],
+        [sg.Push(), sg.Text('Next Reset Date'), sg.InputText(key='reset')],
         [
             sg.Push(),
-            sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
-            sg.Text('          '),
-            sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
-            sg.Text('                       ')
+            sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency')
+            # sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
+            # sg.Text('                       ')
         ],
-        [sg.Save(), sg.Cancel()]
+
+        [sg.CalendarButton('Use Date Picker', close_when_date_chosen=True, target='reset', no_titlebar=False), sg.Cancel(), sg.Save()]
     ]
 
     # newTask will be our return value, set it up here in case we get a 'Cancel'
@@ -61,7 +62,7 @@ def newTaskForm(taskList):
 
         if event == "Save":
             # Check to make sure all fields are filled in...
-            if values['name'] == "" or values['description'] == "" or values['target'] == "" or values['frequency'] == "" or values['priority'] == "":
+            if values['name'] == "" or values['description'] == "" or values['target'] == "" or values['frequency'] == "" or values['reset'] == "":
                 displayErrorDialog("All fields must be filled in with appropriate values.")
                 continue
             elif isDuplicateTask(values['name'], taskList):
@@ -79,7 +80,8 @@ def newTaskForm(taskList):
                 fNdx = freqList.index(values['frequency'][0]) + 1
                 eName = next((member.name for member in ResetFrequency if member.value == fNdx), 'DAILY')
                 values['frequency'] = f"ResetFrequency.{eName}"
-                values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
+                # values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
+                values['priority'] = "3"
                 values['target'] = str(timedelta(hours=float(values['target'])))
 
                 # Next, we need to add the other Task fields to the dictionary
@@ -90,9 +92,6 @@ def newTaskForm(taskList):
                 values['dtg_session_start'] = "None"
                 values['dtg_session_paused'] = "None"
                 values['dtg_session_stop'] = "None"
-                # the 'reset' will be calculated in the 'newTaskFromDictionary()' function.
-                # If it's 'None', it will be based on 'created' and 'frequency'.
-                values['reset'] = None
 
                 newTask = Task.newTaskFromDictionary(values)
                 break

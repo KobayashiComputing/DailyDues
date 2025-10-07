@@ -32,18 +32,30 @@ def editTaskForm(task, taskList):
 
     # All the stuff inside the window.
     layout = [
-        [sg.Text('Edit Task - Name and Description are required')],
+        [sg.Text('Edit Task - all fields are required')],
         [sg.Push(), sg.Text('Name'), sg.InputText(default_text=task.name, key='name')],
         [sg.Push(), sg.Text('Description'), sg.InputText(default_text=task.description, key='description')],
         [sg.Push(), sg.Text('Target (hours per period)'), sg.InputText(default_text=f'{targetCurrent}', key='target')],
+        [sg.Push(), sg.Text('Next Reset Date'), sg.InputText(default_text=task.reset.strftime("%Y-%m-%d %H:%M:%S")
+, key='reset')],
         [
             sg.Push(),
-            sg.Text('Frequency'), sg.Listbox(freqList, default_values=[freqCurrent], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
-            sg.Text('          '),
-            sg.Text('Priority'), sg.Listbox(priorityList, default_values=[priorityCurrent], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
-            sg.Text('                       ')
+            sg.Text('Frequency'), sg.Listbox(freqList, default_values=[freqCurrent], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency')
+            # sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
+            # sg.Text('                       ')
         ],
-        [sg.Save(), sg.Cancel()]
+
+        [sg.CalendarButton('Use Date Picker', close_when_date_chosen=True, target='reset', no_titlebar=False), sg.Cancel(), sg.Save()]
+
+
+        # [
+        #     sg.Push(),
+        #     sg.Text('Frequency'), sg.Listbox(freqList, default_values=[freqCurrent], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
+        #     sg.Text('          '),
+        #     sg.Text('Priority'), sg.Listbox(priorityList, default_values=[priorityCurrent], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
+        #     sg.Text('                       ')
+        # ],
+        # [sg.Save(), sg.Cancel()]
     ]
 
     # newTask will be our return value, set it up here in case we get a 'Cancel'
@@ -65,7 +77,7 @@ def editTaskForm(task, taskList):
 
         if event == "Save":
             # Check to make sure all fields are filled in...
-            if values['name'] == "" or values['description'] == "" or values['target'] == "" or values['frequency'] == "" or values['priority'] == "":
+            if values['name'] == "" or values['description'] == "" or values['target'] == "" or values['frequency'] == "" or values['reset'] == "":
                 displayErrorDialog("All fields must be filled in with appropriate values.")
                 continue
             elif isDuplicateTask(values['name'], taskList) and values['name'] != task.name:
@@ -83,7 +95,8 @@ def editTaskForm(task, taskList):
                 fNdx = freqList.index(values['frequency'][0]) + 1
                 eName = next((member.name for member in ResetFrequency if member.value == fNdx), 'DAILY')
                 values['frequency'] = f"ResetFrequency.{eName}"
-                values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
+                # values['priority'] = str(priorityList.index(values['priority'][0]) + 1)
+                values['priority'] = "3"
                 values['target'] = str(timedelta(hours=float(values['target'])))
 
                 # Next, we need to add the non-editable fields from the original task
@@ -94,7 +107,7 @@ def editTaskForm(task, taskList):
                 values['dtg_session_start'] = task.dtg_session_start
                 values['dtg_session_paused'] = task.dtg_session_paused
                 values['dtg_session_stop'] = task.dtg_session_stop
-                values['reset'] = task.reset.strftime("%Y-%m-%d %H:%M:%S")
+                # values['reset'] = task.reset.strftime("%Y-%m-%d %H:%M:%S")
 
                 newTask = Task.newTaskFromDictionary(values)
                 break

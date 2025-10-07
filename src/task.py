@@ -58,13 +58,16 @@ class Task:
 
     ]
 
-    def __init__(self, name, desc="Default Task Description", priority=3, frequency=ResetFrequency.DAILY):
+    def __init__(self, name, desc="Default Task Description", priority=3, frequency=ResetFrequency.DAILY, reset=None):
         # user supplied and user editable fields...
         self.name = name
         self.description = desc[:(len(desc) if len(desc) < 256 else 256)]
         self.priority = priority if (priority > 0 and priority < 6) else 3
         self.frequency = frequency              # how often this task should 'reset'
-        self.reset = Task.calcResetDateTime(self.frequency) # the time of the next 'reset' for this task
+        if reset == None or reset == "":
+            self.reset = Task.calcResetDateTime(self.frequency) # the time of the next 'reset' for this task
+        else:
+            self.reset = reset
         self.target = timedelta(hours=1)        # how much time to spend on this task each reset period
         # internal fields...
         self.created = datetime.now()           # creation date of this task
@@ -153,7 +156,7 @@ class Task:
         #
         # Returns False if no changes were made to the task's state
         # Returns True if any change was made to the task's state
-        
+
         # id duration_period >= to target duration, FINISHED for this period
         targetInMinutes = float(self.target.total_seconds() / 60)
         if self.duration_period >= targetInMinutes:
@@ -173,7 +176,8 @@ class Task:
 
 
         # if we get here, we're okay, and state is just READY
-        self.state=TaskState.READY
+        if self != Task.get_current_task():
+            self.state=TaskState.READY
         return False
 
     def start_task(self):
