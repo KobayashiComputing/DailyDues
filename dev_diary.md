@@ -570,3 +570,7 @@ Updated 'editTaskForm()' and 'newTaskForm()' to remove priority and add reset da
 - change input datetime 'time' to '00:00:00' (or maybe don't show it at all?)
 - display the correct date (or date time) format, probably below the input field
 
+## 2025-10-08: (Wednesday)
+Added function 'validate_datetime_format()' to 'helpers.py' to check the datetime formats in 'editTaskForm()' and 'newTaskForm()' functions. I got it from Bing.com's Copilot Search AI!
+
+Now on to sorting/resorting the order of the task buttons... 

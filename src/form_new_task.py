@@ -68,6 +68,9 @@ def newTaskForm(taskList):
             elif isDuplicateTask(values['name'], taskList):
                 displayErrorDialog(f'A task with the name "{values['name']}" already exists. Please choose another name...')
                 continue
+            elif not validate_datetime_format(values['reset']):
+                displayErrorDialog(f'Reset datetime format is not valid. It should be in the format "YYYY-MM-DD HH:MM:SS"...')
+                continue
             else:
                 # Convert the 'frequency' and 'priority' into values that the Task.newTaskFromDictionary()
                 # can process...
