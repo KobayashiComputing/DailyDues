@@ -4,7 +4,6 @@ from task import *
 from datetime import datetime, timedelta
 
 def editTaskForm(task, taskList):
-    # sg.theme('Dark')   # theme for this window, or all of sg?
     freqList = [
         "Daily",
         "Weekday",
@@ -41,21 +40,9 @@ def editTaskForm(task, taskList):
         [
             sg.Push(),
             sg.Text('Frequency'), sg.Listbox(freqList, default_values=[freqCurrent], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency')
-            # sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
-            # sg.Text('                       ')
         ],
 
         [sg.CalendarButton('Use Date Picker', close_when_date_chosen=True, target='reset', no_titlebar=False), sg.Cancel(), sg.Save()]
-
-
-        # [
-        #     sg.Push(),
-        #     sg.Text('Frequency'), sg.Listbox(freqList, default_values=[freqCurrent], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency'),
-        #     sg.Text('          '),
-        #     sg.Text('Priority'), sg.Listbox(priorityList, default_values=[priorityCurrent], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
-        #     sg.Text('                       ')
-        # ],
-        # [sg.Save(), sg.Cancel()]
     ]
 
     # newTask will be our return value, set it up here in case we get a 'Cancel'

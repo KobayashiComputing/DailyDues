@@ -36,8 +36,6 @@ def newTaskForm(taskList):
         [
             sg.Push(),
             sg.Text('Frequency'), sg.Listbox(freqList, default_values=["Daily"], size=(13, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='frequency')
-            # sg.Text('Priority'), sg.Listbox(priorityList, default_values=["3"], size=(3, 5), select_mode="LISTBOX_SELECT_MODE_SINGLE", key='priority'),
-            # sg.Text('                       ')
         ],
 
         [sg.CalendarButton('Use Date Picker', close_when_date_chosen=True, target='reset', no_titlebar=False), sg.Cancel(), sg.Save()]
