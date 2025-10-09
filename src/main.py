@@ -77,9 +77,11 @@ def show_button_stack(taskList, location=(None, None)):
         scrollIt = True
 
     menu_def = [       # the "!" at the beginning of the menu item name makes it grayed out
-        ['&File', ['Backup', ['!Export', '!Import'], ['!Save Database', '!Save Database As...', '!New Empty Database', '!New Test Database', 'E&xit']]],
+        # ['&File', ['Backup', ['!Export', '!Import'], ['!Save Database', '!Save Database As...', '!New Empty Database', '!New Test Database', 'E&xit']]],
+        ['&File', ['E&xit']],
         ['View', possibleViews[appSettings['possibleViewsNdx']]],
-        ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
+        # ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
+        ['&Task', ['&New', 'Edit', editTaskList, 'Delete', deleteTaskList]],
         ['&Help', ['User Guide', '&About...']]
     ]
 

@@ -582,3 +582,6 @@ Still thinking about the sorting algorithm. I think it should consider:
 - how much time is left in the task's reset period (percentage, probably)
 - how much time has been spent on the task (percentage, probably)
 - how close to the reset date it is (this is similar to the first one above, but subtly different (I think))
+
+Removed all of the non-functional menu items; some of those remaining are skeletons of their future selves...
+
