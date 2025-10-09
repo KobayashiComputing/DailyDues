@@ -150,6 +150,15 @@ class Task:
             self.duration_period = self.duration_period + delta
     
     def updateTaskState(self):
+        # if the task is the current task, and it's already in the 
+        # current state, just return False (no change)
+        if self == Task.get_current_task():
+            if self.state == TaskState.CURRENT:
+                return False
+            else:
+                self.state = TaskState.CURRENT
+                return True
+        
         # update the task's state based on criteria that include how much
         # time is left before the period reset for the task, how much time
         # has been spent on the task, etc.

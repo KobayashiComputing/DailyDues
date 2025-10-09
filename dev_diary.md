@@ -574,3 +574,6 @@ Updated 'editTaskForm()' and 'newTaskForm()' to remove priority and add reset da
 Added function 'validate_datetime_format()' to 'helpers.py' to check the datetime formats in 'editTaskForm()' and 'newTaskForm()' functions. I got it from Bing.com's Copilot Search AI!
 
 Now on to sorting/resorting the order of the task buttons... 
+
+## 2025-10-09: (Thursday)
+Updated function 'updateTaskState()' in 'task.py' to check and handle if the task is the current task.
