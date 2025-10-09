@@ -577,3 +577,8 @@ Now on to sorting/resorting the order of the task buttons...
 
 ## 2025-10-09: (Thursday)
 Updated function 'updateTaskState()' in 'task.py' to check and handle if the task is the current task.
+
+Still thinking about the sorting algorithm. I think it should consider:
+- how much time is left in the task's reset period (percentage, probably)
+- how much time has been spent on the task (percentage, probably)
+- how close to the reset date it is (this is similar to the first one above, but subtly different (I think))
