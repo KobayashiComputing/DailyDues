@@ -86,13 +86,14 @@ def newTaskForm(taskList):
                 values['target'] = str(timedelta(hours=float(values['target'])))
 
                 # Next, we need to add the other Task fields to the dictionary
+                values['state'] = "TaskState.READY"
+                values['finished'] = "False"
                 values['created'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 values['duration_total'] = "0.0"
                 values['duration_session'] = "0.0"
                 values['duration_period'] = "0.0"
                 values['dtg_session_start'] = "None"
                 values['dtg_session_paused'] = "None"
-                values['dtg_session_stop'] = "None"
 
                 newTask = Task.newTaskFromDictionary(values)
                 break

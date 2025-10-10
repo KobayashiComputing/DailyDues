@@ -36,7 +36,7 @@ def dbGetDatabaseCursor(db):
     return connection, cursor, dbEmpty
 
 def dbInitDatabase(cursor):
-    dbVersion = "0.20"
+    dbVersion = "0.30"
     dbDTG = datetime.datetime.now()
     app_settings = "None"
     dbDTGstr = dbDTG.strftime("%I:%M%p on %B %d, %Y")
@@ -62,14 +62,14 @@ def dbInitDatabase(cursor):
     sqlQuery += "  frequency TEXT NOT NULL,"
     sqlQuery += "  reset TEXT NOT NULL,"
     sqlQuery += "  target TEXT NOT NULL,"
+    sqlQuery += "  finished TEXT NOT NULL,"
     sqlQuery += "  created TEXT NOT NULL,"
     sqlQuery += "  state TEXT NOT NULL,"
     sqlQuery += "  duration_total TEXT,"
     sqlQuery += "  duration_period TEXT,"
     sqlQuery += "  duration_session TEXT,"
     sqlQuery += "  dtg_session_paused TEXT,"
-    sqlQuery += "  dtg_session_start TEXT,"
-    sqlQuery += "  dtg_session_stop TEXT"
+    sqlQuery += "  dtg_session_start TEXT"
     sqlQuery += ");"
     cursor.execute(sqlQuery)
 
