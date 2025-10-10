@@ -585,3 +585,6 @@ Still thinking about the sorting algorithm. I think it should consider:
 
 Removed all of the non-functional menu items; some of those remaining are skeletons of their future selves...
 
+## 2025-10-10: (Friday)
+Added a menu item to the 'Task' menu to mark a task as 'Finished'... but it's not working... yet.
+

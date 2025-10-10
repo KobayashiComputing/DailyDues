@@ -43,6 +43,7 @@ def show_button_stack(taskList, location=(None, None)):
 
     deleteTaskList = []
     editTaskList = []
+    finishTaskList = []
 
     # increment the sgKeyNdx... do this here so that the global value is the same throughout this file
     sgKeyNdx = (sgKeyNdx + 1) %5
@@ -70,6 +71,7 @@ def show_button_stack(taskList, location=(None, None)):
             
         deleteTaskList.append(f'{task.name}::Delete')
         editTaskList.append(f'{task.name}::Edit')
+        finishTaskList.append(f'{task.name}::Finish')
 
     if len(buttonStack) < 12:
         scrollIt = False
@@ -81,7 +83,7 @@ def show_button_stack(taskList, location=(None, None)):
         ['&File', ['E&xit']],
         ['View', possibleViews[appSettings['possibleViewsNdx']]],
         # ['&Task', ['&New', 'Edit', editTaskList, '!Archive', 'Delete', deleteTaskList]],
-        ['&Task', ['&New', 'Edit', editTaskList, 'Delete', deleteTaskList]],
+        ['&Task', ['&New', 'Edit', editTaskList, 'Finish', finishTaskList, 'Delete', deleteTaskList]],
         ['&Help', ['User Guide', '&About...']]
     ]
 
@@ -239,7 +241,7 @@ def DailyDues():
             # The 'Task' menu has two submenus - 'Edit' and 'Delete', and we need to determine if our event
             # is one of those...
             tmpNdx = event.find('::')
-            if tmpNdx != -1:    # we have an edit, a delete, or a problem...
+            if tmpNdx != -1:    # we have an edit, a finish, a delete, or a problem...
                 tmpTaskID = event[:tmpNdx]
                 event = event[tmpNdx+2:]
             match event:
@@ -295,7 +297,13 @@ def DailyDues():
                             newTask.saveToDatabase(dbConn, dbCursor)
                             window = update_main_window(window, taskList)
                     pass
-                case "Archive":
+                case "Finish":
+                    # print(f'Finishing task "{tmpTaskID}"')
+                    tmpNdx = next((i for i, obj in enumerate(taskList) if obj.name == tmpTaskID), -1)
+                    if tmpNdx != -1:
+                        msgString = f'Set task {taskList[tmpNdx].name} as "Finished" for its current reset period, which ends at {taskList[tmpNdx].reset}?'
+                        if really_do_it(msgString):
+                            taskList[tmpNdx].finish_task()
                     pass
                 case "Delete":
                     # print(f'Deleting task "{tmpTaskID}"')
