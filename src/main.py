@@ -332,14 +332,6 @@ def DailyDues():
     closeDB()
     window.close()
 
-# def reallyDoIt(msgString):
-#     return really_do_it(msgString)
-
-# def isDuplicateTask(task, taskList):
-#     if next((i for i, t in enumerate(taskList) if t.name == task.name), -1) != -1:
-#         return True
-#     return False
-
 def ConnectDB(dbname):
     global dbConn
     global dbCursor, dbVersion
