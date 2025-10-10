@@ -301,9 +301,12 @@ def DailyDues():
                     # print(f'Finishing task "{tmpTaskID}"')
                     tmpNdx = next((i for i, obj in enumerate(taskList) if obj.name == tmpTaskID), -1)
                     if tmpNdx != -1:
+                        tTmp = taskList[tmpNdx]
                         msgString = f'Set task {taskList[tmpNdx].name} as "Finished" for its current reset period, which ends at {taskList[tmpNdx].reset}?'
                         if really_do_it(msgString):
                             taskList[tmpNdx].finish_task()
+                            window[tTmp.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[tTmp.state.value])
+                            taskList[tmpNdx].saveToDatabase(dbConn, dbCursor)
                     pass
                 case "Delete":
                     # print(f'Deleting task "{tmpTaskID}"')

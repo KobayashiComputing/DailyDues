@@ -104,9 +104,11 @@ class Task:
             return Task.get_current_task()
 
     def saveToDatabase(self, conn, cursor):
-        # before saving to the database, change the state to READY so that
+        # before saving to the database, check the state of the task, and
+        # change the state to READY if it's anything other than FINISHED so
         # it will be "ready" when it's read back in 
-        self.state = TaskState.READY
+        if self.state != TaskState.FINISHED:
+            self.state = TaskState.READY
         # convert the task into text strings and integers that can be
         # saved in the database
         fldValues = self.__dict__
@@ -150,6 +152,12 @@ class Task:
             self.duration_period = self.duration_period + delta
     
     def updateTaskState(self):
+        # if the task is finished, just leave it alone; its reset
+        # date will get checked and it will be set to 'ready' when
+        # appropriate
+        if self.state == TaskState.FINISHED:
+            return False
+        
         # if the task is the current task, and it's already in the 
         # current state, just return False (no change)
         if self == Task.get_current_task():
@@ -264,6 +272,7 @@ class Task:
         # internal persistent fields
         task.created = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["created"]))
         task.state = TaskState.READY
+        task.state = eval(task_dictionary["state"])
         task.duration_total = eval(task_dictionary["duration_total"])
 
         # internal temporary fields
