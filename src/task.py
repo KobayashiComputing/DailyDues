@@ -233,7 +233,7 @@ class Task:
 
         # To-Do: check for and handle when a task is finished for the current period
         # task_is_finished = False
-        if self.duration_total >= float(self.target.total_seconds() / 60) or self.finished:
+        if self.duration_period >= float(self.target.total_seconds() / 60) or self.finished:
             self.finish_task()
 
         pass
