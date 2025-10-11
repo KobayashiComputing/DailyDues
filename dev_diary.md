@@ -588,3 +588,6 @@ Removed all of the non-functional menu items; some of those remaining are skelet
 ## 2025-10-10: (Friday)
 Added a menu item to the 'Task' menu to mark a task as 'Finished'... but it's not working... yet.
 
+## 2025-10-11: (Saturday)
+Worked on checking and handling when tasks reach their 'next reset date', even when the app wasn't running at that time. 
+

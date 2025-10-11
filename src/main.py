@@ -53,7 +53,13 @@ def show_button_stack(taskList, location=(None, None)):
     # will be behind the new window when adding, deleting, or rearranging buttons in the stack.
     buttonStack = []
     for task in taskList:
+        # do some standard checks/updates...
+        if task.finished:
+            task.finish_task()
+        if task.updateTaskNextReset():
+            task.reset_task()
         task.updateTaskState()
+
         if appSettings['currentView'] == "Details":
             buttonStack.append([sg.Button(f'{task.name}', 
                                         button_color=Task.task_color_pairs[task.state.value], 
@@ -156,6 +162,7 @@ def DailyDues():
         saveTasksTable(taskList)
     else:
         taskList = Task.getTaskList(dbCursor)
+
     window = show_button_stack(taskList, location=(appSettings['winLocX'], appSettings['winLocY']))
     update_settings_location(window)
     bg_counter = 0
@@ -191,6 +198,11 @@ def DailyDues():
                 for tTmp in taskList:
                     if tTmp.updateTaskState():
                         window[tTmp.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[tTmp.state.value])
+
+                    if tTmp.updateTaskNextReset():
+                        tTmp.reset_task()
+                        window[tTmp.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[tTmp.state.value])
+
 
             continue
 

@@ -177,7 +177,8 @@ class Task:
         # id duration_period >= to target duration, FINISHED for this period
         targetInMinutes = float(self.target.total_seconds() / 60)
         if self.duration_period >= targetInMinutes:
-            self.state = TaskState.FINISHED
+            # self.state = TaskState.FINISHED
+            self.finish_task()
             return True
         
         # if next reset - now less than (.25 * days in reset freq), then in DANGER
@@ -191,11 +192,25 @@ class Task:
             self.state = TaskState.DANGER
             return True
 
-
         # if we get here, we're okay, and state is just READY
         if self != Task.get_current_task():
             self.state=TaskState.READY
         return False
+
+    def updateTaskNextReset(self):
+        # check to see if the next reset date/time is in the future, and if
+        # so, just return false - there is nothing to do...
+        if datetime.now() < self.reset:
+            return False
+        
+        # if we get here, the reset date/time has arrived...
+        # calculate the next reset date...
+        newNextReset = Task.calcResetDateTime(self.frequency, self.reset)
+        self.reset = newNextReset
+
+        return True
+
+
 
     def start_task(self):
         self.state = TaskState.CURRENT
@@ -217,18 +232,32 @@ class Task:
         #     self.duration_period = self.duration_period + self.duration_session
 
         # To-Do: check for and handle when a task is finished for the current period
-        task_is_finished = False
-        if task_is_finished:
+        # task_is_finished = False
+        if self.duration_total >= float(self.target.total_seconds() / 60) or self.finished:
             self.finish_task()
 
         pass
 
     def finish_task(self):
         self.state = TaskState.FINISHED
+        self.finished = True
         pass
+
+    def ready_task(self):
+        self.state = TaskState.READY
+        self.finished = False
+        pass
+
+    def reset_task(self):
+        self.duration_period = 0.0
+        self.duration_session = 0.0
+        self.ready_task()
 
     def calcResetDateTime(rFreq=ResetFrequency.DAILY, currentResetDateTime=datetime.now()):
         # ToDo: calculate timedelta for "WEEKDAY" and "WORKWEEKLY" ResetFrequency (?)
+
+        # note: 'currentResetDateTime' defaults to 'now()' so that the calculation is
+        # actually performed.
 
         # if the current reset date has passed, we calculate what the next one should be,
         # otherwise, we keep the current one
@@ -258,13 +287,14 @@ class Task:
             task.duration_period = 0.0
         else:
             currentReset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
-            task.reset = Task.calcResetDateTime(task.frequency, currentReset)
-            if task.reset != currentReset:
-                task.duration_period = 0.0
-                task.duration_session = 0.0
-            else:
-                task.duration_period = eval(task_dictionary["duration_period"])
-                task.duration_session = eval(task_dictionary["duration_session"])
+            task.reset = currentReset
+            # task.reset = Task.calcResetDateTime(task.frequency, currentReset)
+            # if task.reset != currentReset:
+            #     task.duration_period = 0.0
+            #     task.duration_session = 0.0
+            # else:
+            #     task.duration_period = eval(task_dictionary["duration_period"])
+            #     task.duration_session = eval(task_dictionary["duration_session"])
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
 
