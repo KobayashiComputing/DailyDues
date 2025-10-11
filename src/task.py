@@ -250,7 +250,7 @@ class Task:
 
     def reset_task(self):
         self.duration_period = 0.0
-        self.duration_session = 0.0
+        # self.duration_session = 0.0
         self.ready_task()
 
     def calcResetDateTime(rFreq=ResetFrequency.DAILY, currentResetDateTime=datetime.now()):
