@@ -174,7 +174,7 @@ class Task:
         # Returns False if no changes were made to the task's state
         # Returns True if any change was made to the task's state
 
-        # id duration_period >= to target duration, FINISHED for this period
+        # if duration_period >= to target duration, FINISHED for this period
         targetInMinutes = float(self.target.total_seconds() / 60)
         if self.duration_period >= targetInMinutes:
             # self.state = TaskState.FINISHED
@@ -285,16 +285,11 @@ class Task:
         if task_dictionary["reset"] == None:
             task.reset = Task.calcResetDateTime(task.frequency)
             task.duration_period = 0.0
+            task.duration_session = 0.0
         else:
-            currentReset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
-            task.reset = currentReset
-            # task.reset = Task.calcResetDateTime(task.frequency, currentReset)
-            # if task.reset != currentReset:
-            #     task.duration_period = 0.0
-            #     task.duration_session = 0.0
-            # else:
-            #     task.duration_period = eval(task_dictionary["duration_period"])
-            #     task.duration_session = eval(task_dictionary["duration_session"])
+            task.reset = datetime.fromisoformat(datetime_str_to_ISO8601(task_dictionary["reset"]))
+            task.duration_period = eval(task_dictionary["duration_period"])
+            task.duration_session = eval(task_dictionary["duration_session"])
         target = timedelta_from_str(task_dictionary["target"])
         task.target = target
 
