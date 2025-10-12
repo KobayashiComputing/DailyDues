@@ -593,5 +593,5 @@ Worked on checking and handling when tasks reach their 'next reset date', even w
 
 This appears to be working correctly now. 
 
-For tomorrow: remove the 'Priority' from the 'Details' view and replace it with 'Target'.
+For tomorrow: remove the 'Priority' from the 'Details' view and replace it with 'Target', and update the 'Details' view (if it's active) whenever a tasks' reset date is updated.
 
