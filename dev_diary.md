@@ -591,3 +591,7 @@ Added a menu item to the 'Task' menu to mark a task as 'Finished'... but it's no
 ## 2025-10-11: (Saturday)
 Worked on checking and handling when tasks reach their 'next reset date', even when the app wasn't running at that time. 
 
+This appears to be working correctly now. 
+
+For tomorrow: remove the 'Priority' from the 'Details' view and replace it with 'Target'.
+
