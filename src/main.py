@@ -20,14 +20,14 @@ appSettings = {
     "possibleViewsNdx": 0,
     "winLocX": None,
     "winLocY": None,
-    "appVersion": "0.00"
+    "appVersion": "1.00"
 }
 
 # Global vars used in this source file
-appVersion = "0.00"
+appVersion = "1.00"
 dbCursor = None     # 
 dbConn = None       #
-dbVersion = "0.10"    # this will be a string
+dbVersion = "1.00"    # this will be a string
 dbEmpty = None
 sgKeyNdx = 0
 sgKeyList = ['0', '1', '2', '3', '4']

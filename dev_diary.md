@@ -598,3 +598,11 @@ For tomorrow: remove the 'Priority' from the 'Details' view and replace it with 
 ## 2025-10-12: (Sunday)
 Updated the 'getTaskDetailsString()' in 'task.py'. Fixed a couple of bugs with button color changes not happening immediately when paused, etc.
 
+## 2025-10-13: (Monday)
+Updated the 'appVersion' and 'dbVersion' strings both to '1.00', and made a couple of other, very minor changes. 
+
+Next is:
+- update the text for the 'Help' menu item
+- get the 'README.md' file ready for 'publication'!
+
+And then... start thinking about refinements and new features... maybe version 2.0?!

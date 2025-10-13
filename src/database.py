@@ -1,6 +1,9 @@
 import sqlite3
 import datetime
 
+# globals for this file...
+dbVersion = "1.00"
+
 def dbDeleteTask(conn, cursor, tbl='tasks', t=None):
     if t == None:
         return None
@@ -36,7 +39,7 @@ def dbGetDatabaseCursor(db):
     return connection, cursor, dbEmpty
 
 def dbInitDatabase(cursor):
-    dbVersion = "0.30"
+    global dbVersion
     dbDTG = datetime.datetime.now()
     app_settings = "None"
     dbDTGstr = dbDTG.strftime("%I:%M%p on %B %d, %Y")
