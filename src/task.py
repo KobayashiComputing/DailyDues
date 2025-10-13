@@ -104,11 +104,11 @@ class Task:
             return Task.get_current_task()
 
     def saveToDatabase(self, conn, cursor):
-        # before saving to the database, check the state of the task, and
-        # change the state to READY if it's anything other than FINISHED so
-        # it will be "ready" when it's read back in 
-        if self.state != TaskState.FINISHED:
-            self.state = TaskState.READY
+        # # before saving to the database, check the state of the task, and
+        # # change the state to READY if it's CURRENT or PAUSED...
+        # # so it will be "ready" when it's read back in 
+        # if self.state == TaskState.CURRENT or self.state == TaskState.PAUSED:
+        #     self.state = TaskState.READY
         # convert the task into text strings and integers that can be
         # saved in the database
         fldValues = self.__dict__
@@ -134,7 +134,7 @@ class Task:
         else:
             sessionMoniker = "last"
         detailString = ''
-        detailString += f'Priority: {self.priority},    Next Reset: {self.reset} ({self.frequency.name.lower()})'
+        detailString += f'Target (hh:mm:ss): {self.target},    Next Reset: {self.reset} ({self.frequency.name.lower()})'
         detailString += f'\nDuration (in decimal minutes): {round(self.duration_session, 1)} ({sessionMoniker} session), {round(self.duration_period, 1)} (this period), {round(self.duration_total, 1)} (total)'
         return detailString
 
@@ -156,6 +156,7 @@ class Task:
         # date will get checked and it will be set to 'ready' when
         # appropriate
         if self.state == TaskState.FINISHED:
+            self.finish_task()
             return False
         
         # if the task is the current task, and it's already in the 
@@ -222,17 +223,8 @@ class Task:
         self.dtg_session_paused = datetime.now()
         self.updateTaskDurations()
 
-        # session = self.dtg_session_paused - self.dtg_session_start
-        # self.duration_session = session.total_seconds() / 60.0
-        # if self.duration_total == None:
-        #     self.duration_total = self.duration_session
-        #     self.duration_period = self.duration_session
-        # else:
-        #     self.duration_total = self.duration_total + self.duration_session
-        #     self.duration_period = self.duration_period + self.duration_session
-
-        # To-Do: check for and handle when a task is finished for the current period
-        # task_is_finished = False
+        # check to see if the task should become "READY" or if it should become "DANGER"
+        # self.updateTaskState()
         if self.duration_period >= float(self.target.total_seconds() / 60) or self.finished:
             self.finish_task()
 

@@ -58,7 +58,9 @@ def show_button_stack(taskList, location=(None, None)):
             task.finish_task()
         if task.updateTaskNextReset():
             task.reset_task()
-        task.updateTaskState()
+            task.saveToDatabase(dbConn, dbCursor)
+        if task.updateTaskState():
+            task.saveToDatabase(dbConn, dbCursor)
 
         if appSettings['currentView'] == "Details":
             buttonStack.append([sg.Button(f'{task.name}', 
@@ -197,12 +199,17 @@ def DailyDues():
             if (bg_counter % 10) == 0:
                 for tTmp in taskList:
                     if tTmp.updateTaskState():
+                        tTmp.saveToDatabase(dbConn, dbCursor)
                         window[tTmp.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[tTmp.state.value])
 
                     if tTmp.updateTaskNextReset():
+                        tTmp.saveToDatabase(dbConn, dbCursor)
                         tTmp.reset_task()
                         window[tTmp.name+sgKeyList[sgKeyNdx]].update(button_color=Task.task_color_pairs[tTmp.state.value])
+                        if appSettings['currentView'] == "Details":
+                            update_task_details_pane(tTmp, window)
 
+                tTmp = None
 
             continue
 
@@ -224,6 +231,10 @@ def DailyDues():
         if isTaskButton:
             oldTask = Task.get_current_task()
             newTask = newTask.change_task_state()
+
+            if oldTask != None:
+                oldTask.updateTaskState()
+            # newTask.updateTaskState()
             
             if appSettings['currentView'] == "Details" and oldTask != None:
                 update_task_details_pane(oldTask, window)

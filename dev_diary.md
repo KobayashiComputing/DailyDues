@@ -595,3 +595,6 @@ This appears to be working correctly now.
 
 For tomorrow: remove the 'Priority' from the 'Details' view and replace it with 'Target', and update the 'Details' view (if it's active) whenever a tasks' reset date is updated.
 
+## 2025-10-12: (Sunday)
+Updated the 'getTaskDetailsString()' in 'task.py'. Fixed a couple of bugs with button color changes not happening immediately when paused, etc.
+
