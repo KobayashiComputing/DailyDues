@@ -1,5 +1,19 @@
 # Development Diary
 
+## GitHub Credentials Issue...
+Somehow my system added a new GitHub HTTPS user (31042207) with an unknown (to me) password. I looked for how to fix that by using Bing to search for "vs code has two github usernames how to fix" and found a helpful [YouTube video](https://www.youtube.com/watch?v=IEse8loLffM)
+
+The process:
+1. Open Control Panel
+2. Choose "User Accounts"
+3. Choose "Credendtials Manager"
+4. Click on "Windows Credentials"
+5. Search the list for "git:https://" in the left hand column
+6. Identify the culprit
+7. Double check you have the corrent one!
+8. Click the "Remove" link for the errant credential
+
+
 ## 2025-07-13 (Sunday)
 I'm a little late starting this. Some of what should have been in a file like this is actually (erroneously) in the dev_plan.md file.
 
@@ -606,3 +620,7 @@ Next is:
 - get the 'README.md' file ready for 'publication'!
 
 And then... start thinking about refinements and new features... maybe version 2.0?!
+
+## 2025-10-14: (Tuesday)
+Work on README.md file, and the text that will go into the 'Help - Manual' window.
+
