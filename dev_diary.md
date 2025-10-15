@@ -624,3 +624,6 @@ And then... start thinking about refinements and new features... maybe version 2
 ## 2025-10-14: (Tuesday)
 Work on README.md file, and the text that will go into the 'Help - Manual' window.
 
+## 2025-10-15: (Wednesday)
+Still working on README.md file. Also need to get the text for the 'Manual' ready.
+
