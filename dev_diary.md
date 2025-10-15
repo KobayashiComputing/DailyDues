@@ -627,3 +627,8 @@ Work on README.md file, and the text that will go into the 'Help - Manual' windo
 ## 2025-10-15: (Wednesday)
 Still working on README.md file. Also need to get the text for the 'Manual' ready.
 
+Siri tells me that there are 51 days between August 25 and October 15. August 25 is when I started this personal project in earnest - actually started the coding. As of October 15 (today), I'm officially done with the coding for version 1.0. I probably averaged working on this project an hour each day for those 51 days, which would be 51 hours, so that's what I'm going to claim. Note that on some days I spent much more than an hour, and on some other days I spent only enough time to update this file (sometimes with 'vacation day' line!), so I think an average of 1 hour makes sense. 
+
+I'm not going to submit my repo via the Boot.dev site until I get the README.md file in better shape and get at least a rudimentary manual set up in the 'Help' menu. 
+
+I hope to 'finish' this before November 1, 2025...
