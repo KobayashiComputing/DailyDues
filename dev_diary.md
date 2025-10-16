@@ -632,3 +632,6 @@ Siri tells me that there are 51 days between August 25 and October 15. August 25
 I'm not going to submit my repo via the Boot.dev site until I get the README.md file in better shape and get at least a rudimentary manual set up in the 'Help' menu. 
 
 I hope to 'finish' this before November 1, 2025...
+
+## 2025-10-16: (Thursday)
+Travel day for Myrtle Beach trip. 
