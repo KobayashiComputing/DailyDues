@@ -6,7 +6,7 @@
 A helper for managing (and remembering) things that need to be done on a recurring basis, and also tracks the amount of time spent on each. The recurring basis might usually be daily, but it could be weekly, or monthly, or periodically at some other interval.
 
 ## Download and Setup
-Get the latest version from Github. Open a terminal and navigate to where you want the code to be. 
+Open a terminal and navigate to where you want the code to be. 
 
 Then:
 ```
@@ -17,11 +17,19 @@ Next, go into the newly created 'DailyDues' directory and create a Python virtua
 cd DailyDues
 python -m venv .venv
 ```
-Activate the new virtual environment, then install the required support packages using pip:
+Activate the new virtual environment, then install the required support packages using pip. 
+
+On Windows:
 ```
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
+On Linux:
+```
+. .venv/bin/activate
+pip install -r requirements.txt
+```
+
 Finally, run the app:
 ```
 python src\main.py

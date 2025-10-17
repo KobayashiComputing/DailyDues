@@ -635,3 +635,7 @@ I hope to 'finish' this before November 1, 2025...
 
 ## 2025-10-16: (Thursday)
 Travel day for Myrtle Beach trip. 
+
+## 2025-10-17: (Friday)
+Update 'README.md' and create 'manual.md'.
+ 
