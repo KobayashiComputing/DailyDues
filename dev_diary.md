@@ -638,4 +638,7 @@ Travel day for Myrtle Beach trip.
 
 ## 2025-10-17: (Friday)
 Update 'README.md' and create 'manual.md'.
- 
+
+## 2025-10-18: (Saturday)
+Updated both 'REAMD.md' and 'manual.md'.
+
