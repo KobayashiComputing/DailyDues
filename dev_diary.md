@@ -642,3 +642,5 @@ Update 'README.md' and create 'manual.md'.
 ## 2025-10-18: (Saturday)
 Updated both 'REAMD.md' and 'manual.md'.
 
+## 2025-10-19: (Sunday)
+Travel day. 
