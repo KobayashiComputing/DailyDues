@@ -644,3 +644,7 @@ Updated both 'REAMD.md' and 'manual.md'.
 
 ## 2025-10-19: (Sunday)
 Travel day. 
+
+## 2025-10-20: (Monday)
+Vacation day - in Myrtle Beach, SC. Might get some real work done on this project this week (at least I hope to).
+
