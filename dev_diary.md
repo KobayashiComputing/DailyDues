@@ -648,3 +648,5 @@ Travel day.
 ## 2025-10-20: (Monday)
 Vacation day - in Myrtle Beach, SC. Might get some real work done on this project this week (at least I hope to).
 
+## 2025-10-21: (Tuesday)
+Vacation day - in Myrtle Beach, SC. Still working on the 'manual.md' file, which will become the basis for the 'Help - Manual' screen.
