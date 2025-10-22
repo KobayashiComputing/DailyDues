@@ -650,3 +650,6 @@ Vacation day - in Myrtle Beach, SC. Might get some real work done on this projec
 
 ## 2025-10-21: (Tuesday)
 Vacation day - in Myrtle Beach, SC. Still working on the 'manual.md' file, which will become the basis for the 'Help - Manual' screen.
+
+## 2025-10-22: (Wednesday)
+Worked on the 'manual.md' file.
