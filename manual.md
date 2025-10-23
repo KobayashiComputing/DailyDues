@@ -54,6 +54,19 @@ It's probably a good idea to let it create some test tasks - the default number 
 
 ## Using the App
 ### Menu Items
+- The 'File' menu currently contains only an 'Exit' option, which exits the application
+- The 'View' Menu
+    - Choose between the 'Summary' and 'Details' views
+    - Indicates which is the 'current' view
+- The 'Task' Menu
+    - New: Create a new task
+    - Edit: Modify user-selectable task properties
+    - Finish: Mark a task as finished for the current reset period
+    - Delete: Removes a task from the application
+- The 'Help' Menu
+    - User Guide: This user manual
+    - About: Provides information about the app, the database, and some current settings 
+
 ### Button Colors
 The button colors indicate the state of the associated task. 
 - White Text on a Green Background - Ready to start/resume.
