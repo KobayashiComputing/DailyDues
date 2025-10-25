@@ -85,3 +85,8 @@ Clicking a button:
 - Starting a 'Ready' task will automatically pause any current task. 
 
 ### Task Timekeeping
+Whenever a task is 'current', the amount of time for the current session, reset period (see below), and total are kept to the nearest tenth of a minute (6 seconds). If the main window is in the 'details' display mode, you can see all of these, along with the target for the reset period and some other info, in the details pane. 
+
+### Daily Usage
+#### Overall Approach
+#### How to Start, Pause, and Finish Tasks
