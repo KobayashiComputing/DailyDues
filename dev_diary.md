@@ -662,3 +662,6 @@ Vacation day!
 
 ## 2025-10-25: (Saturday)
 Updates to the 'manual.md' file.
+
+## 2025-10-26: (Saturday)
+Travel day - returning from Myrtle Beach, SC
