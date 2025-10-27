@@ -62,9 +62,9 @@ It's probably a good idea to let it create some test tasks - the default number 
     - New: Create a new task
     - Edit: Modify user-selectable task properties
     - Finish: Mark a task as finished for the current reset period
-    - Delete: Removes a task from the application
+    - Delete: Completely removes a task from the database
 - The 'Help' Menu
-    - User Guide: This user manual
+    - User Guide: This user manual (eventually)
     - About: Provides information about the app, the database, and some current settings 
 
 ### Button Colors

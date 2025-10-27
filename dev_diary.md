@@ -663,5 +663,8 @@ Vacation day!
 ## 2025-10-25: (Saturday)
 Updates to the 'manual.md' file.
 
-## 2025-10-26: (Saturday)
+## 2025-10-26: (Sunday)
 Travel day - returning from Myrtle Beach, SC
+
+## 2025-10-27: (Monday)
+Updated 'menu_help.py' to add the URL for the manual.md file. Also made a couple of other minor text changes.

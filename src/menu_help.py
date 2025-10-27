@@ -4,9 +4,10 @@ def app_user_guide():
     # All the stuff inside the window.
     layout = [
         [sg.Text('Daily Dues (or "Daily Do\'s") User Guide')],
-        [sg.Text(f'Canonical info at https://github.com/KobayashiComputing/DailyDues')],
         [sg.Text(f'')],
-        [sg.Text(f'(This will be filled in real soon now... ;-) )')],
+        [sg.Text(f'Manual available at https://github.com/KobayashiComputing/DailyDues/blob/main/manual.md')],
+        [sg.Text(f'')],
+        [sg.Text(f'(The manual will be eventually be included here. ;-) )')],
         [sg.Text(f'')],
         [sg.Push(), sg.Ok()]
     ]
@@ -28,11 +29,13 @@ def app_about(dbName = "unknown", appVersion="0.00", dbVersion="0.10", sgKeyNdx=
     layout = [
         [sg.Text('Daily Dues (or "Daily Do\'s")')],
         [sg.Text('A task tickler with time tracking...')],
-        [sg.Text('(or a time tracker with task prioritization)')],
+        [sg.Text('(or a time tracker with task tickler)')],
         [sg.Text('     ')],
         [sg.Text(f'By Andy Anderson, for Boot.dev\'s First Personal Project')],
         [sg.Text(f'')],
         [sg.Text(f'More info at https://github.com/KobayashiComputing/DailyDues')],
+        [sg.Text(f'')],
+        [sg.Text(f'Manual available at https://github.com/KobayashiComputing/DailyDues/blob/main/manual.md')],
         [sg.Text(f'')],
         [sg.Text(f'The following might be useful for debugging:')],
         [sg.Push(), sg.Text(f'Database Connected: {dbName}')],
