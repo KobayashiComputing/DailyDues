@@ -90,3 +90,4 @@ Whenever a task is 'current', the amount of time for the current session, reset 
 ### Daily Usage
 #### Overall Approach
 #### How to Start, Pause, and Finish Tasks
+#### Delete Obsolete Tasks from Database
