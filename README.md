@@ -49,3 +49,6 @@ If all goes well, you will see a dialog with notification that the default datab
 It's probably a good idea to let it create some test tasks and play around with them until you get a feel for how the app works. The default number of test tasks is 13, but you can choose any (reasonable) number you prefer. If you have more than 11 tasks, the stack of task buttons will be in a scrollable pane inside the main window. Note that you can delete the default database (dailydues.db) and start over from scratch at any time.
 
 See the file 'manual.md' for information on how to use the app. 
+
+## Release History
+Version 1.0: 2025-10-28 at 1:00 p.m. EDT
