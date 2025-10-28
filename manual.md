@@ -60,9 +60,20 @@ It's probably a good idea to let it create some test tasks - the default number 
     - Indicates which is the 'current' view
 - The 'Task' Menu
     - New: Create a new task
+        - Displays a new window to enter the options for a new task
+        - An error results if you try to change the name to a name that is already used
+        - The task is saved to the database and added to the display immediately
+        - It's best to use the calendar to pick the date for the next reset, and then modify it manually if needed, keeping the correct format
+        - Canceling the window results in no new task being created
     - Edit: Modify user-selectable task properties
+        - Displays a new window to edit the options of the selected task
+        - An error results if you try to change the name to a name that is already used
+        - The task's database entry and the button display are updated immediately
+        - It's best to use the calendar to pick the date for the next reset, and then modify it manually if needed, keeping the correct format
+        - Canceling the window results in no changes to the selecte task
     - Finish: Mark a task as finished for the current reset period
     - Delete: Completely removes a task from the database
+        - NOTE: deletion happens immediately upon confirmation and is not recoverable!
 - The 'Help' Menu
     - User Guide: This user manual (eventually)
     - About: Provides information about the app, the database, and some current settings 
@@ -88,6 +99,31 @@ Clicking a button:
 Whenever a task is 'current', the amount of time for the current session, reset period (see below), and total are kept to the nearest tenth of a minute (6 seconds). If the main window is in the 'details' display mode, you can see all of these, along with the target for the reset period and some other info, in the details pane. 
 
 ### Daily Usage
+Go to the directory where you installed Daily Dues and run the app:
+```
+python src\main.py
+```
+It will use the default database unless you supply an alternate path and/or name. To use a different database:
+```
+python src\main.py <path_to_database>
+```
+The app should remember where it was located on your screen and start in the same location. It should also remember the 'View' setting and apply that as well. Upon startup, the app will check the next reset date for each task and update it as appropriate, and also adjust the time tracking fields as needed.
+
 #### Overall Approach
+The app is intended to help you track the status of tasks that you do every day (or some other recurring period), but not necessarily at the same time each day. The colors of the buttons indicate the current state of each task. 
+
+Each task has a 'reset period', which is how often you want to perform the task. The default reset period is daily, but when you create a new task you can select other options. 
+
+Please note that the timekeeping function is approximate - it should be accurate to within .1 minutes, but is based on when you click the button to start/pause a task. So if you forget to pause a task when you pause working on it, the app will continue to count that time. 
+
 #### How to Start, Pause, and Finish Tasks
+Once the app is running, just click on a task button when you are about to start working on that task. Then click the button again to pause the task.
+
+When a task is running, clicking on a different task will automatically pause the current task and upate its time tracking data. 
+
+Once any task's target has been reached, or if you use the 'Task - Finish' menu item to mark a task as finished, that task's button will change to white text on a black background. Note that this is only when the task is not currently 'running' - a task that is currently running will always have white text on a blue background.
+
+Every six seconds (which is .1 minutes), every task is checked to determine if its button should be updated, and the buttons are updated as appropriate. It the app is running at 12:00 a.m., any reset period processing will be reflected in the button (and details, if that view is active) display.
+
 #### Delete Obsolete Tasks from Database
+Any task that you no longer need to work on periodically can be deleted. Just use the 'Task - Delete' menu item. NOTE: deletion happens immediately upon confirmation and is not recoverable!

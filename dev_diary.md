@@ -668,3 +668,6 @@ Travel day - returning from Myrtle Beach, SC
 
 ## 2025-10-27: (Monday)
 Updated 'menu_help.py' to add the URL for the manual.md file. Also made a couple of other minor text changes.
+
+## 2025-10-28: (Tuesday)
+Updated 'manual.md', 'README.md', and 'dev_diary.md' files. 
